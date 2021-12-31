@@ -16,6 +16,9 @@ wget https://storage.googleapis.com/ads-dataset/subfolder-8.zip
 wget https://storage.googleapis.com/ads-dataset/subfolder-9.zip
 wget https://storage.googleapis.com/ads-dataset/subfolder-10.zip
 
+## Download annotation file
+wget https://people.cs.pitt.edu/~kovashka/ads/annotations_images.zip
+
 ## Unzip folders
 unzip subfolder-0.zip -d data/
 unzip subfolder-1.zip -d data/
