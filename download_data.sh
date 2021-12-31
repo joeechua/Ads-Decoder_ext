@@ -1,8 +1,5 @@
 #/bin/sh
 
-## Make data directory
-mkdir data
-
 ## Download images
 wget https://storage.googleapis.com/ads-dataset/subfolder-0.zip
 wget https://storage.googleapis.com/ads-dataset/subfolder-1.zip
