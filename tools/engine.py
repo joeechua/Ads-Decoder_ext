@@ -4,7 +4,7 @@ File adapted from https://github.com/pytorch/vision/blob/922db3086e654871c35cd80
 import sys
 import math
 import torch
-import utils
+import tools.utils as utils
 
 def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq, scaler=None):
     model.train()
