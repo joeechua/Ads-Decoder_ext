@@ -1,37 +1,34 @@
 """
 Usage: 
-    python testset/data_cleanup.py --symbol_annotation_filename "data/train/Symbols_train.json" --split "train"
+    python preprocess/boxes.py --symbol_annotation_filename "data/annotations/Symbols.json"
 """
 import json
 import os
 import argparse
 
 # Add arguments to parser
-parser = argparse.ArgumentParser(description='Clean up symbols annotation')
+parser = argparse.ArgumentParser(description='Preprocess on boxes in symbols annotation')
 parser.add_argument('--symbol_annotation_filename', dest='symbol_annotation_filename',
                     help='symbols annotation file', default=None, type=str)
-parser.add_argument('--split', dest='split',
-                    help='train or test', default=None, type=str)
 
 
-def load_symbols_annotation(split, root="data"):
+def load_symbols_annotation(root="data"):
     """Load symbols annotation
 
     Args:
-        split (str): train or test
         root (str, optional): root directory. Defaults to "data".
 
     Returns:
         Dict: a dictionary of symbols annotation
     """
     symbols = {}
-    filename = os.path.join(root, "{0}/Symbols_{0}.json".format(split))
+    filename = os.path.join(root, "annotations/Symbols.json")
     with open(filename, "r") as f:
         symbols = json.load(f)
     return symbols
 
 
-def get_valid_symbols_annotation(split="train"):
+def get_valid_symbols_annotation():
     """Filter out data in symbols annotation with invalid bounding box coordinates
 
     Args:
@@ -40,7 +37,7 @@ def get_valid_symbols_annotation(split="train"):
     Returns:
         Dict: a dictionary of valid symbols annotation
     """
-    symbols = load_symbols_annotation(split)
+    symbols = load_symbols_annotation()
     valid_symbols = {}
     for key in symbols:
         value = symbols[key]
@@ -75,4 +72,4 @@ def write_dict_to_json(filename, dict):
 if __name__ == "__main__":
     args = parser.parse_args()
     write_dict_to_json(args.symbol_annotation_filename,
-                       get_valid_symbols_annotation(split=args.split))
+                       get_valid_symbols_annotation())
