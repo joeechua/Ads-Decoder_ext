@@ -28,7 +28,7 @@ def load_symbols_annotation(root="data"):
     return symbols
 
 
-def get_valid_symbols_annotation():
+def preprocess_boxes():
     """Filter out data in symbols annotation with invalid bounding box coordinates
 
     Args:
@@ -72,4 +72,4 @@ def write_dict_to_json(filename, dict):
 if __name__ == "__main__":
     args = parser.parse_args()
     write_dict_to_json(args.symbol_annotation_filename,
-                       get_valid_symbols_annotation())
+                       preprocess_boxes())
