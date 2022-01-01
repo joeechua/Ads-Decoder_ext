@@ -9,11 +9,13 @@ import torch
 import json
 import logging
 import re
+import pickle
 from PIL import Image
 from torch.utils.data import Dataset
 
 
 logger = logging.getLogger()
+le_path = "miscellaneous/le.pickle"
 
 
 class AdsDataset(Dataset):
@@ -65,14 +67,10 @@ class AdsDataset(Dataset):
         image = image.resize((501, 501))
         # retrieve the label and encode it
         labels = []
-        word_to_id, _ = load_symbol_cluster()
+        le = pickle.loads(open(le_path, "rb").read())
         for data in self.symbols[key]:
-            symbols = [s.strip()
-                       for s in data[4].lower().split('/') if len(s.strip()) > 0]
-            symbols = [word_to_id[s] for s in symbols if s in word_to_id]
-            most_common_cluster_id = max(symbols, key=symbols.count) if len(
-                symbols) else UNCLEAR_CLUSTER_ID
-            labels.append(most_common_cluster_id)
+            label = le.transform(data[4])
+            labels.append(label)
         # retrieve the bounding boxes
         boxes = []
         for data in self.symbols[key]:
