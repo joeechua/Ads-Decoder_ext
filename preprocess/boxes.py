@@ -12,30 +12,27 @@ parser.add_argument('--symbol_annotation_filename', dest='symbol_annotation_file
                     help='symbols annotation file', default=None, type=str)
 
 
-def load_symbols_annotation(root="data"):
+def load_symbols_annotation(filename="data/annotations/Symbols.json"):
     """Load symbols annotation
 
     Args:
-        root (str, optional): root directory. Defaults to "data".
+        filename (str, optional): symbols annotation json file name
 
     Returns:
         Dict: a dictionary of symbols annotation
     """
     symbols = {}
-    filename = os.path.join(root, "annotations/Symbols.json")
     with open(filename, "r") as f:
         symbols = json.load(f)
     return symbols
 
 
-def preprocess_boxes():
-    """Filter out data in symbols annotation with invalid bounding box coordinates
+def preprocess_boxes(filename):
+    """Preprocess the boxes by filtering out data in 
+    symbols annotation with invalid bounding box coordinates
 
     Args:
-        split (str, optional): train or test. Defaults to "train".
-
-    Returns:
-        Dict: a dictionary of valid symbols annotation
+        filename (str): symbols annotation json file name
     """
     symbols = load_symbols_annotation()
     valid_symbols = {}
@@ -55,7 +52,7 @@ def preprocess_boxes():
                 valid_value.append([xmin, ymin, xmax, ymax, data[4]])
         if len(valid_value) != 0:
             valid_symbols[key] = valid_value
-    return valid_symbols
+    write_dict_to_json(filename, valid_symbols)
 
 
 def write_dict_to_json(filename, dict):
@@ -71,5 +68,4 @@ def write_dict_to_json(filename, dict):
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    write_dict_to_json(args.symbol_annotation_filename,
-                       preprocess_boxes())
+    preprocess_boxes(args.symbol_annotation_filename)
