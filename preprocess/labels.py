@@ -16,6 +16,7 @@ parser.add_argument('--symbol_annotation_filename', dest='symbol_annotation_file
                     help='symbols annotation file', default=None, type=str)
 
 UNCLEAR_CLUSTER_ID = 54
+le_path = "miscellaneous/le.pickle"
 
 
 def get_symbol_cluster_name(filename="preprocess/clustered_symbol_list.json"):
@@ -90,8 +91,7 @@ def build_label_encoder():
     # transform the labels into integer representation
     labels = label_encoder.fit_transform(labels)
     # store the label encoder in pickle file
-    label_path = "miscellaneous/le.pickle"
-    file = open(label_path, "wb")
+    file = open(le_path, "wb")
     file.write(pickle.dumps(label_encoder))
     file.close()
 
