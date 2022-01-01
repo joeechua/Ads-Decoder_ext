@@ -1,3 +1,7 @@
+"""
+Usage: 
+    python preprocess/labels.py --symbol_annotation_filename "data/annotations/Symbols.json"
+"""
 import os
 import json
 import pickle
@@ -8,13 +12,8 @@ import argparse
 parser = argparse.ArgumentParser(
     description="Preprocess on labels in symbols annotation"
 )
-parser.add_argument(
-    "--label_encoder_path",
-    dest="label_encoder_path",
-    help="label encoder path",
-    default=None,
-    type=str,
-)
+parser.add_argument('--symbol_annotation_filename', dest='symbol_annotation_filename',
+                    help='symbols annotation file', default=None, type=str)
 
 UNCLEAR_CLUSTER_ID = 54
 
