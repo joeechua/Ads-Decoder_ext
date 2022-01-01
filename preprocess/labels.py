@@ -122,7 +122,7 @@ def preprocess_labels(filename):
                 else UNCLEAR_CLUSTER_ID
             )
             if most_common_cluster_id != UNCLEAR_CLUSTER_ID:
-                data[4] = id_to_word(most_common_cluster_id)
+                data[4] = id_to_word[most_common_cluster_id]
             else:
                 # Append the first label
                 data[4] = labels[0]
@@ -143,5 +143,5 @@ def write_dict_to_json(filename, dict):
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    preprocess_labels(args.label_encoder_path)
+    preprocess_labels(args.symbol_annotation_filename)
     build_label_encoder()
