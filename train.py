@@ -113,6 +113,6 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
 
     
 if __name__ == "__main__":
-    le = pickle.loads(open("miscellaneous/le.pickle", "rb").read())
+    le = pickle.loads(open("outputs/le.pickle", "rb").read())
     train(num_classes=len(le.classes_), num_epochs=2)
     
