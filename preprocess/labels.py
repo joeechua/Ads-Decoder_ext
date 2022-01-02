@@ -16,7 +16,7 @@ parser.add_argument('--symbol_annotation_filename', dest='symbol_annotation_file
                     help='symbols annotation file', default=None, type=str)
 
 UNCLEAR_CLUSTER_ID = 54
-le_path = "miscellaneous/le.pickle"
+le_path = "outputs/le.pickle"
 
 
 def get_symbol_cluster_name(filename="preprocess/clustered_symbol_list.json"):

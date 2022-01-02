@@ -296,5 +296,5 @@ def save_checkpoint(epoch: int, model, optimizer):
     state = {'epoch': epoch,
              'model': model,
              'optimizer': optimizer}
-    filename = 'miscellaneous/checkpoint_fasterrcnn.pt'
+    filename = 'outputs/checkpoint_fasterrcnn.pt'
     torch.save(state, filename)

@@ -15,7 +15,7 @@ from torch.utils.data import Dataset
 
 
 logger = logging.getLogger()
-le_path = "miscellaneous/le.pickle"
+le_path = "outputs/le.pickle"
 
 
 class AdsDataset(Dataset):
