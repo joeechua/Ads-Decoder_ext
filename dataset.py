@@ -69,7 +69,7 @@ class AdsDataset(Dataset):
         labels = []
         le = pickle.loads(open(le_path, "rb").read())
         for data in self.symbols[key]:
-            label = le.transform(data[4])
+            label = le.transform([data[4]])[0] # flatten array
             labels.append(label)
         # retrieve the bounding boxes
         boxes = []
