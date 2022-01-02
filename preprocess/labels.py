@@ -107,6 +107,8 @@ def preprocess_labels(filename):
     symbols = load_symbols_annotation()
     # get the mapping functions
     word_to_id, id_to_word = load_symbol_cluster()
+    # create set to store the distinct labels
+    label_set = set()
     # preprocess labels
     for key in symbols:
         value = symbols[key]
@@ -121,11 +123,19 @@ def preprocess_labels(filename):
                 if len(labels_id)
                 else UNCLEAR_CLUSTER_ID
             )
+            # default to the first label
+            label = labels[0]
             if most_common_cluster_id != UNCLEAR_CLUSTER_ID:
-                data[4] = id_to_word[most_common_cluster_id]
+                label = id_to_word[most_common_cluster_id]
             else:
-                # Append the first label
-                data[4] = labels[0]
+                # find if any label exist in the set
+                for l in labels:
+                    if l in label_set:
+                        label = l
+            # assign label
+            data[4] = label
+            # add label to the set
+            label_set.add(label)
     # write to the file
     write_dict_to_json(filename, symbols)
 
