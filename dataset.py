@@ -86,6 +86,8 @@ class AdsDataset(Dataset):
         area = (boxes[:, 3] - boxes[:, 1]) * (boxes[:, 2] - boxes[:, 0])
         # suppose all instances are not crowd
         iscrowd = torch.zeros((labels.size(0),), dtype=torch.int64)
+        # get the descriptor
+        descriptor = self.descriptor[key]
         # create target
         target = {}
         target["boxes"] = boxes
@@ -93,6 +95,7 @@ class AdsDataset(Dataset):
         target["image_id"] = image_id
         target["area"] = area
         target["iscrowd"] = iscrowd
+        target["descriptor"] = descriptor
         # transforms image and target
         if self.transforms is not None:
             image, target = self.transforms(image, target)
