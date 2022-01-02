@@ -285,15 +285,16 @@ def init_distributed_mode(args):
     setup_for_distributed(args.rank == 0)
 
 
-def save_checkpoint(epoch, model, optimizer):
-    """
-    Save model checkpoint.
-    :param epoch: epoch number
-    :param model: model
-    :param optimizer: optimizer
+def save_checkpoint(epoch: int, model, optimizer):
+    """Save model checkpoint
+
+    Args:
+        epoch (int): epoch
+        model (Model): model
+        optimizer (Optimizer): optimizer
     """
     state = {'epoch': epoch,
              'model': model,
              'optimizer': optimizer}
-    filename = 'checkpoint_fasterrcnn.pth.tar'
+    filename = 'miscellaneous/checkpoint_fasterrcnn.pt'
     torch.save(state, filename)
