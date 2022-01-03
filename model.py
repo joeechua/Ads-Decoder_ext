@@ -483,7 +483,8 @@ class AdsRoIHeads(RoIHeads):
         # get descriptors from targets
         descriptors = []
         for t in targets:
-            descriptors.append(t["descriptors"])
+            descriptors.append(t["descriptor"])
+        descriptors = torch.cat(descriptors)
 
         box_features = self.box_roi_pool(features, proposals, image_shapes)
         box_features = self.box_head(box_features, descriptors)
