@@ -113,7 +113,7 @@ def fasterrcnn_resnet50_fpn(
                 model_urls["fasterrcnn_resnet50_fpn_coco"], progress=True)
         # get the model state dictionary
         state_dict = model.state_dict()
-        # assign the pretrained weights exclusing the roi heads
+        # assign the pretrained weights to model state dictionary excluding the roi heads
         for k, _ in pretrained_dict.items():
             if k.split(".")[0] != "roi_heads":
                 state_dict[k] = pretrained_dict[k]
