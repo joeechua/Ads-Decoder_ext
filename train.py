@@ -4,7 +4,7 @@ import torchvision
 from sklearn.model_selection import train_test_split
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from dataset import AdsDataset
-from tools.engine import train_one_epoch
+from tools.engine import train_one_epoch, evaluate
 import tools.transforms as T
 import tools.utils as utils
 
@@ -61,13 +61,18 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         batch_size (int, optional): batch size. Defaults to 8.
         num_workers (int, optional): number of workers. Defaults to 1.
     """
-    # create training dataset
-    train_dataset, _ = create_train_test_dataset(AdsDataset())
+    # create training & testing dataset
+    train_dataset, test_dataset = create_train_test_dataset(AdsDataset())
 
     # define training data loaders
     train_dataloader = torch.utils.data.DataLoader(
         train_dataset, batch_size=batch_size, shuffle=True, 
         num_workers=num_workers, collate_fn=utils.collate_fn)
+    
+    # define testing data loaders
+    test_dataloader = torch.utils.data.DataLoader(
+        test_dataset, batch_size=1, shuffle=False, num_workers=4,
+        collate_fn=utils.collate_fn)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
@@ -106,8 +111,13 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     for epoch in range(start_epoch, start_epoch + num_epochs):
         # train for one epoch, printing every 10 iterations
         train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=10)
+        
         # update the learning rate
         lr_scheduler.step()
+
+        # evaluate on the test dataset
+        evaluate(model, test_dataloader, device=device)
+        
         # save checkpoint
         utils.save_checkpoint(epoch, model, optimizer)
 
