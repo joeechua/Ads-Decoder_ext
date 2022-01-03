@@ -12,6 +12,7 @@ import re
 import pickle
 from PIL import Image
 from torch.utils.data import Dataset
+from preprocess import descriptors
 
 
 logger = logging.getLogger()
@@ -46,6 +47,9 @@ class AdsDataset(Dataset):
         self.root = root
         self.transforms = transforms
         self._load(descriptor)
+
+        if descriptor == "sentiments":
+            self.descriptor_preprocessor = descriptors.SentimentPreProcessor()
 
     def __getitem__(self, index: int):
         """Retrieve the image, bounding boxes, and labels of the item
@@ -95,7 +99,7 @@ class AdsDataset(Dataset):
         target["image_id"] = image_id
         target["area"] = area
         target["iscrowd"] = iscrowd
-        target["descriptor"] = descriptor
+        target["descriptor"] = self.descriptor_preprocessor.transform(descriptor)
         # transforms image and target
         if self.transforms is not None:
             image, target = self.transforms(image, target)
@@ -174,3 +178,4 @@ class AdsDataset(Dataset):
             if key in key_one:
                 unique_keys.append(key)
         return unique_keys
+
