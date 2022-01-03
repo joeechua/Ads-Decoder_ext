@@ -8,7 +8,7 @@ import re
 
 class SentimentPreProcessor:
 
-    def __init__(self, root="../data/annotations", embed_model="glove-wiki-gigaword-300"):
+    def __init__(self, root="./data/annotations", embed_model="glove-wiki-gigaword-300"):
         self.embed_model = embed_model
         path = self.embed_model + ".model"
         if os.path.exists(path):
@@ -27,7 +27,7 @@ class SentimentPreProcessor:
         self.word_to_id = {}
         filename = os.path.join(self.root, "Sentiments_List.txt")
         # fill up dictionary from Sentiments_List.txt file
-        f = open(filename, "r")
+        f = open(filename, "r", encoding="latin-1")
         lines = f.readlines()
         for line in lines:
             sentiment = re.search("""(?<=ABBREVIATION: ").+(?=")""", line)
