@@ -14,8 +14,7 @@ We use Anaconda virtual environment to run the code and install all required pac
 
 4. gensim
 
-    `conda install -c anaconda gensim`
-    `pip install gensim`
+    `pip install -U gensim`
 
 ## Download Data
 Download the data by running the command below.
