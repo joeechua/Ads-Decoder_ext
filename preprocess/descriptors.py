@@ -8,7 +8,7 @@ import re
 
 class SentimentPreProcessor:
 
-    def __init__(self, root="../data/", embed_model="glove-wiki-gigaword-300"):
+    def __init__(self, root="../data/annotations", embed_model="glove-wiki-gigaword-300"):
         self.embed_model = embed_model
         path = "./word2vecmodels/" + self.embed_model + ".model"
         if os.path.exists(path):
