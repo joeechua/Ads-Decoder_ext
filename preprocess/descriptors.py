@@ -25,8 +25,8 @@ class SentimentPreProcessor:
 
         self.id_to_word = {}
         self.word_to_id = {}
-        filename = os.path.join(self.root, "sentiments_list.txt")
-        # fill up dictionary from sentiments_list.txt file
+        filename = os.path.join(self.root, "Sentiments_List.txt")
+        # fill up dictionary from Sentiments_List.txt file
         f = open(filename, "r")
         lines = f.readlines()
         for line in lines:
