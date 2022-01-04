@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from dataset import AdsDataset
 from tools.engine import train_one_epoch
+from tools.evaluate import evaluate
 import tools.transforms as T
 import tools.utils as utils
 
