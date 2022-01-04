@@ -418,13 +418,21 @@ class AdsTwoMLPHead(nn.Module):
     def __init__(self, in_channels, representation_size):
         super().__init__()
 
-        self.fc6 = nn.Linear(in_channels, representation_size)
+        # TODO: Change the + 300 to be added somewhere else- make it dynamic.
+        self.fc6 = nn.Linear(in_channels + 300, representation_size)
         self.fc7 = nn.Linear(representation_size, representation_size)
 
     def forward(self, x, descriptors):
         x = x.flatten(start_dim=1)
 
-        x = torch.cat((x, descriptors), dim=0)
+        # Append the descriptor text appending to the fully connected layer.
+        b = []
+        for i in range(descriptors.size()[0]):
+            t = torch.unsqueeze(descriptors[i], 0)
+            t = t.expand(512, descriptors.size()[1])
+            b.append(t)
+        d = torch.cat(b, dim=0)
+        x = torch.cat([x, d], dim=1)
 
         x = F.relu(self.fc6(x))
         x = F.relu(self.fc7(x))
