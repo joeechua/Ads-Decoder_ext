@@ -16,6 +16,10 @@ We use Anaconda virtual environment to run the code and install all required pac
 
     `pip install -U gensim`
 
+5. pycocotools
+
+    `pip install pycocotools`
+
 ## Download Data
 Download the data by running the command below.
 
