@@ -4,6 +4,7 @@ import numpy as np
 import torch
 import os
 import re
+import json
 
 
 class SentimentPreProcessor:
@@ -61,8 +62,35 @@ class SentimentPreProcessor:
         return torch.from_numpy(vec)
 
 
+def load_topics_annotation(filename="data/annotations/Topics.json"):
+    """
+    Load topics annotation
+
+    :param filename:    topics annotation file name
+    :return:    Dict: a dictionary of topics annotation
+    """
+
+    topics = {}
+    with open(filename, "r") as f:
+        topics = json.load(f)
+    return topics
+
+
 if __name__ == "__main__":
-    s = SentimentPreProcessor()
-    vec = s.transform([['14'], ['18'], ['14']])
-    print(vec)
-    print(type(vec))
+    # s = SentimentPreProcessor()
+    # vec = s.transform([['14'], ['18'], ['14']])
+    # print(vec)
+    # print(type(vec))
+    topics = load_topics_annotation("../data/Topics.json")
+    # print(topics)
+
+    # for key in topics:
+    #     nlp = spacy.load("en_core_web_sm")
+    #     for el in topics[key]:
+    #         try:
+    #             x = int(el)
+    #         except ValueError:
+    #             doc = nlp(el)
+    #             # blob = keywords(el)
+    #             # # blob = TextBlob(el)
+    #             print("FULL={}, NOUNS={}".format(el, doc))
