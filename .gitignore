@@ -190,4 +190,7 @@ cython_debug/
 # Support for Project snippet scope
 !.vscode/*.code-snippets
 
+# Ignore data directory
+data/
+
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,macos,python
