@@ -86,10 +86,8 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     # Initialize model or load checkpoint
     if checkpoint is None:
         start_epoch = 0
-        # create the model 
-        model = create_model(num_classes)
-        # specify text embedding size
-        model.text_embed_size = text_embed_size
+        # create the model
+        model = create_model(num_classes, text_embed_size)
 
         # construct an optimizer
         params = [p for p in model.parameters() if p.requires_grad]
@@ -123,7 +121,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         # train for one epoch, printing every 10 iterations
         print("Training epoch " + str(epoch) + " ...")
         curr_log = train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=print_freq)
-        
+
         log_meters = curr_log.meters
         # nested dicts for current epoch statistics
         curr_median, curr_avg = dict(), dict()
@@ -131,7 +129,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         for key, value in log_meters.items():
             curr_median[key] = str(value.median)
             curr_avg[key] = str(value.global_avg)
-        
+
         # Add nested dict to final dict
         metric_logs_med[str(epoch)] = curr_median
         metric_logs_avg[str(epoch)] = curr_avg
@@ -139,14 +137,13 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
 
         # update the learning rate
         lr_scheduler.step()
-        
+
         # evaluate on the test dataset
         evaluate(model, test_dataloader, device=device, print_freq=print_freq)
 
         print("Saving checkpoint")
         # save checkpoint
         utils.save_checkpoint(epoch, model, optimizer, filename='outputs/checkpoint_sentiments_fasterrcnn.pth.tar')
-    
     write_dict_to_json("outputs/train_metric_log_med.json", metric_logs_med)
     write_dict_to_json("outputs/train_metric_log_avg.json", metric_logs_avg)
 
