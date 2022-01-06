@@ -4,11 +4,12 @@ import torchvision
 from sklearn.model_selection import train_test_split
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from dataset import AdsDataset
+from tools.evaluate import evaluate
 from tools.engine import train_one_epoch
 from tools.evaluate import evaluate
 import tools.transforms as T
 import tools.utils as utils
-
+from model import create_model
 
 def get_transform(train: bool):
     """Return the transform function
@@ -39,7 +40,9 @@ def create_train_test_dataset(dataset: AdsDataset):
         (AdsDataset, AdsDataset): train dataset, test dataset
     """
     # randomly select the training and testing indices
-    indices = list(range(len(dataset)))
+    #indices = list(range(len(dataset)))
+    indices = list(range(16))
+    print(indices)
     train_indices, test_indices = train_test_split(
         indices, train_size=0.85, shuffle=True, random_state=24)
 
@@ -63,13 +66,15 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         num_workers (int, optional): number of workers. Defaults to 1.
     """
     # create training & testing dataset
-    train_dataset, test_dataset = create_train_test_dataset(AdsDataset())
+    ads_dataset = AdsDataset()
+    text_embed_size = ads_dataset.descriptor_preprocessor.embed_size
+    train_dataset, test_dataset = create_train_test_dataset(ads_dataset)
 
     # define training data loaders
     train_dataloader = torch.utils.data.DataLoader(
-        train_dataset, batch_size=batch_size, shuffle=True, 
+        train_dataset, batch_size=batch_size, shuffle=True,
         num_workers=num_workers, collate_fn=utils.collate_fn)
-    
+
     # define testing data loaders
     test_dataloader = torch.utils.data.DataLoader(
         test_dataset, batch_size=1, shuffle=False, num_workers=4,
@@ -81,11 +86,14 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     if checkpoint is None:
         start_epoch = 0
         # get the model using our helper function
-        model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-        # get number of input features for the classifier
-        in_features = model.roi_heads.box_predictor.cls_score.in_features
-        # replace the pre-trained head with a new one
-        model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+        # model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+        # # get number of input features for the classifier
+        # in_features = model.roi_heads.box_predictor.cls_score.in_features
+        # # replace the pre-trained head with a new one
+        # model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+        model = create_model(num_classes)
+        # specify text embedding size
+        model.text_embed_size = text_embed_size
 
         # construct an optimizer
         params = [p for p in model.parameters() if p.requires_grad]
@@ -108,22 +116,33 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
                                                 step_size=3,
                                                 gamma=0.1)
 
+    # create lists to store statistics
+    metric_logs, coco_evals = dict(), dict()
+
+    print(metric_logs, coco_evals)
+
     # training
     for epoch in range(start_epoch, start_epoch + num_epochs):
+
         # train for one epoch, printing every 10 iterations
-        train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=10)
-        
+        curr_log = train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=len(train_dataset))
+
         # update the learning rate
         lr_scheduler.step()
 
         # evaluate on the test dataset
-        evaluate(model, test_dataloader, device=device)
-        
+        curr_eval = evaluate(model, test_dataloader, device=device, print_freq=len(test_dataset))
+
         # save checkpoint
         utils.save_checkpoint(epoch, model, optimizer)
 
-    
+        print(curr_log)
+        print(curr_eval)
+        print("Current epoch done")
+    print("_________DONE_________")
+
+
 if __name__ == "__main__":
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
     train(num_classes=len(le.classes_), num_epochs=2)
-    
+

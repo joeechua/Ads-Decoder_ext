@@ -372,11 +372,13 @@ class AdsFasterRCNN(GeneralizedRCNN):
             box_roi_pool = MultiScaleRoIAlign(
                 featmap_names=["0", "1", "2", "3"], output_size=7, sampling_ratio=2)
 
+        # text embedding size
+        self.text_embed_size = 0
         if box_head is None:
             resolution = box_roi_pool.output_size[0]
             representation_size = 1024
             box_head = AdsTwoMLPHead(
-                out_channels * resolution ** 2, representation_size)
+                out_channels * resolution ** 2 + self.text_embed_size, representation_size)
 
         if box_predictor is None:
             representation_size = 1024
@@ -422,9 +424,21 @@ class AdsTwoMLPHead(nn.Module):
         self.fc7 = nn.Linear(representation_size, representation_size)
 
     def forward(self, x, descriptors):
+
         x = x.flatten(start_dim=1)
 
-        x = torch.cat((x, descriptors), dim=0)
+        batch_size = descriptors.size()[0]
+        num_anchor_boxes = x.size()[0]//batch_size
+
+        # Append the descriptor text appending to the fully connected layer.
+        b = []
+        for i in range(descriptors.size()[0]):
+            t = torch.unsqueeze(descriptors[i], 0)
+            t = t.expand(num_anchor_boxes, descriptors.size()[1])
+            b.append(t)
+        d = torch.cat(b, dim=0)
+
+        x = torch.cat([x, d], dim=1)
 
         x = F.relu(self.fc6(x))
         x = F.relu(self.fc7(x))
@@ -484,7 +498,7 @@ class AdsRoIHeads(RoIHeads):
         descriptors = []
         for t in targets:
             descriptors.append(t["descriptor"])
-        descriptors = torch.stack(descriptors, dim=1)
+        descriptors = torch.stack(descriptors, dim=0)
 
         box_features = self.box_roi_pool(features, proposals, image_shapes)
         box_features = self.box_head(box_features, descriptors)
