@@ -74,11 +74,12 @@ def load_symbols_annotation(filename="data/annotations/Symbols.json"):
     return symbols
 
 
-def build_label_encoder(filename="data/annotations/Symbols.json"):
+def build_label_encoder(filename="data/annotations/Symbols.json", le_path=le_path):
     """Build a label encoder for the symbols annotation
     
     Args:
         filename (str, optional): symbols annotation json file name
+        le_path (str, optional): label encoder path
     """
     # load the symbols annotation
     symbols = load_symbols_annotation(filename)
@@ -95,9 +96,8 @@ def build_label_encoder(filename="data/annotations/Symbols.json"):
     # transform the labels into integer representation
     labels = label_encoder.fit_transform(labels)
     # store the label encoder in pickle file
-    file = open(le_path, "wb")
-    file.write(pickle.dumps(label_encoder))
-    file.close()
+    with open(le_path, 'wb') as file:
+        file.write(pickle.dumps(label_encoder))
 
 
 def preprocess_labels(filename):
