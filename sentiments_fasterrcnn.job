@@ -1,13 +1,13 @@
 #!/bin/bash
 
 #SBATCH --account=za99
-#SBATCH --job-name=training
+#SBATCH --job-name=setiments-fasterrcnn
 #SBATCH --time=168:00:00
 #SBATCH --mem=36G
 #SBATCH --ntasks=9
 #SBATCH --cpus-per-task=1
 #SBATCH --ntasks-per-node=9
-#SBATCH --output=job.%j.out
+#SBATCH --output=setiments-fasterrcnn.%j.out
 
 module load anaconda/2019.03-Python3.7-gcc5
 source activate /scratch/za99/bwan0031/conda_envs/venve
@@ -20,5 +20,4 @@ pip install pycocotools
 python3 preprocess/boxes.py --symbol_annotation_filename "data/annotations/Symbols.json"
 python3 preprocess/labels.py --symbol_annotation_filename "data/annotations/Symbols.json"
 
-python3 model.py
 python3 train.py
