@@ -58,7 +58,7 @@ class SentimentPreProcessor:
         except KeyError:
             vec = np.zeros([self.embed_size])
 
-        return torch.from_numpy(vec)
+        return torch.from_numpy(np.array(vec))
 
 
 if __name__ == "__main__":
