@@ -1,7 +1,6 @@
 """
 Adapted from https://github.com/pytorch/vision/blob/922db3086e654871c35cd80c2c01eabb65d78475/references/detection/engine.py
 """
-import math
 import sys
 import time
 
