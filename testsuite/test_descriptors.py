@@ -36,7 +36,6 @@ class DescriptorsTest(unittest.TestCase):
         vec = s.transform(lst)
         np_array = np.array(s.model.get_vector(s.id_to_word[15]))
         torch.testing.assert_close(vec, torch.Tensor(np_array))
-        
 
 
 if __name__ == "__main__":
