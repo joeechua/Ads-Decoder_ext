@@ -1,5 +1,7 @@
+import os
 import unittest
 import sys
+from unittest.mock import patch
 import numpy as np
 import torch
 sys.path.append('../')
@@ -10,6 +12,13 @@ class DescriptorsTest(unittest.TestCase):
     """
     Test Suite for descriptors.
     """
+    @patch('preprocess.descriptors.api')
+    def test_api(self, mock_api):
+        # test api called once when model exists
+        s = descriptors.SentimentPreProcessor(root="../data/annotations")
+        if os.path.exists(s.embed_model):
+            mock_api.load.assert_called_once_with(s.embed_model)
+
     def test_transform(self):
         s = descriptors.SentimentPreProcessor(root="../data/annotations")
         # case 1: all ids have the same frequency
