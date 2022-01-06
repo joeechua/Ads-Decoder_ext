@@ -113,13 +113,16 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
                                                 gamma=0.1)
 
     # create dicts to store statistics in json file
-    metric_logs_avg, metric_logs_med = dict(), dict(), dict()
+    metric_logs_avg, metric_logs_med = dict(), dict()
+
+    # set print frequency
+    print_freq = 10
 
     # training
     for epoch in range(start_epoch, start_epoch + num_epochs):
         # train for one epoch, printing every 10 iterations
         print("Training epoch " + str(epoch) + " ...")
-        curr_log = train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=len(train_dataset))
+        curr_log = train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=print_freq)
         
         log_meters = curr_log.meters
         # nested dicts for current epoch statistics
@@ -138,7 +141,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         lr_scheduler.step()
         
         # evaluate on the test dataset
-        evaluate(model, test_dataloader, device=device, print_freq=len(test_dataset))
+        evaluate(model, test_dataloader, device=device, print_freq=print_freq)
 
         print("Saving checkpoint")
         # save checkpoint
@@ -151,4 +154,3 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
 if __name__ == "__main__":
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
     train(num_classes=len(le.classes_), num_epochs=2)
-
