@@ -100,17 +100,18 @@ def build_label_encoder(filename="data/annotations/Symbols.json", le_path=le_pat
         file.write(pickle.dumps(label_encoder))
 
 
-def preprocess_labels(filename):
+def preprocess_labels(annot_fname='data/annotations/Symbols.json', cluster_fname='preprocess/clustered_symbol_list.json'):
     """Preprocess the labels by mapping each label to the cluster name
     in the symbol cluster
 
     Args:
-        filename (str): symbols annotation json file name
+        annot_fname (str, optional): symbols annotation json file name
+        cluster_fname (str, optional): symbols cluster json file name
     """
     # load the symbols annotation
-    symbols = load_symbols_annotation()
+    symbols = load_symbols_annotation(annot_fname)
     # get the mapping functions
-    word_to_id, id_to_word = load_symbol_cluster()
+    word_to_id, id_to_word = load_symbol_cluster(cluster_fname)
     # create set to store the distinct labels
     label_set = set()
     # preprocess labels
@@ -141,7 +142,7 @@ def preprocess_labels(filename):
             # add label to the set
             label_set.add(label)
     # write to the file
-    write_dict_to_json(filename, symbols)
+    write_dict_to_json(annot_fname, symbols)
 
 
 def write_dict_to_json(filename, dict):
