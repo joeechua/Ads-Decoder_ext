@@ -4,6 +4,7 @@ import torchvision
 from sklearn.model_selection import train_test_split
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from dataset import AdsDataset
+from preprocess.boxes import write_dict_to_json
 from tools.evaluate import evaluate
 from tools.engine import train_one_epoch
 from tools.evaluate import evaluate
@@ -111,30 +112,40 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
                                                 step_size=3,
                                                 gamma=0.1)
 
-    # create lists to store statistics
-    metric_logs, coco_evals = dict(), dict()
-
-    print(metric_logs, coco_evals)
+    # create dicts to store statistics in json file
+    metric_logs_avg, metric_logs_med = dict(), dict(), dict()
 
     # training
     for epoch in range(start_epoch, start_epoch + num_epochs):
-        
         # train for one epoch, printing every 10 iterations
-       # curr_log = train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=len(train_dataset))
+        print("Training epoch " + str(epoch) + " ...")
+        curr_log = train_one_epoch(model, optimizer, train_dataloader, device, epoch, print_freq=len(train_dataset))
         
+        log_meters = curr_log.meters
+        # nested dicts for current epoch statistics
+        curr_median, curr_avg = dict(), dict()
+
+        for key, value in log_meters.items():
+            curr_median[key] = str(value.median)
+            curr_avg[key] = str(value.global_avg)
+        
+        # Add nested dict to final dict
+        metric_logs_med[str(epoch)] = curr_median
+        metric_logs_avg[str(epoch)] = curr_avg
+
+
         # update the learning rate
         lr_scheduler.step()
-
+        
         # evaluate on the test dataset
-        curr_eval = evaluate(model, test_dataloader, device=device, print_freq=len(test_dataset))
-       
+        evaluate(model, test_dataloader, device=device, print_freq=len(test_dataset))
+
+        print("Saving checkpoint")
         # save checkpoint
         utils.save_checkpoint(epoch, model, optimizer)
-
-        print(curr_log)
-        print(curr_eval)
-        print("Current epoch done")
-    print("_________DONE_________")
+    
+    write_dict_to_json("outputs/train_metric_log_med.json", metric_logs_med)
+    write_dict_to_json("outputs/train_metric_log_avg.json", metric_logs_avg)
 
     
 if __name__ == "__main__":
