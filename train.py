@@ -40,9 +40,7 @@ def create_train_test_dataset(dataset: AdsDataset):
         (AdsDataset, AdsDataset): train dataset, test dataset
     """
     # randomly select the training and testing indices
-    #indices = list(range(len(dataset)))
-    indices = list(range(16))
-    print(indices)
+    indices = list(range(len(dataset)))
     train_indices, test_indices = train_test_split(
         indices, train_size=0.85, shuffle=True, random_state=24)
 
@@ -65,9 +63,11 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         batch_size (int, optional): batch size. Defaults to 8.
         num_workers (int, optional): number of workers. Defaults to 1.
     """
-    # create training & testing dataset
+    # create dataset
     ads_dataset = AdsDataset()
+    # get the text embedding size
     text_embed_size = ads_dataset.descriptor_preprocessor.embed_size
+    # create training & testing dataset
     train_dataset, test_dataset = create_train_test_dataset(ads_dataset)
 
     # define training data loaders
@@ -85,12 +85,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     # Initialize model or load checkpoint
     if checkpoint is None:
         start_epoch = 0
-        # get the model using our helper function
-        # model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-        # # get number of input features for the classifier
-        # in_features = model.roi_heads.box_predictor.cls_score.in_features
-        # # replace the pre-trained head with a new one
-        # model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+        # create the model 
         model = create_model(num_classes)
         # specify text embedding size
         model.text_embed_size = text_embed_size
