@@ -51,6 +51,38 @@ class LabelsTest(unittest.TestCase):
             file.write.assert_called_once()
             mocked_dumps.assert_called_once()
 
+    def test_preprocess_labels(self):
+        with patch('preprocess.labels.load_symbols_annotation') as mocked_load_annot_method, \
+            patch('preprocess.labels.load_symbol_cluster') as mocked_load_cluster_method, \
+                patch('preprocess.labels.write_dict_to_json') as mocked_write_method:
+            annot_fname = '../data/annotations/Symbols.json'
+            cluster_fname = '../preprocess/clustered_symbol_list.json'
+            mocked_load_annot_method.return_value = {
+                'img1': [[1, 1, 2, 2, 'nature']],   # case 1: one label, label not in dict
+                'img2': [[2, 2, 3, 3, 'happy/exciting']],   # case 2: more than one label, label in dict
+                'img3': [[4, 4, 5, 5, 'sad'], [1, 1, 2, 2, 'angry']],   # case 3: one label, label in dict
+                'img4': [[4, 4, 5, 5, 'nature/natural']],   # case 4: more than one label, label not in dict
+            }
+            word_to_id = {
+                'happy': 1, 'sad': 2, 'angry': 3
+            }
+            id_to_word = {
+                1: 'happy', 2: 'sad', 3: 'angry'
+            }
+            mocked_load_cluster_method.return_value = (word_to_id, id_to_word)
+            labels.preprocess_labels(annot_fname, cluster_fname)
+            # test the methods are called with the corresponding file name
+            mocked_load_annot_method.assert_called_once_with(annot_fname)
+            mocked_load_cluster_method.assert_called_once_with(cluster_fname)
+            # check the symbols annotation are preprocessed
+            final_symbols = {
+                'img1': [[1, 1, 2, 2, 'nature']],
+                'img2': [[2, 2, 3, 3, 'happy']],
+                'img3': [[4, 4, 5, 5, 'sad'], [1, 1, 2, 2, 'angry']],
+                'img4': [[4, 4, 5, 5, 'nature']],
+            }
+            mocked_write_method.assert_called_once_with(annot_fname, final_symbols)
+
 
 if __name__ == "__main__":
     # Create the test suite from the cases above.
