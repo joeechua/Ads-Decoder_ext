@@ -1,7 +1,6 @@
 """
 Adapted from https://github.com/pytorch/vision/blob/922db3086e654871c35cd80c2c01eabb65d78475/references/detection/engine.py
 """
-import math
 import sys
 import time
 
@@ -37,11 +36,12 @@ def evaluate(model, data_loader, device, print_freq):
 
     for images, targets in metric_logger.log_every(data_loader, print_freq, header):
         images = list(img.to(device) for img in images)
+        targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
         if torch.cuda.is_available():
             torch.cuda.synchronize()
         model_time = time.time()
-        outputs = model(images)
+        outputs = model(images, targets)
 
         outputs = [{k: v.to(cpu_device) for k, v in t.items()} for t in outputs]
         model_time = time.time() - model_time

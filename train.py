@@ -10,7 +10,7 @@ from tools.engine import train_one_epoch
 from tools.evaluate import evaluate
 import tools.transforms as T
 import tools.utils as utils
-
+from model import create_model
 
 def get_transform(train: bool):
     """Return the transform function
@@ -41,9 +41,7 @@ def create_train_test_dataset(dataset: AdsDataset):
         (AdsDataset, AdsDataset): train dataset, test dataset
     """
     # randomly select the training and testing indices
-    #indices = list(range(len(dataset)))
-    indices = list(range(16))
-    print(indices)
+    indices = list(range(len(dataset)))
     train_indices, test_indices = train_test_split(
         indices, train_size=0.85, shuffle=True, random_state=24)
 
@@ -66,14 +64,18 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
         batch_size (int, optional): batch size. Defaults to 8.
         num_workers (int, optional): number of workers. Defaults to 1.
     """
+    # create dataset
+    ads_dataset = AdsDataset()
+    # get the text embedding size
+    text_embed_size = ads_dataset.descriptor_preprocessor.embed_size
     # create training & testing dataset
-    train_dataset, test_dataset = create_train_test_dataset(AdsDataset())
-    
+    train_dataset, test_dataset = create_train_test_dataset(ads_dataset)
+
     # define training data loaders
     train_dataloader = torch.utils.data.DataLoader(
-        train_dataset, batch_size=batch_size, shuffle=True, 
+        train_dataset, batch_size=batch_size, shuffle=True,
         num_workers=num_workers, collate_fn=utils.collate_fn)
-    
+
     # define testing data loaders
     test_dataloader = torch.utils.data.DataLoader(
         test_dataset, batch_size=1, shuffle=False, num_workers=4,
@@ -84,12 +86,10 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     # Initialize model or load checkpoint
     if checkpoint is None:
         start_epoch = 0
-        # get the model using our helper function
-        model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-        # get number of input features for the classifier
-        in_features = model.roi_heads.box_predictor.cls_score.in_features
-        # replace the pre-trained head with a new one
-        model.roi_heads.box_predictor = FastRCNNPredictor(in_features, num_classes)
+        # create the model 
+        model = create_model(num_classes)
+        # specify text embedding size
+        model.text_embed_size = text_embed_size
 
         # construct an optimizer
         params = [p for p in model.parameters() if p.requires_grad]
@@ -99,7 +99,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     else:
         checkpoint = torch.load(checkpoint)
         start_epoch = checkpoint['epoch'] + 1
-        paint('\nLoaded checkpoint from epoch %d.\n' % start_epoch)
+        print('\nLoaded checkpoint from epoch %d.\n' % start_epoch)
         model = checkpoint['model']
         optimizer = checkpoint['optimizer']
 
@@ -147,8 +147,8 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     write_dict_to_json("outputs/train_metric_log_med.json", metric_logs_med)
     write_dict_to_json("outputs/train_metric_log_avg.json", metric_logs_avg)
 
-    
+
 if __name__ == "__main__":
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
     train(num_classes=len(le.classes_), num_epochs=2)
- 
+

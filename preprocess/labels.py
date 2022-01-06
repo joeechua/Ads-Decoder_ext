@@ -74,10 +74,14 @@ def load_symbols_annotation(filename="data/annotations/Symbols.json"):
     return symbols
 
 
-def build_label_encoder():
-    """Build a label encoder for the symbols annotation"""
+def build_label_encoder(filename="data/annotations/Symbols.json"):
+    """Build a label encoder for the symbols annotation
+    
+    Args:
+        filename (str, optional): symbols annotation json file name
+    """
     # load the symbols annotation
-    symbols = load_symbols_annotation()
+    symbols = load_symbols_annotation(filename)
     # get all the labels in the symbols annotation
     labels = []
     for key in symbols:
