@@ -35,7 +35,7 @@ class LabelsTest(unittest.TestCase):
     def test_load_symbols_annotation(self):
         with patch.object(labels, 'load_symbols_annotation') as mock_load_method:
             # test the input argument is called once
-            filename = 'cluster_json_file'
+            filename = 'symbols_json_file'
             mock_load_method(filename)
             mock_load_method.assert_called_once_with(filename)
 
