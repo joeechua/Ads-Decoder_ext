@@ -77,20 +77,4 @@ def load_topics_annotation(filename="data/annotations/Topics.json"):
 
 
 if __name__ == "__main__":
-    # s = SentimentPreProcessor()
-    # vec = s.transform([['14'], ['18'], ['14']])
-    # print(vec)
-    # print(type(vec))
-    topics = load_topics_annotation("../data/Topics.json")
-    # print(topics)
-
-    # for key in topics:
-    #     nlp = spacy.load("en_core_web_sm")
-    #     for el in topics[key]:
-    #         try:
-    #             x = int(el)
-    #         except ValueError:
-    #             doc = nlp(el)
-    #             # blob = keywords(el)
-    #             # # blob = TextBlob(el)
-    #             print("FULL={}, NOUNS={}".format(el, doc))
+    s = SentimentPreProcessor()
