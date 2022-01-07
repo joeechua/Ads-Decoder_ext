@@ -34,7 +34,7 @@ def preprocess_boxes(filename):
     Args:
         filename (str): symbols annotation json file name
     """
-    symbols = load_symbols_annotation()
+    symbols = load_symbols_annotation(filename)
     valid_symbols = {}
     for key in symbols:
         value = symbols[key]
