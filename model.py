@@ -24,9 +24,9 @@ model_urls = {
 }
 
 
-def create_model(num_classes):
+def create_model(num_classes, text_embed_size):
     # get the model using our helper function
-    model = fasterrcnn_resnet50_fpn(pretrained=True)
+    model = fasterrcnn_resnet50_fpn(pretrained=True, text_embed_size=text_embed_size)
     # get number of input features for the classifier
     in_features = model.roi_heads.box_predictor.cls_score.in_features
     # replace the pre-trained head with a new one
@@ -41,7 +41,7 @@ def create_model(num_classes):
 
 
 def fasterrcnn_resnet50_fpn(
-    pretrained=False, progress=True, num_classes=91, pretrained_backbone=True, trainable_backbone_layers=None, **kwargs
+    pretrained=False, progress=True, num_classes=91, pretrained_backbone=True, trainable_backbone_layers=None, text_embed_size=0, **kwargs
 ):
     """
     Constructs a Faster R-CNN model with a ResNet-50-FPN backbone.
@@ -106,7 +106,7 @@ def fasterrcnn_resnet50_fpn(
     backbone = resnet50(pretrained=pretrained_backbone,
                         progress=progress, norm_layer=FrozenBatchNorm2d)
     backbone = _resnet_fpn_extractor(backbone, trainable_backbone_layers)
-    model = AdsFasterRCNN(backbone, num_classes, **kwargs)
+    model = AdsFasterRCNN(backbone, num_classes, text_embed_size=text_embed_size, **kwargs)
     if pretrained:
         # get pretrained weights
         pretrained_dict = load_state_dict_from_url(
@@ -319,6 +319,7 @@ class AdsFasterRCNN(GeneralizedRCNN):
         box_batch_size_per_image=512,
         box_positive_fraction=0.25,
         bbox_reg_weights=None,
+        text_embed_size=0
     ):
 
         if not hasattr(backbone, "out_channels"):
@@ -373,7 +374,7 @@ class AdsFasterRCNN(GeneralizedRCNN):
                 featmap_names=["0", "1", "2", "3"], output_size=7, sampling_ratio=2)
 
         # text embedding size
-        self.text_embed_size = 0
+        self.text_embed_size = text_embed_size
         if box_head is None:
             resolution = box_roi_pool.output_size[0]
             representation_size = 1024
