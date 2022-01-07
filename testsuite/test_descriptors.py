@@ -26,7 +26,7 @@ class DescriptorsTest(unittest.TestCase):
         vec = s.transform(lst)
         np_array = np.array(s.model.get_vector(s.id_to_word[1]))
         torch.testing.assert_close(vec, torch.Tensor(np_array))
-        # case 2: one id has the same frequency
+        # case 2: one id has the most frequency
         lst = [['1', '15'], ['15'], ['15', '30']]
         vec = s.transform(lst)
         np_array = np.array(s.model.get_vector(s.id_to_word[15]))
