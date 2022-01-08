@@ -3,7 +3,6 @@ References:
     https://gist.github.com/kyamagu/0aa8c06501bd8a5816640639d4d33a17
     https://github.com/sgrvinod/a-PyTorch-Tutorial-to-Object-Detection/tree/43fd8be9e82b351619a467373d211ee5bf73cef8
 """
-from tools.load_symbol_cluster import load_symbol_cluster, UNCLEAR_CLUSTER_ID
 import os
 import torch
 import json
