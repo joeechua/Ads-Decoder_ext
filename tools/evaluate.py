@@ -34,8 +34,9 @@ def evaluate(model, data_loader, device, print_freq):
     iou_types = _get_iou_types(model)
     coco_evaluator = CocoEvaluator(coco, iou_types)
 
-    for images, targets in metric_logger.log_every(data_loader, print_freq, header):
+    for images, descriptors, targets in metric_logger.log_every(data_loader, print_freq, header):
         images = list(img.to(device) for img in images)
+        descriptors = list(descriptor.to(device) for descriptor in descriptors)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
 
         if torch.cuda.is_available():

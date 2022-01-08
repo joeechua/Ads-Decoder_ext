@@ -36,30 +36,29 @@ class AdsDataset(Dataset):
         "strategies_list": ("Strategies_List.txt", "latin_1")
     }
 
-    def __init__(self, descriptor="sentiments", root="data", transforms=None):
+    def __init__(self, descriptor="sentiments", root="data", transforms=None, descriptor_preprocessor=descriptors.SentimentPreProcessor()):
         """Construct a PyTorch Dataset object
 
         Args:
             descriptor (str, optional): selected descriptor. Defaults to "sentiments".
             root (str, optional): root directory containing the images and annotations. Defaults to "data".
-            transforms (None, optional): a function to transform the item in dataset. Defaults to None.
+            transforms (func, optional): a function to transform the item in dataset. Defaults to None.
+            descriptor_preprocessor (class, optional): a function to preprocess the descriptor of the item in dataset. Defaults to SentimentPreProcessor.
         """
         self.root = root
         self.transforms = transforms
+        self.descriptor_preprocessor = descriptor_preprocessor
         self._load(descriptor)
 
-        if descriptor == "sentiments":
-            self.descriptor_preprocessor = descriptors.SentimentPreProcessor()
-
     def __getitem__(self, index: int):
-        """Retrieve the image, bounding boxes, and labels of the item
+        """Return the image, descriptor and target of the item
         at index of the datset
 
         Args:
             index (int): index number
 
         Returns:
-            (image, boxes, labels, difficulties): a tuple of image, bounding boxes, labels, and difficulties
+            (image, descriptor, target): a tuple of image, descriptor, and target
         """
         # convert index to tensor
         image_id = torch.tensor([index])
@@ -91,7 +90,7 @@ class AdsDataset(Dataset):
         # suppose all instances are not crowd
         iscrowd = torch.zeros((labels.size(0),), dtype=torch.int64)
         # get the descriptor
-        descriptor = self.descriptor[key]
+        descriptor = self.descriptor_preprocessor.transform(self.descriptor[key])
         # create target
         target = {}
         target["boxes"] = boxes
@@ -99,11 +98,11 @@ class AdsDataset(Dataset):
         target["image_id"] = image_id
         target["area"] = area
         target["iscrowd"] = iscrowd
-        target["descriptor"] = self.descriptor_preprocessor.transform(descriptor)
+        target["descriptor"] = descriptor
         # transforms image and target
         if self.transforms is not None:
             image, target = self.transforms(image, target)
-        return image, target
+        return image, descriptor, target
 
     def __len__(self) -> int:
         """Return the size of the dataset
