@@ -68,7 +68,6 @@ class TFRCNNRoIHeads(RoIHeads):
         proposals,  # type: List[Tensor]
         image_shapes,  # type: List[Tuple[int, int]],
         descriptors=None,
-        box_features=None,
         targets=None,  # type: Optional[List[Dict[str, Tensor]]]
     ):
         # type: (...) -> Tuple[List[Dict[str, Tensor]], Dict[str, Tensor]]
@@ -101,7 +100,9 @@ class TFRCNNRoIHeads(RoIHeads):
             regression_targets = None
             matched_idxs = None
 
-        # box_features = self.box_roi_pool(features, proposals, image_shapes)
+        # We have to go through the ROI Pool again because box_features
+        # are different when training vs. evaluation.
+        box_features = self.box_roi_pool(features, proposals, image_shapes)
         box_features = self.box_head(box_features, descriptors)
         class_logits, box_regression = self.box_predictor(box_features)
 

@@ -1,4 +1,5 @@
 import torch
+import torchvision
 from torch import nn
 from torch.jit.annotations import Tuple, List
 from tfrcnn_roi_heads import TFRCNNRoIHeads, TFRCNNBoxHead
@@ -69,7 +70,7 @@ class TextFasterRCNN(nn.Module):
         def get_activation(name):
             # the hook signature
             def hook(model, input, output):
-                activation[name] = output.detach()
+                activation[name] = output
             return hook
 
         h1 = self.faster_rcnn.backbone\
@@ -78,7 +79,10 @@ class TextFasterRCNN(nn.Module):
         h3 = self.faster_rcnn.roi_heads.box_roi_pool\
             .register_forward_hook(get_activation('box_roi_pool'))
 
-        self.faster_rcnn(images, targets)
+        # Set Faster RCNN model to evaluation mode as we do not want to update
+        # its weights
+        self.faster_rcnn.eval()
+        self.faster_rcnn(images)
 
         features = activation['backbone']
         proposals, proposal_losses = activation['rpn']
@@ -86,10 +90,12 @@ class TextFasterRCNN(nn.Module):
 
         images, targets = self.transform(images, targets)
 
+        # Transform descriptors into a tensor.
+        descriptors = torch.stack(descriptors, dim=0)
+
         detections, detector_losses = self.roi_heads(features, proposals,
                                                      images.image_sizes,
                                                      descriptors,
-                                                     box_features,
                                                      targets)
         detections = self.transform.postprocess(detections, images.image_sizes,
                                                 original_image_sizes)
@@ -108,3 +114,9 @@ class TextFasterRCNN(nn.Module):
 
         return detections
 
+
+if __name__ == "__main__":
+    faster_rcnn = \
+        torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+    model = TextFasterRCNN(faster_rcnn, 300)
+    print(model)
