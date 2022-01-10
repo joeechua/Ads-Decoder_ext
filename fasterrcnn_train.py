@@ -66,8 +66,6 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
     """
     # create dataset
     ads_dataset = AdsDataset()
-    # get the text embedding size
-    text_embed_size = ads_dataset.descriptor_preprocessor.embed_size
     # create training & testing dataset
     train_dataset, test_dataset = create_train_test_dataset(ads_dataset)
 
@@ -78,7 +76,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
 
     # define testing data loaders
     test_dataloader = torch.utils.data.DataLoader(
-        test_dataset, batch_size=1, shuffle=False, num_workers=4,
+        test_dataset, batch_size=1, shuffle=False, num_workers=num_workers,
         collate_fn=utils.collate_fn)
 
     device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
