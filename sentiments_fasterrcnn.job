@@ -20,4 +20,4 @@ pip install pycocotools
 python3 preprocess/boxes.py --symbol_annotation_filename "data/annotations/Symbols.json"
 python3 preprocess/labels.py --symbol_annotation_filename "data/annotations/Symbols.json"
 
-python3 train.py
+python3 text_rcnn_train.py
