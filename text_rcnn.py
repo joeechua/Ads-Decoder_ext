@@ -114,9 +114,3 @@ class TextFasterRCNN(nn.Module):
 
         return detections
 
-
-if __name__ == "__main__":
-    faster_rcnn = \
-        torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
-    model = TextFasterRCNN(faster_rcnn, 300)
-    print(model)
