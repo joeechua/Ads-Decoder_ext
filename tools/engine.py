@@ -3,16 +3,17 @@ File adapted from https://github.com/pytorch/vision/blob/922db3086e654871c35cd80
 """
 import math
 import sys
-import time
 
 import torch
-import torchvision.models.detection.mask_rcnn
 import tools.utils as utils
 
-def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq, scaler=None):
+
+def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq,
+                    scaler=None, include_descriptors=False):
     model.train()
     metric_logger = utils.MetricLogger(delimiter="  ")
-    metric_logger.add_meter("lr", utils.SmoothedValue(window_size=1, fmt="{value:.6f}"))
+    metric_logger.add_meter("lr", utils.SmoothedValue(window_size=1,
+                                                      fmt="{value:.6f}"))
     header = f"Epoch: [{epoch}]"
 
     lr_scheduler = None
@@ -24,12 +25,17 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq, sc
             optimizer, start_factor=warmup_factor, total_iters=warmup_iters
         )
 
-    for images, descriptors, targets in metric_logger.log_every(data_loader, print_freq, header):
+    for images, descriptors, targets in metric_logger.log_every(data_loader,
+                                                                print_freq,
+                                                                header):
         images = list(image.to(device) for image in images)
         descriptors = list(descriptor.to(device) for descriptor in descriptors)
         targets = [{k: v.to(device) for k, v in t.items()} for t in targets]
         with torch.cuda.amp.autocast(enabled=scaler is not None):
-            loss_dict = model(images, targets)
+            if include_descriptors:
+                loss_dict = model(images, descriptors, targets)
+            else:
+                loss_dict = model(images, targets)
             losses = sum(loss for loss in loss_dict.values())
 
         # reduce losses over all GPUs for logging purposes
@@ -59,3 +65,4 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq, sc
         metric_logger.update(lr=optimizer.param_groups[0]["lr"])
 
     return metric_logger
+

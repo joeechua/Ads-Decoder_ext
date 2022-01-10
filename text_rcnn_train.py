@@ -54,12 +54,14 @@ def create_train_test_dataset(dataset: AdsDataset):
     return train_dataset, test_dataset
 
 
-def train(num_classes: int, num_epochs: int, faster_rcnn_trained=None,
-          checkpoint=None, batch_size=8,
-          num_workers=1):
+def train(num_classes: int, num_epochs: int,
+          faster_rcnn_trained=None, checkpoint=None,
+          descriptor="sentiments",
+          batch_size=8, num_workers=1):
     """
     Train the model.
 
+    :param descriptor:          (str) descriptor to add to ensemble model
     :param faster_rcnn_trained: trained faster r-cnn model
     :param num_classes:         (int) number of label classes
     :param num_epochs:          (int) number of epochs to train
@@ -81,9 +83,8 @@ def train(num_classes: int, num_epochs: int, faster_rcnn_trained=None,
         num_workers=num_workers, collate_fn=utils.collate_fn)
 
     # Define testing data loaders
-    # TODO: Why is batch_size=1 and num_workers=4?
     test_dataloader = torch.utils.data.DataLoader(
-        test_dataset, batch_size=1, shuffle=False, num_workers=4,
+        test_dataset, batch_size=1, shuffle=False, num_workers=num_workers,
         collate_fn=utils.collate_fn)
 
     # In case GPU is provided
@@ -145,7 +146,8 @@ def train(num_classes: int, num_epochs: int, faster_rcnn_trained=None,
         # train for one epoch, printing every 10 iterations
         print("Training epoch " + str(epoch) + " ...")
         curr_log = train_one_epoch(model, optimizer, train_dataloader, device,
-                                   epoch, print_freq=print_freq)
+                                   epoch, print_freq=print_freq,
+                                   include_descriptors=True)
 
         log_meters = curr_log.meters
         # nested dicts for current epoch statistics
@@ -163,16 +165,26 @@ def train(num_classes: int, num_epochs: int, faster_rcnn_trained=None,
         lr_scheduler.step()
 
         # evaluate on the test dataset
-        evaluate(model, test_dataloader, device=device, print_freq=print_freq)
+        evaluate(model, test_dataloader, device=device, print_freq=print_freq,
+                 include_descriptors=True)
 
         print("Saving checkpoint")
         # save checkpoint
+        checkpoint_name = "outputs/checkpoint_{}_tfasterrcnn.pth.tar"\
+            .format(descriptor)
         utils.save_checkpoint(epoch, model, optimizer,
-                              filename='outputs/checkpoint_sentiments_fasterrcnn.pth.tar')
-    write_dict_to_json("outputs/train_metric_log_med.json", metric_logs_med)
-    write_dict_to_json("outputs/train_metric_log_avg.json", metric_logs_avg)
+                              filename=checkpoint_name)
+
+    metric_logs_med_name = "outputs/{}_train_metric_log_med.json"\
+        .format(descriptor)
+    metric_logs_avg_name = "outputs/{}_train_metric_log_avg.json"\
+        .format(descriptor)
+    write_dict_to_json(metric_logs_med_name, metric_logs_med)
+    write_dict_to_json(metric_logs_avg_name, metric_logs_avg)
 
 
 if __name__ == "__main__":
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
-    train(num_classes=len(le.classes_), num_epochs=10)
+    train(num_classes=len(le.classes_),
+          faster_rcnn_trained="outputs/checkpoint_fasterrcnn_six_epochs.pth.tar",
+          num_epochs=3)
