@@ -1,5 +1,4 @@
 import torch
-import torchvision
 from torch import nn
 from torch.jit.annotations import Tuple, List
 from tfrcnn_roi_heads import TFRCNNRoIHeads, TFRCNNBoxHead
