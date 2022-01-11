@@ -71,7 +71,7 @@ def train(num_classes: int, num_epochs: int,
     """
 
     # Create the dataset
-    ads_dataset = AdsDataset()
+    ads_dataset = AdsDataset(descriptor=descriptor)
     # Get the text embedding size
     text_embed_size = ads_dataset.descriptor_preprocessor.embed_size
     # Create training and testing dataset

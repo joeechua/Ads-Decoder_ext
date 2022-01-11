@@ -35,7 +35,7 @@ class AdsDataset(Dataset):
         "strategies_list": ("Strategies_List.txt", "latin_1")
     }
 
-    def __init__(self, descriptor="sentiments", root="data", transforms=None, descriptor_preprocessor=descriptors.SentimentPreProcessor()):
+    def __init__(self, descriptor="sentiments", root="data", transforms=None):
         """Construct a PyTorch Dataset object
 
         Args:
@@ -46,7 +46,16 @@ class AdsDataset(Dataset):
         """
         self.root = root
         self.transforms = transforms
-        self.descriptor_preprocessor = descriptor_preprocessor
+
+        # Set the pre-processor depending on the descriptor.
+        if descriptor.lower() == "topics":
+            self.descriptor_preprocessor = descriptors.TopicsPreProcessor()
+        elif descriptor.lower() == "strategies":
+            self.descriptor_preprocessor = descriptors.StrategiesPreProcessor()
+        else:
+            # Default is the sentiment preprocessor.
+            self.descriptor_preprocessor = descriptors.SentimentPreProcessor()
+
         self._load(descriptor)
 
     def __getitem__(self, index: int):
