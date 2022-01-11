@@ -1,6 +1,7 @@
 import json
 from typing import List
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def get_loss_values(filename="outputs/fasterrcnn_train_metric_log_avg.json"):
@@ -26,6 +27,8 @@ def plot_loss_values(
     (classifier_loss_line,) = ax.plot(
         classifier_loss, label="Classifier Loss", marker="o"
     )
+    # set x tick to start from 1
+    plt.xticks(np.arange(len(total_loss)), np.arange(1, len(total_loss)+1))
     # set x, y label
     ax.set_xlabel("epoch")
     ax.set_ylabel("loss value")
