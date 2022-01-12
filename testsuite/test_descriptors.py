@@ -4,6 +4,7 @@ import sys
 from unittest.mock import patch
 import numpy as np
 import torch
+from torch.nn.modules.module import T
 sys.path.append('../')
 from preprocess import descriptors
 
@@ -20,7 +21,7 @@ class DescriptorsTest(unittest.TestCase):
             mock_api.load.assert_called_once_with(t.embed_model)
 
     def test_sentiments_transform(self):
-        s = descriptors.SentimentPreProcessor(root="../data/annotations")
+        s = descriptors.SentimentPreProcessor(root='../data/annotations')
         # case 1: all ids have the same frequency
         lst = [['1'], ['15'], ['30']]
         vec = s.transform(lst)
@@ -35,6 +36,42 @@ class DescriptorsTest(unittest.TestCase):
         lst = [['1', '15', '30'], ['15', '30'], ['15', '30']]
         vec = s.transform(lst)
         np_array = np.array(s.model.get_vector(s.id_to_word[15]))
+        torch.testing.assert_close(vec, torch.Tensor(np_array))
+
+    def test_topics_transform(self):
+        t = descriptors.TopicsPreProcessor(root='../data/annotations')
+         # case 1: all ids have the same frequency
+        lst = ["28", "18", "39"]
+        vec = t.transform(lst)
+        np_array = np.array(t.text_embed_model.get_vector_rep(t.id_to_word[28]))
+        torch.testing.assert_close(vec, torch.Tensor(np_array))
+        # case 2: one id has the most frequency
+        lst = ["28", "18", "28"]
+        vec = t.transform(lst)
+        np_array = np.array(t.text_embed_model.get_vector_rep(t.id_to_word[28]))
+        torch.testing.assert_close(vec, torch.Tensor(np_array))
+        # case 3: more than one id has the same frequency
+        lst = ["28", "18", "28", "18", "39"]
+        vec = t.transform(lst)
+        np_array = np.array(t.text_embed_model.get_vector_rep(t.id_to_word[28]))
+        torch.testing.assert_close(vec, torch.Tensor(np_array))
+
+    def test_strategies_transform(self):
+        s = descriptors.StrategiesPreProcessor(root='../data/annotations')
+        # case 1: all ids have the same frequency
+        lst = [['1'], ['5'], ['10']]
+        vec = s.transform(lst)
+        np_array = np.array(s.text_embed_model.get_vector_rep(s.id_to_word[1]))
+        torch.testing.assert_close(vec, torch.Tensor(np_array))
+        # case 2: one id has the most frequency
+        lst = [['1', '5'], ['5'], ['5', '10']]
+        vec = s.transform(lst)
+        np_array = np.array(s.text_embed_model.get_vector_rep(s.id_to_word[5]))
+        torch.testing.assert_close(vec, torch.Tensor(np_array))
+        # case 3: more than one id has the same frequency
+        lst = [['1', '5', '10'], ['5', '10'], ['5', '10']]
+        vec = s.transform(lst)
+        np_array = np.array(s.text_embed_model.get_vector_rep(s.id_to_word[5]))
         torch.testing.assert_close(vec, torch.Tensor(np_array))
 
 
