@@ -31,12 +31,12 @@ def get_transform(train: bool):
     return T.Compose(transforms)
 
 
-def create_train_test_dataset(dataset: AdsDataset):
+def create_train_test_dataset(dataset: AdsDataset, descriptor="sentiments"):
     """Split the dataset into training and testing
 
     Args:
         dataset (AdsDataset): a Pytorch Dataset
-
+        descriptor (descriptor): the descriptor
     Returns:
         (AdsDataset, AdsDataset): train dataset, test dataset
     """
@@ -47,9 +47,11 @@ def create_train_test_dataset(dataset: AdsDataset):
 
     # split the dataset into train and test
     train_dataset = torch.utils.data.Subset(AdsDataset(
-        transforms=get_transform(train=True)), train_indices)
+        transforms=get_transform(train=True), descriptor=descriptor),
+        train_indices)
     test_dataset = torch.utils.data.Subset(AdsDataset(
-        transforms=get_transform(train=False)), test_indices)
+        transforms=get_transform(train=False), descriptor=descriptor),
+        test_indices)
 
     return train_dataset, test_dataset
 
@@ -75,7 +77,8 @@ def train(num_classes: int, num_epochs: int,
     # Get the text embedding size
     text_embed_size = ads_dataset.descriptor_preprocessor.embed_size
     # Create training and testing dataset
-    train_dataset, test_dataset = create_train_test_dataset(ads_dataset)
+    train_dataset, test_dataset = create_train_test_dataset(dataset=ads_dataset,
+                                                            descriptor=descriptor)
 
     # Define training data loaders
     train_dataloader = torch.utils.data.DataLoader(
