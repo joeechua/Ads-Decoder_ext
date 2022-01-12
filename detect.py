@@ -1,39 +1,34 @@
 """
 Usage:
-    python tools/detect.py --directory "image.jpeg" --descriptor "sentiments" --phrase "active" --threshold "0"
+    python tools/detect.py --directory "image1.jpg image2.jpg" --descriptor "sentiments" --phrase "active" --threshold "0"
 """
 import numpy as np
 import cv2
 import torch
-import glob as glob
+import glob
+import os
 import pickle
 import argparse
 
 import text_rcnn as text
 from preprocess import descriptors as desc
 
-# Remove this when pushing
-# from google.colab.patches import cv2_imshow
-
 # Add arguments to parser
 parser = argparse.ArgumentParser(description="Detection of symbolic bounding boxes and labels")
-parser.add_argument('--directory', dest='directory', help='Input image directory', default='None', type=str)
+parser.add_argument('--files', dest='files', help='List of image files', default='None', 
+                    type=lambda s: [item for item in s.split()])
 parser.add_argument('--descriptor', dest='descriptor', help='Descriptor', default='None', type=str)
 parser.add_argument('--phrase', dest='phrase', help='Image phrase', default='None', type=str)
-parser.add_argument('--threshold', dest='threshold', help='Detection threshold', default='None', type=str)
 
 # set the computation device
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
-def detect(directory, phrase, descriptor="None", threshold="None"):
-  if threshold == "None":
-    detection_threshold = 0
-  else:
-    detection_threshold = float(threshold)
+def detect(filelist, phrase, descriptor="None", detection_threshold=0):
   
-  print("Threshold:", detection_threshold)
-    
-
+  # Clear output file
+  output_files = glob.glob("detect_output/*")
+  for f in output_files:
+    os.remove(f)
 
   # TODO: change directory with trained model
   if descriptor == "strategies":
@@ -49,10 +44,6 @@ def detect(directory, phrase, descriptor="None", threshold="None"):
 
   # Evaluate model
   model.eval()
-  
-  # Test image directory
-  test_images = glob.glob(f"{directory}/*")
-  print(f"Test instances: {len(test_images)}")
 
   # Label classes
   le = pickle.loads(open("outputs/le.pickle", "rb").read())
@@ -63,13 +54,19 @@ def detect(directory, phrase, descriptor="None", threshold="None"):
   phrase_embed = text_embed.get_vector_rep(phrase)
   phrase_embed = [torch.from_numpy(phrase_embed).float()] 
 
-  # for i in range(len(test_images)):
-  # TODO: TESTING RANGE
-  for i in range(500, 507):
-      # get the image file name for saving output later on
-      image_name = test_images[i].split('/')[-1]
+  # TODO: Remove after testing
+  # Test image directory
+  # directory = "detect_input"
+  # filelist = glob.glob(f"{directory}/*")
+  # print(f"Test instances: {len(filelist)}")
 
-      image = cv2.imread(test_images[i])
+  # TODO: TESTING RANGE
+  for i in range(len(filelist)):
+      # get the image file name for saving output later on
+      # image_name = test_images[i].split('/')[-1]
+      image_name = filelist[i].split('/')[-1]
+
+      image = cv2.imread(filelist[i])
       orig_image = image.copy()
       # BGR to RGB
       image = cv2.cvtColor(orig_image, cv2.COLOR_BGR2RGB).astype(np.float32)
@@ -111,8 +108,8 @@ def detect(directory, phrase, descriptor="None", threshold="None"):
                           2, lineType=cv2.LINE_AA)
 
           # cv2.imshow('Prediction', orig_image)
-          # cv2_imshow(orig_image)
           cv2.waitKey(1)
+          print(f"Writing {image_name} to file...")
           cv2.imwrite(f"detect_output/{image_name}", orig_image)
       print(f"Image {i+1}: {image_name} done...")
       print('-'*50)
@@ -124,5 +121,4 @@ def detect(directory, phrase, descriptor="None", threshold="None"):
 if __name__ == "__main__":
   from text_rcnn import *
   args = parser.parse_args()
-  detect(directory=args.directory, phrase=args.phrase, descriptor=args.descriptor,
-        threshold=args.threshold)
+  detect(filelist=args.files, phrase=args.phrase, descriptor=args.descriptor)
