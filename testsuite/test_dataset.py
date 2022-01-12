@@ -2,7 +2,7 @@ import unittest
 from random import seed
 from random import randint
 from dataset import AdsDataset
-from train import get_transform
+from text_rcnn_train import get_transform
 
 
 class DatasetTest(unittest.TestCase):
