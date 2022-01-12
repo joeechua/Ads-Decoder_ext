@@ -64,6 +64,7 @@ def detect(directory, phrase, descriptor="None", threshold="None"):
   phrase_embed = [torch.from_numpy(phrase_embed).float()] 
 
   # for i in range(len(test_images)):
+  # TODO: TESTING RANGE
   for i in range(500, 507):
       # get the image file name for saving output later on
       image_name = test_images[i].split('/')[-1]
