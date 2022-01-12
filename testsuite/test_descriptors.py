@@ -15,11 +15,11 @@ class DescriptorsTest(unittest.TestCase):
     @patch('preprocess.descriptors.api')
     def test_api(self, mock_api):
         # test api called once when model exists
-        s = descriptors.SentimentPreProcessor(root="../data/annotations")
-        if os.path.exists(s.embed_model):
+        s = descriptors.TextEmbedModel()
+        if not os.path.exists(s.embed_model_name + '.model'):
             mock_api.load.assert_called_once_with(s.embed_model)
 
-    def test_transform(self):
+    def test_sentiments_transform(self):
         s = descriptors.SentimentPreProcessor(root="../data/annotations")
         # case 1: all ids have the same frequency
         lst = [['1'], ['15'], ['30']]
