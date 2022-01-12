@@ -77,7 +77,7 @@ class DescriptorsTest(unittest.TestCase):
         np_array = np.array(s.text_embed_model.get_vector_rep(s.id_to_word[5]))
         torch.testing.assert_close(vec, torch.Tensor(np_array))
         # case 4: no id but text
-        lst = ["scare tactics", "written message", "scary"]
+        lst = [["scare tactics"], ["written message"], ["scary"]]
         vec = s.transform(lst)
 
 
