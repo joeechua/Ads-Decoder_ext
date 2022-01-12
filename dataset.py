@@ -42,7 +42,6 @@ class AdsDataset(Dataset):
             descriptor (str, optional): selected descriptor. Defaults to "sentiments".
             root (str, optional): root directory containing the images and annotations. Defaults to "data".
             transforms (func, optional): a function to transform the item in dataset. Defaults to None.
-            descriptor_preprocessor (class, optional): a function to preprocess the descriptor of the item in dataset. Defaults to SentimentPreProcessor.
         """
         self.root = root
         self.transforms = transforms

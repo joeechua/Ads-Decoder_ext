@@ -192,7 +192,7 @@ class TopicsPreProcessor:
 
             final = self.text_embed_model.get_vector_rep(most_common_descriptor)
 
-        return torch.from_numpy(final)
+        return torch.from_numpy(np.array(final)).float()
 
 
 class StrategiesPreProcessor:
@@ -280,7 +280,7 @@ class StrategiesPreProcessor:
 
             final = self.text_embed_model.get_vector_rep(most_common_descriptor)
 
-        return torch.from_numpy(final)
+        return torch.from_numpy(np.array(final)).float()
 
 
 def load_annotation_json(filename="../data/Sentiments.json"):
@@ -307,3 +307,13 @@ def cosine_sim(vec1, vec2):
 
     return cosine_similarity
 
+
+if __name__ == "__main__":
+    t = TextEmbedModel()
+    x = t.get_vector_rep("hello world")
+
+    print(type(x))
+    # Convert to tensor
+    x = torch.from_numpy(x).float()
+    descriptors = [x]
+    print(x)
