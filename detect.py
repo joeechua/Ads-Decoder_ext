@@ -1,6 +1,6 @@
 """
 Usage:
-    python tools/detect.py --directory "image1.jpg image2.jpg" --descriptor "sentiments" --phrase "active" --threshold "0"
+    python detect.py --files "image1.jpg" --descriptor "sentiments" --phrase "active"
 """
 import numpy as np
 import cv2
@@ -77,7 +77,7 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
       # make the pixel range between 0 and 1
       image /= 255.0
       # bring color channels to front
-      image = np.transpose(image, (2, 0, 1)).astype(np.float)
+      image = np.transpose(image, (2, 0, 1)).astype(np.float64)
       # convert to tensor
       # image = torch.tensor(image, dtype=torch.float).cuda()
       image = torch.tensor(image, dtype=torch.float)
