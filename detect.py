@@ -157,4 +157,4 @@ def draw_text(
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    detect(filelist=args.files, phrase=args.phrase, descriptor=args.descriptor, detection_threshold=args.threshold)
+    detect(filelist=args.files.lower(), phrase=args.phrase.lower(), descriptor=args.descriptor.lower(), detection_threshold=args.threshold.lower())
