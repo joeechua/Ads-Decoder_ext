@@ -50,6 +50,10 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
   CLASSES = le.classes_
   print("Classes:", len(CLASSES))
 
+  # generate random color
+  COLORS = [tuple(np.random.randint(256, size=3)) for _ in range(len(CLASSES))]
+  COLORS = [(int(c[0]), int(c[1]), int(c[2])) for c in COLORS]
+
   text_embed = desc.TextEmbedModel()
   phrase_embed = text_embed.get_vector_rep(phrase)
   phrase_embed = [torch.from_numpy(phrase_embed).float()] 
@@ -98,13 +102,16 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
           
           # draw the bounding boxes and write the class name on top of it
           for j, box in enumerate(draw_boxes):
+              # find the index of the predicted label class
+              index = np.where(CLASSES == pred_classes[j])[0][0]
+
               cv2.rectangle(orig_image,
                           (int(box[0]), int(box[1])),
                           (int(box[2]), int(box[3])),
-                          (0, 0, 255), 2)
+                          COLORS[index], 2)
               cv2.putText(orig_image, pred_classes[j], 
                           (int(box[0]), int(box[1]-5)),
-                          cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 
+                          cv2.FONT_HERSHEY_SIMPLEX, 0.5, COLORS[index], 
                           2, lineType=cv2.LINE_AA)
 
           # cv2.imshow('Prediction', orig_image)
