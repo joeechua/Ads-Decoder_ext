@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def get_loss_values(filename="outputs/fasterrcnn_train_metric_log_avg.json"):
+def get_loss_values(filename="outputs/sentiments_train_metric_log_avg.json"):
     total_loss, box_reg_loss, classifier_loss = [], [], []
     with open(filename, "r") as json_file:
         logs = json.loads(json_file.read())
@@ -33,7 +33,7 @@ def plot_loss_values(
     ax.set_xlabel("epoch")
     ax.set_ylabel("loss value")
     # set title
-    ax.set_title("Average Loss Values for Faster RCNN")
+    ax.set_title("Average Loss Values for Text Faster RCNN")
     # create legend
     ax.legend(loc="upper right")
     # show the plot
