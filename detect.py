@@ -9,8 +9,6 @@ import glob
 import os
 import pickle
 import argparse
-
-import text_rcnn as text
 from preprocess import descriptors as desc
 
 # Add arguments to parser
