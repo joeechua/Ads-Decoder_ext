@@ -55,7 +55,7 @@ To train the Faster R-CNN model, run the following command.
 
     python fasterrcnn_train.py
 
-To train the Text Faster R-CNN model, run the following command after finished training the Faster R-CNN model or you can choose to download the pretrained models using the [link](https://drive.google.com/file/d/1grz1hLD2C03j7DPhr42kDiOQUBFbqCS7/view?usp=sharing) below and put files in the `outputs` directory.
+To train the Text Faster R-CNN model, run the following command after finished training the Faster R-CNN model or you can choose to download the pretrained models using the [link](https://drive.google.com/file/d/1grz1hLD2C03j7DPhr42kDiOQUBFbqCS7/view?usp=sharing) and put file in the `outputs` directory.
 
     python text_rcnn_train.py
 
@@ -65,9 +65,9 @@ After training and evaluating the model, a checkpoint file will be created and s
 
 Before detection, make sure that the checkpoint file for Text Faster R-CNN model exist in the `outputs` directory.
 
-Upload your image under `detect_input` directory and run the following command and replace the image name, descriptor, and phrase with your own choice.
+Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase with your own choice.
 
-    python detect.py --files "detect_input/<image_name>.jpg" --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>"
+    python detect.py --files "detect_input/<image_1>.jpg detect_input/<image_2>.jpg" --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>"
 
 Some examples of the detection result.
 
