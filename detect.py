@@ -67,12 +67,6 @@ def detect(filelist, phrase, descriptor="None", detection_threshold="0"):
     phrase_embed = text_embed.get_vector_rep(phrase)
     phrase_embed = [torch.from_numpy(phrase_embed).float()]
 
-    # TODO: Remove after testing
-    # Test image directory
-    # directory = "detect_input"
-    # filelist = glob.glob(f"{directory}/*")
-    # print(f"Test instances: {len(filelist)}")
-
     for i in range(len(filelist)):
         # get the image file name for saving output later on
         image_name = filelist[i].split("/")[-1]
