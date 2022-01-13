@@ -67,7 +67,7 @@ Before detection, make sure that the checkpoint file for Text Faster R-CNN model
 
 Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase with your own choice.
 
-    python detect.py --files "detect_input/<image_1>.jpg detect_input/<image_2>.jpg" --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>"
+    python detect.py --files "detect_input/<image_1>.jpg detect_input/<image_2>.jpg" --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>" --threshold "<any_float_value_between_0_and_1>"
 
 Some examples of the detection result.
 
