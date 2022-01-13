@@ -31,7 +31,7 @@ parser.add_argument(
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
-def detect(filelist, phrase, descriptor="None", detection_threshold=0):
+def detect(filelist, phrase, descriptor="None", detection_threshold=0.05):
 
     # TODO: change directory with trained model
     if descriptor == "strategies":
