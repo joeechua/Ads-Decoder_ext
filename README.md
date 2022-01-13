@@ -40,3 +40,28 @@ Preprocess on the symbols boxes annotation to remove the invalid bounding boxes 
 Preprocess on the symbols labels annotation to reduce the label of a box into one word and build a label encoder.
 
     python preprocess/labels.py --symbol_annotation_filename "data/annotations/Symbols.json"
+
+## Train & Evaluate the Model
+
+To train the Faster R-CNN model, run the following command.
+
+    python fasterrcnn_train.py
+
+To train the Text Faster R-CNN model, run the following command after finished training the Faster R-CNN model.
+
+    python text_rcnn_train.py
+
+## Detection
+
+After training and evaluating the model, a checkpoint file will be created and stored at `outputs` directory.
+
+Before detection, make sure that the checkpoint file for both Faster R-CNN and Text Faster R-CNN model exist in the `outputs` directory.
+
+You can choose to download the pretrained models using the link below.
+
+* Faster R-CNN (6 epochs): https://drive.google.com/file/d/1grz1hLD2C03j7DPhr42kDiOQUBFbqCS7/view?usp=sharing
+* Text Faster R-CNN (3 epochs): 
+
+Upload your image under `detect_input` directory and run the following command.
+
+    python detect.py --files "detect_input/<image_name>.jpg" --descriptor "sentiments" --phrase "active"
