@@ -63,7 +63,9 @@ To train the Text Faster R-CNN model, run the following command after finished t
 
 After training and evaluating the model, a checkpoint file will be created and stored at `outputs` directory.
 
-Before detection, make sure that the checkpoint file for Text Faster R-CNN model exist in the `outputs` directory.
+Before detection, make sure that the checkpoint file for Text Faster R-CNN model exist in the `outputs` directory or you can download from the links below.
+
+* Sentiments + Faster R-CNN: https://drive.google.com/file/d/1--5efB6h6qS3E-9kXEeiaMJBsLs4Mo4R/view?usp=sharing
 
 Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase with your own choice.
 
