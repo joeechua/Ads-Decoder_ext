@@ -26,12 +26,21 @@ parser.add_argument(
 parser.add_argument(
     "--phrase", dest="phrase", help="Image phrase", default="None", type=str
 )
+parser.add_argument(
+    "--threshold", dest="threshold", help="Detection threshold", default="0", type=str
+)
 
 # set the computation device
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
+<<<<<<< Updated upstream
 def detect(filelist, phrase, descriptor="None", detection_threshold=0.05):
+=======
+def detect(filelist, phrase, descriptor="None", detection_threshold="0"):
+
+    detection_threshold = float(detection_threshold)
+>>>>>>> Stashed changes
 
     # TODO: change directory with trained model
     if descriptor == "strategies":
@@ -68,7 +77,6 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0.05):
     # filelist = glob.glob(f"{directory}/*")
     # print(f"Test instances: {len(filelist)}")
 
-    # TODO: TESTING RANGE
     for i in range(len(filelist)):
         # get the image file name for saving output later on
         image_name = filelist[i].split("/")[-1]
@@ -159,4 +167,4 @@ def draw_text(
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    detect(filelist=args.files, phrase=args.phrase, descriptor=args.descriptor)
+    detect(filelist=args.files, phrase=args.phrase, descriptor=args.descriptor, detection_threshold=args.threshold)
