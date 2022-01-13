@@ -35,11 +35,6 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 
 def detect(filelist, phrase, descriptor="None", detection_threshold=0):
 
-    # Clear output file
-    output_files = glob.glob("detect_output/*")
-    for f in output_files:
-        os.remove(f)
-
     # TODO: change directory with trained model
     if descriptor == "strategies":
         model = "outputs/strategies_model.pth.tar"
