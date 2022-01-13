@@ -6,19 +6,27 @@ We use Anaconda virtual environment to run the code and install all required pac
 1. python 3.x
 2. pytorch
 
-    `conda install pytorch torchvision torchaudio -c pytorch`
+    ```
+    conda install pytorch torchvision torchaudio -c pytorch
+    ```
 
 3. sklearn
     
-    `pip install -U scikit-learn`
+    ```
+    pip install -U scikit-learn
+    ```
 
 4. gensim
 
-    `pip install -U gensim`
+    ```
+    pip install -U gensim
+    ```
 
 5. pycocotools
 
-    `pip install pycocotools`
+    ```
+    pip install pycocotools
+    ```
     
 6. textblob
 
@@ -57,7 +65,7 @@ After training and evaluating the model, a checkpoint file will be created and s
 
 Before detection, make sure that the checkpoint file for both Faster R-CNN and Text Faster R-CNN model exist in the `outputs` directory.
 
-You can choose to download the pretrained models using the link below.
+You can choose to download the pretrained models using the link below and put files in the `outputs` directory.
 
 * Faster R-CNN (6 epochs): https://drive.google.com/file/d/1grz1hLD2C03j7DPhr42kDiOQUBFbqCS7/view?usp=sharing
 * Text Faster R-CNN (3 epochs): 
