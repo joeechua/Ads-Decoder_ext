@@ -61,6 +61,7 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
     print("Classes:", len(CLASSES))
 
     # generate random color
+    np.random.seed(10)  # seed value
     COLORS = [tuple(np.random.randint(256, size=3)) for _ in range(len(CLASSES))]
     COLORS = [(int(c[0]), int(c[1]), int(c[2])) for c in COLORS]
 
@@ -122,15 +123,11 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
                     COLORS[index],
                     2,
                 )
-                cv2.putText(
-                    orig_image,
-                    pred_classes[j],
-                    (int(box[0]), int(box[1] - 5)),
-                    cv2.FONT_HERSHEY_SIMPLEX,
-                    0.5,
-                    COLORS[index],
-                    2,
-                    lineType=cv2.LINE_AA,
+                draw_text(
+                    img=orig_image,
+                    text=pred_classes[j],
+                    pos=(int(box[0]), int(box[1])),
+                    text_color_bg=COLORS[index],
                 )
 
             # cv2.imshow('Prediction', orig_image)
@@ -144,8 +141,31 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
     cv2.destroyAllWindows()
 
 
-if __name__ == "__main__":
-    from text_rcnn import *
+def draw_text(
+    img,
+    text,
+    pos,
+    text_color_bg,
+    text_color=(255, 255, 255),
+    font=cv2.FONT_HERSHEY_SIMPLEX,
+    font_scale=0.6,
+    font_thickness=1,
+):
+    x, y = pos
+    text_size, _ = cv2.getTextSize(text, font, font_scale, font_thickness)
+    text_w, text_h = text_size
+    cv2.rectangle(img, pos, (x + text_w, y + text_h), text_color_bg, -1)
+    cv2.putText(
+        img,
+        text,
+        (x, y + text_h),
+        font,
+        font_scale,
+        text_color,
+        font_thickness
+    )
 
+
+if __name__ == "__main__":
     args = parser.parse_args()
     detect(filelist=args.files, phrase=args.phrase, descriptor=args.descriptor)
