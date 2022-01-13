@@ -5,8 +5,6 @@ Usage:
 import numpy as np
 import cv2
 import torch
-import glob
-import os
 import pickle
 import argparse
 from preprocess import descriptors as desc
@@ -53,7 +51,6 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
     # Label classes
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
     CLASSES = le.classes_
-    print("Classes:", len(CLASSES))
 
     # generate random color
     np.random.seed(10)  # seed value
@@ -73,7 +70,6 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
     # TODO: TESTING RANGE
     for i in range(len(filelist)):
         # get the image file name for saving output later on
-        # image_name = test_images[i].split('/')[-1]
         image_name = filelist[i].split("/")[-1]
 
         image = cv2.imread(filelist[i])
@@ -85,7 +81,6 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
         # bring color channels to front
         image = np.transpose(image, (2, 0, 1)).astype(np.float64)
         # convert to tensor
-        # image = torch.tensor(image, dtype=torch.float).cuda()
         image = torch.tensor(image, dtype=torch.float)
         # add batch dimension
         image = torch.unsqueeze(image, 0)
