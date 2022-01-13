@@ -1,6 +1,6 @@
 """
 Usage:
-    python detect.py --files "image1.jpg" --descriptor "sentiments" --phrase "active"
+    python detect.py --files "detect_input/1.jpg" --descriptor "sentiments" --phrase "active"
 """
 import numpy as np
 import cv2
@@ -42,8 +42,9 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
     else:
         model = "outputs/checkpoint_sentiments_tfasterrcnn.pth.tar"
 
-        model = torch.load(model)["model"]
-        model = model.to(device)
+    # Load model
+    model = torch.load(model)["model"]
+    model = model.to(device)
 
     # Evaluate model
     model.eval()
@@ -52,7 +53,7 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
     CLASSES = le.classes_
 
-    # generate random color
+    # Generate random color
     np.random.seed(10)  # seed value
     COLORS = [tuple(np.random.randint(256, size=3)) for _ in range(len(CLASSES))]
     COLORS = [(int(c[0]), int(c[1]), int(c[2])) for c in COLORS]
