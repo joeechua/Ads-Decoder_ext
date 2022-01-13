@@ -123,8 +123,8 @@ def detect(filelist, phrase, descriptor="None", detection_threshold=0):
 
             # cv2.imshow('Prediction', orig_image)
             cv2.waitKey(1)
-            print(f"Writing {image_name} to file...")
-            cv2.imwrite(f"detect_output/{image_name}", orig_image)
+        print(f"Writing {image_name} to file...")
+        cv2.imwrite(f"detect_output/{image_name}", orig_image)
         print(f"Image {i+1}: {image_name} done...")
         print("-" * 50)
 
