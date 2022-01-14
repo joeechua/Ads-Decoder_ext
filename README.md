@@ -1,4 +1,6 @@
-# Ads-Decoder
+# Ads-Decoder: Generating Symbolic Bounding Boxes and Labels for the given Images and Descriptors
+
+This project focuses on combining the image features with the text descriptor and predict the symbolic regions with labels that draws the audience's attention. The idea of combining text embeddings with image features extracted by the image classifier is inspired from the [VQA](https://github.com/Shivanshu-Gupta/Visual-Question-Answering) model.
 
 ## Prerequisites
 We use Anaconda virtual environment to run the code and install all required packages.
@@ -78,3 +80,14 @@ Some examples of the detection result.
 ![alt text](detect_output/2.jpg?raw=true)
 
 ![alt text](detect_output/7.jpg?raw=true)
+
+## References
+
+```
+Hussain, Zaeem, et al. "Automatic understanding of image and video
+advertisements." 2017 IEEE Conference on Computer Vision and Pattern Recognition
+(CVPR). IEEE, 2017.
+
+Ye, K., & Kovashka, A. (2018). Advise: Symbolism and external knowledge for decoding advertisements. 
+Proceedings of the European Conference on Computer Vision (ECCV), 837-855.
+```
