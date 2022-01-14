@@ -1,0 +1,506 @@
+Collecting package metadata: ...working... done
+Solving environment: ...working... done
+
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.6.12
+  latest version: 4.11.0
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+
+
+# All requested packages already installed.
+
+Requirement already satisfied: scikit-learn in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (1.0.2)
+Requirement already satisfied: numpy>=1.14.6 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from scikit-learn) (1.19.2)
+Requirement already satisfied: threadpoolctl>=2.0.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from scikit-learn) (3.0.0)
+Requirement already satisfied: scipy>=1.1.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from scikit-learn) (1.7.3)
+Requirement already satisfied: joblib>=0.11 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from scikit-learn) (1.1.0)
+Requirement already satisfied: gensim in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (4.1.2)
+Requirement already satisfied: scipy>=0.18.1 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from gensim) (1.7.3)
+Requirement already satisfied: smart-open>=1.8.1 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from gensim) (5.2.1)
+Requirement already satisfied: numpy>=1.17.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from gensim) (1.19.2)
+Requirement already satisfied: pycocotools in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (2.0.3)
+Requirement already satisfied: cython>=0.27.3 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from pycocotools) (0.29.26)
+Requirement already satisfied: setuptools>=18.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from pycocotools) (58.0.4)
+Requirement already satisfied: matplotlib>=2.1.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from pycocotools) (3.5.1)
+Requirement already satisfied: numpy>=1.17 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (1.19.2)
+Requirement already satisfied: kiwisolver>=1.0.1 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (1.3.2)
+Requirement already satisfied: pillow>=6.2.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (8.4.0)
+Requirement already satisfied: cycler>=0.10 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (0.11.0)
+Requirement already satisfied: python-dateutil>=2.7 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (2.8.2)
+Requirement already satisfied: fonttools>=4.22.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (4.28.5)
+Requirement already satisfied: packaging>=20.0 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (21.3)
+Requirement already satisfied: pyparsing>=2.2.1 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from matplotlib>=2.1.0->pycocotools) (3.0.6)
+Requirement already satisfied: six>=1.5 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from python-dateutil>=2.7->matplotlib>=2.1.0->pycocotools) (1.16.0)
+Requirement already satisfied: textblob in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (0.17.1)
+Requirement already satisfied: nltk>=3.1 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from textblob) (3.6.7)
+Requirement already satisfied: regex>=2021.8.3 in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from nltk>=3.1->textblob) (2021.11.10)
+Requirement already satisfied: joblib in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from nltk>=3.1->textblob) (1.1.0)
+Requirement already satisfied: click in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from nltk>=3.1->textblob) (8.0.3)
+Requirement already satisfied: tqdm in /fs03/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages (from nltk>=3.1->textblob) (4.62.3)
+[nltk_data] Downloading package brown to /home/dism0001/nltk_data...
+[nltk_data]   Package brown is already up-to-date!
+[nltk_data] Downloading package punkt to /home/dism0001/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package wordnet to /home/dism0001/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /home/dism0001/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+[nltk_data] Downloading package conll2000 to
+[nltk_data]     /home/dism0001/nltk_data...
+[nltk_data]   Package conll2000 is already up-to-date!
+[nltk_data] Downloading package movie_reviews to
+[nltk_data]     /home/dism0001/nltk_data...
+[nltk_data]   Package movie_reviews is already up-to-date!
+Finished.
+Training epoch 0 ...
+/scratch/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages/torch/autocast_mode.py:141: UserWarning: User provided device_type of 'cuda', but CUDA is not available. Disabling
+  warnings.warn('User provided device_type of \'cuda\', but CUDA is not available. Disabling')
+/scratch/za99/dism0001/conda_envs/fyp/lib/python3.9/site-packages/torch/functional.py:445: UserWarning: torch.meshgrid: in an upcoming release, it will be required to pass the indexing argument. (Triggered internally at  /opt/conda/conda-bld/pytorch_1639180507909/work/aten/src/ATen/native/TensorShape.cpp:2157.)
+  return _VF.meshgrid(tensors, **kwargs)  # type: ignore[attr-defined]
+DOES NOT EXIST machine/experience
+DOES NOT EXIST die/reincarnate
+DOES NOT EXIST iceburg
+DOES NOT EXIST 12oz
+DOES NOT EXIST threat/violence
+DOES NOT EXIST eqality
+DOES NOT EXIST textee
+Epoch: [0]  [  0/414]  eta: 9:38:35  lr: 0.000017  loss: 8.4908 (8.4908)  loss_classifier: 8.1983 (8.1983)  loss_box_reg: 0.2925 (0.2925)  time: 83.8548  data: 2.5055
+Epoch: [0]  [ 10/414]  eta: 8:43:33  lr: 0.000138  loss: 8.4568 (8.3867)  loss_classifier: 8.1774 (8.0939)  loss_box_reg: 0.2942 (0.2928)  time: 77.7559  data: 0.2415
+Epoch: [0]  [ 20/414]  eta: 8:15:30  lr: 0.000259  loss: 7.8729 (7.4400)  loss_classifier: 7.6150 (7.1598)  loss_box_reg: 0.2746 (0.2802)  time: 75.0395  data: 0.0146
+Epoch: [0]  [ 30/414]  eta: 7:57:19  lr: 0.000380  loss: 2.9931 (5.6464)  loss_classifier: 2.6665 (5.3557)  loss_box_reg: 0.2824 (0.2907)  time: 72.8349  data: 0.0141
+Epoch: [0]  [ 40/414]  eta: 7:42:14  lr: 0.000501  loss: 1.8635 (4.7453)  loss_classifier: 1.5175 (4.4450)  loss_box_reg: 0.3339 (0.3004)  time: 72.7902  data: 0.0141
+Epoch: [0]  [ 50/414]  eta: 7:28:19  lr: 0.000622  loss: 1.6321 (4.1227)  loss_classifier: 1.3301 (3.8217)  loss_box_reg: 0.3052 (0.3010)  time: 72.8463  data: 0.0142
+Epoch: [0]  [ 60/414]  eta: 7:26:45  lr: 0.000743  loss: 1.3705 (3.6533)  loss_classifier: 1.0626 (3.3563)  loss_box_reg: 0.2946 (0.2970)  time: 78.9265  data: 0.0842
+Epoch: [0]  [ 70/414]  eta: 7:22:59  lr: 0.000864  loss: 1.1269 (3.3058)  loss_classifier: 0.8671 (3.0100)  loss_box_reg: 0.2682 (0.2958)  time: 85.8503  data: 0.0861
+Epoch: [0]  [ 80/414]  eta: 7:17:02  lr: 0.000985  loss: 1.1269 (3.0376)  loss_classifier: 0.8634 (2.7435)  loss_box_reg: 0.2769 (0.2941)  time: 87.0188  data: 0.0200
+Epoch: [0]  [ 90/414]  eta: 7:09:04  lr: 0.001106  loss: 1.0981 (2.8207)  loss_classifier: 0.8293 (2.5294)  loss_box_reg: 0.2756 (0.2913)  time: 87.2324  data: 0.0189
+Epoch: [0]  [100/414]  eta: 7:00:03  lr: 0.001227  loss: 1.1162 (2.6603)  loss_classifier: 0.8330 (2.3677)  loss_box_reg: 0.2774 (0.2927)  time: 87.3733  data: 0.0439
+Epoch: [0]  [110/414]  eta: 6:49:54  lr: 0.001347  loss: 1.1884 (2.5284)  loss_classifier: 0.8740 (2.2342)  loss_box_reg: 0.3051 (0.2942)  time: 87.4866  data: 0.0437
+Epoch: [0]  [120/414]  eta: 6:38:50  lr: 0.001468  loss: 1.2028 (2.4184)  loss_classifier: 0.8987 (2.1228)  loss_box_reg: 0.3051 (0.2956)  time: 87.0982  data: 0.0157
+Epoch: [0]  [130/414]  eta: 6:27:40  lr: 0.001589  loss: 1.1430 (2.3193)  loss_classifier: 0.8325 (2.0238)  loss_box_reg: 0.3040 (0.2956)  time: 87.4447  data: 0.0313
+Epoch: [0]  [140/414]  eta: 6:15:55  lr: 0.001710  loss: 1.1430 (2.2398)  loss_classifier: 0.8325 (1.9429)  loss_box_reg: 0.2986 (0.2969)  time: 87.8996  data: 0.0320
+Epoch: [0]  [150/414]  eta: 6:03:50  lr: 0.001831  loss: 1.1185 (2.1589)  loss_classifier: 0.8128 (1.8636)  loss_box_reg: 0.2982 (0.2953)  time: 87.8681  data: 0.0541
+Epoch: [0]  [160/414]  eta: 5:51:27  lr: 0.001952  loss: 1.1096 (2.0967)  loss_classifier: 0.8020 (1.8001)  loss_box_reg: 0.3049 (0.2965)  time: 87.9807  data: 0.0536
+Epoch: [0]  [170/414]  eta: 5:38:52  lr: 0.002073  loss: 1.1096 (2.0363)  loss_classifier: 0.8020 (1.7400)  loss_box_reg: 0.3037 (0.2964)  time: 88.1307  data: 0.0168
+Epoch: [0]  [180/414]  eta: 5:25:54  lr: 0.002194  loss: 1.0486 (1.9818)  loss_classifier: 0.7479 (1.6861)  loss_box_reg: 0.2967 (0.2958)  time: 87.9551  data: 0.0166
+Epoch: [0]  [190/414]  eta: 5:12:55  lr: 0.002315  loss: 1.0071 (1.9305)  loss_classifier: 0.7196 (1.6353)  loss_box_reg: 0.2875 (0.2952)  time: 88.0087  data: 0.0183
+Epoch: [0]  [200/414]  eta: 4:59:44  lr: 0.002436  loss: 0.9604 (1.8874)  loss_classifier: 0.6795 (1.5919)  loss_box_reg: 0.2777 (0.2955)  time: 88.3381  data: 0.0294
+Epoch: [0]  [210/414]  eta: 4:46:14  lr: 0.002557  loss: 1.0444 (1.8486)  loss_classifier: 0.7430 (1.5526)  loss_box_reg: 0.2969 (0.2960)  time: 87.7224  data: 0.0286
+Epoch: [0]  [220/414]  eta: 4:32:44  lr: 0.002678  loss: 1.1122 (1.8172)  loss_classifier: 0.7898 (1.5199)  loss_box_reg: 0.3159 (0.2974)  time: 87.5096  data: 0.0185
+Epoch: [0]  [230/414]  eta: 4:19:06  lr: 0.002799  loss: 1.0883 (1.7845)  loss_classifier: 0.7818 (1.4874)  loss_box_reg: 0.2957 (0.2971)  time: 87.6669  data: 0.0384
+Epoch: [0]  [240/414]  eta: 4:05:26  lr: 0.002920  loss: 1.0435 (1.7558)  loss_classifier: 0.7557 (1.4584)  loss_box_reg: 0.2860 (0.2974)  time: 87.7091  data: 0.0608
+Epoch: [0]  [250/414]  eta: 3:51:44  lr: 0.003041  loss: 1.0273 (1.7263)  loss_classifier: 0.7548 (1.4293)  loss_box_reg: 0.2905 (0.2970)  time: 88.1695  data: 0.0827
+Epoch: [0]  [260/414]  eta: 3:37:50  lr: 0.003162  loss: 1.0273 (1.7048)  loss_classifier: 0.7490 (1.4066)  loss_box_reg: 0.2906 (0.2982)  time: 87.7361  data: 0.0610
+Epoch: [0]  [270/414]  eta: 3:23:56  lr: 0.003283  loss: 1.1299 (1.6823)  loss_classifier: 0.8114 (1.3837)  loss_box_reg: 0.3230 (0.2986)  time: 87.3939  data: 0.0179
+Epoch: [0]  [280/414]  eta: 3:09:57  lr: 0.003404  loss: 1.0612 (1.6617)  loss_classifier: 0.7747 (1.3627)  loss_box_reg: 0.3098 (0.2990)  time: 87.5086  data: 0.0344
+Epoch: [0]  [290/414]  eta: 2:55:57  lr: 0.003524  loss: 1.0612 (1.6418)  loss_classifier: 0.7747 (1.3424)  loss_box_reg: 0.3098 (0.2994)  time: 87.3705  data: 0.0340
+Epoch: [0]  [300/414]  eta: 2:41:10  lr: 0.003645  loss: 1.0285 (1.6222)  loss_classifier: 0.7353 (1.3229)  loss_box_reg: 0.3053 (0.2993)  time: 81.5833  data: 0.0310
+Epoch: [0]  [310/414]  eta: 2:26:22  lr: 0.003766  loss: 1.0132 (1.6022)  loss_classifier: 0.7118 (1.3037)  loss_box_reg: 0.2743 (0.2985)  time: 74.4263  data: 0.0315
+Epoch: [0]  [320/414]  eta: 2:11:44  lr: 0.003887  loss: 1.0146 (1.5856)  loss_classifier: 0.7416 (1.2875)  loss_box_reg: 0.2743 (0.2982)  time: 72.9577  data: 0.0154
+Epoch: [0]  [330/414]  eta: 1:57:15  lr: 0.004008  loss: 1.0329 (1.5706)  loss_classifier: 0.7641 (1.2724)  loss_box_reg: 0.2815 (0.2982)  time: 72.9940  data: 0.0395
+Epoch: [0]  [340/414]  eta: 1:42:55  lr: 0.004129  loss: 1.0623 (1.5566)  loss_classifier: 0.7616 (1.2584)  loss_box_reg: 0.2909 (0.2983)  time: 73.2748  data: 0.0395
+Epoch: [0]  [350/414]  eta: 1:28:55  lr: 0.004250  loss: 1.0679 (1.5428)  loss_classifier: 0.7708 (1.2447)  loss_box_reg: 0.2971 (0.2981)  time: 76.9610  data: 0.0267
+Epoch: [0]  [360/414]  eta: 1:15:00  lr: 0.004371  loss: 1.0679 (1.5303)  loss_classifier: 0.7708 (1.2321)  loss_box_reg: 0.2971 (0.2982)  time: 81.5486  data: 0.0281
+Epoch: [0]  [370/414]  eta: 1:01:06  lr: 0.004492  loss: 1.0498 (1.5174)  loss_classifier: 0.7525 (1.2192)  loss_box_reg: 0.2909 (0.2981)  time: 82.6054  data: 0.0165
+Epoch: [0]  [380/414]  eta: 0:47:13  lr: 0.004613  loss: 1.0400 (1.5029)  loss_classifier: 0.7300 (1.2053)  loss_box_reg: 0.2894 (0.2977)  time: 83.2075  data: 0.0585
+Epoch: [0]  [390/414]  eta: 0:33:19  lr: 0.004734  loss: 1.0309 (1.4918)  loss_classifier: 0.7431 (1.1944)  loss_box_reg: 0.2888 (0.2974)  time: 83.2450  data: 0.0592
+Epoch: [0]  [400/414]  eta: 0:19:26  lr: 0.004855  loss: 1.0470 (1.4794)  loss_classifier: 0.7543 (1.1826)  loss_box_reg: 0.2901 (0.2968)  time: 82.4866  data: 0.0280
+Epoch: [0]  [410/414]  eta: 0:05:33  lr: 0.004976  loss: 1.0144 (1.4692)  loss_classifier: 0.7398 (1.1725)  loss_box_reg: 0.2769 (0.2967)  time: 82.6129  data: 0.0269
+Epoch: [0]  [413/414]  eta: 0:01:23  lr: 0.005000  loss: 1.0215 (1.4662)  loss_classifier: 0.7428 (1.1696)  loss_box_reg: 0.2833 (0.2966)  time: 82.5726  data: 0.0274
+Epoch: [0] Total time: 9:34:37 (83.2802 s / it)
+DOES NOT EXIST threat/violence
+DOES NOT EXIST 12oz
+DOES NOT EXIST chimmney
+DOES NOT EXIST hilariouss
+DOES NOT EXIST die/reincarnate
+DOES NOT EXIST eqality
+DOES NOT EXIST machine/experience
+DOES NOT EXIST textee
+DOES NOT EXIST iceburg
+DOES NOT EXIST stlye
+DOES NOT EXIST 02/03/2015
+creating index...
+index created!
+DOES NOT EXIST stlye
+DOES NOT EXIST chimmney
+DOES NOT EXIST hilariouss
+DOES NOT EXIST 02/03/2015
+Test:  [  0/585]  eta: 1:32:31  model_time: 8.5987 (8.5987)  evaluator_time: 0.2423 (0.2423)  time: 9.4899  data: 0.6488
+Test:  [ 10/585]  eta: 1:14:36  model_time: 7.3197 (7.5393)  evaluator_time: 0.0272 (0.1676)  time: 7.7857  data: 0.0614
+Test:  [ 20/585]  eta: 1:12:42  model_time: 7.5803 (7.5651)  evaluator_time: 0.0278 (0.1057)  time: 7.6326  data: 0.0026
+Test:  [ 30/585]  eta: 1:11:19  model_time: 7.6212 (7.5875)  evaluator_time: 0.0310 (0.0828)  time: 7.6689  data: 0.0026
+Test:  [ 40/585]  eta: 1:10:05  model_time: 7.6392 (7.6007)  evaluator_time: 0.0310 (0.0813)  time: 7.7129  data: 0.0027
+Test:  [ 50/585]  eta: 1:08:30  model_time: 7.6063 (7.5804)  evaluator_time: 0.0280 (0.0713)  time: 7.6426  data: 0.0027
+Test:  [ 60/585]  eta: 1:06:50  model_time: 7.4335 (7.5377)  evaluator_time: 0.0280 (0.0716)  time: 7.4805  data: 0.0026
+Test:  [ 70/585]  eta: 1:05:47  model_time: 7.6291 (7.5669)  evaluator_time: 0.0378 (0.0666)  time: 7.6161  data: 0.0116
+Test:  [ 80/585]  eta: 1:04:37  model_time: 7.7013 (7.5803)  evaluator_time: 0.0336 (0.0679)  time: 7.7955  data: 0.0117
+Test:  [ 90/585]  eta: 1:03:23  model_time: 7.6903 (7.5915)  evaluator_time: 0.0286 (0.0638)  time: 7.7522  data: 0.0026
+Test:  [100/585]  eta: 1:01:57  model_time: 7.6040 (7.5728)  evaluator_time: 0.0280 (0.0648)  time: 7.6143  data: 0.0026
+Test:  [110/585]  eta: 1:00:42  model_time: 7.5433 (7.5797)  evaluator_time: 0.0282 (0.0618)  time: 7.5979  data: 0.0026
+Test:  [120/585]  eta: 0:59:23  model_time: 7.6296 (7.5783)  evaluator_time: 0.0283 (0.0592)  time: 7.6561  data: 0.0026
+Test:  [130/585]  eta: 0:58:09  model_time: 7.6250 (7.5821)  evaluator_time: 0.0282 (0.0604)  time: 7.6682  data: 0.0026
+Test:  [140/585]  eta: 0:56:48  model_time: 7.5644 (7.5755)  evaluator_time: 0.0283 (0.0582)  time: 7.6305  data: 0.0026
+Test:  [150/585]  eta: 0:55:33  model_time: 7.5644 (7.5797)  evaluator_time: 0.0287 (0.0594)  time: 7.6369  data: 0.0026
+Test:  [160/585]  eta: 0:54:19  model_time: 7.6746 (7.5872)  evaluator_time: 0.0292 (0.0577)  time: 7.7438  data: 0.0027
+Test:  [170/585]  eta: 0:53:04  model_time: 7.6703 (7.5907)  evaluator_time: 0.0283 (0.0585)  time: 7.7450  data: 0.0026
+Test:  [180/585]  eta: 0:51:45  model_time: 7.6278 (7.5878)  evaluator_time: 0.0291 (0.0571)  time: 7.6645  data: 0.0026
+Test:  [190/585]  eta: 0:50:26  model_time: 7.5842 (7.5818)  evaluator_time: 0.0291 (0.0558)  time: 7.5585  data: 0.0026
+Test:  [200/585]  eta: 0:49:12  model_time: 7.6655 (7.5869)  evaluator_time: 0.0285 (0.0568)  time: 7.6539  data: 0.0026
+Test:  [210/585]  eta: 0:47:56  model_time: 7.6902 (7.5919)  evaluator_time: 0.0289 (0.0558)  time: 7.7640  data: 0.0027
+Test:  [220/585]  eta: 0:46:41  model_time: 7.6651 (7.5953)  evaluator_time: 0.0301 (0.0568)  time: 7.7572  data: 0.0027
+Test:  [230/585]  eta: 0:45:22  model_time: 7.5805 (7.5887)  evaluator_time: 0.0293 (0.0558)  time: 7.6312  data: 0.0026
+Test:  [240/585]  eta: 0:44:05  model_time: 7.4499 (7.5895)  evaluator_time: 0.0282 (0.0565)  time: 7.5970  data: 0.0026
+Test:  [250/585]  eta: 0:42:49  model_time: 7.6447 (7.5911)  evaluator_time: 0.0279 (0.0554)  time: 7.6890  data: 0.0026
+Test:  [260/585]  eta: 0:41:34  model_time: 7.6849 (7.5970)  evaluator_time: 0.0285 (0.0563)  time: 7.7623  data: 0.0026
+Test:  [270/585]  eta: 0:40:16  model_time: 7.6097 (7.5914)  evaluator_time: 0.0283 (0.0553)  time: 7.6761  data: 0.0083
+Test:  [280/585]  eta: 0:38:59  model_time: 7.5761 (7.5946)  evaluator_time: 0.0277 (0.0543)  time: 7.6169  data: 0.0083
+Test:  [290/585]  eta: 0:37:43  model_time: 7.6457 (7.5946)  evaluator_time: 0.0277 (0.0552)  time: 7.7105  data: 0.0026
+Test:  [300/585]  eta: 0:36:26  model_time: 7.5780 (7.5949)  evaluator_time: 0.0285 (0.0544)  time: 7.6736  data: 0.0026
+Test:  [310/585]  eta: 0:35:10  model_time: 7.6249 (7.5957)  evaluator_time: 0.0289 (0.0551)  time: 7.6856  data: 0.0026
+Test:  [320/585]  eta: 0:33:53  model_time: 7.6138 (7.5963)  evaluator_time: 0.0295 (0.0544)  time: 7.6925  data: 0.0026
+Test:  [330/585]  eta: 0:32:37  model_time: 7.6868 (7.5997)  evaluator_time: 0.0288 (0.0550)  time: 7.7359  data: 0.0026
+Test:  [340/585]  eta: 0:31:21  model_time: 7.6836 (7.6009)  evaluator_time: 0.0298 (0.0543)  time: 7.7487  data: 0.0026
+Test:  [350/585]  eta: 0:30:03  model_time: 7.5966 (7.5985)  evaluator_time: 0.0284 (0.0536)  time: 7.6284  data: 0.0026
+Test:  [360/585]  eta: 0:28:46  model_time: 7.4601 (7.5957)  evaluator_time: 0.0278 (0.0540)  time: 7.5758  data: 0.0026
+Test:  [370/585]  eta: 0:27:30  model_time: 7.6586 (7.6007)  evaluator_time: 0.0283 (0.0534)  time: 7.7100  data: 0.0026
+Test:  [380/585]  eta: 0:26:14  model_time: 7.7340 (7.6040)  evaluator_time: 0.0285 (0.0540)  time: 7.8269  data: 0.0026
+Test:  [390/585]  eta: 0:24:58  model_time: 7.7195 (7.6071)  evaluator_time: 0.0280 (0.0534)  time: 7.7964  data: 0.0026
+Test:  [400/585]  eta: 0:23:40  model_time: 7.5454 (7.5999)  evaluator_time: 0.0278 (0.0538)  time: 7.5923  data: 0.0026
+Test:  [410/585]  eta: 0:22:23  model_time: 7.6020 (7.6024)  evaluator_time: 0.0280 (0.0533)  time: 7.5828  data: 0.0026
+Test:  [420/585]  eta: 0:21:07  model_time: 7.7180 (7.6047)  evaluator_time: 0.0284 (0.0528)  time: 7.7512  data: 0.0027
+Test:  [430/585]  eta: 0:19:50  model_time: 7.6952 (7.6066)  evaluator_time: 0.0284 (0.0533)  time: 7.7682  data: 0.0026
+Test:  [440/585]  eta: 0:18:33  model_time: 7.6638 (7.6050)  evaluator_time: 0.0284 (0.0528)  time: 7.6865  data: 0.0026
+Test:  [450/585]  eta: 0:17:16  model_time: 7.4688 (7.6049)  evaluator_time: 0.0285 (0.0533)  time: 7.6443  data: 0.0052
+Test:  [460/585]  eta: 0:16:00  model_time: 7.7355 (7.6088)  evaluator_time: 0.0306 (0.0529)  time: 7.7697  data: 0.0054
+Test:  [470/585]  eta: 0:14:44  model_time: 7.7692 (7.6122)  evaluator_time: 0.0298 (0.0534)  time: 7.8526  data: 0.0027
+Test:  [480/585]  eta: 0:13:27  model_time: 7.7546 (7.6129)  evaluator_time: 0.0294 (0.0530)  time: 7.7827  data: 0.0027
+Test:  [490/585]  eta: 0:12:10  model_time: 7.5618 (7.6123)  evaluator_time: 0.0295 (0.0535)  time: 7.6899  data: 0.0027
+Test:  [500/585]  eta: 0:10:53  model_time: 7.5833 (7.6124)  evaluator_time: 0.0294 (0.0531)  time: 7.6753  data: 0.0027
+Test:  [510/585]  eta: 0:09:37  model_time: 7.7105 (7.6308)  evaluator_time: 0.0300 (0.0535)  time: 8.1595  data: 0.0062
+Test:  [520/585]  eta: 0:08:21  model_time: 7.7874 (7.6331)  evaluator_time: 0.0393 (0.0567)  time: 8.3290  data: 0.0195
+Test:  [530/585]  eta: 0:07:04  model_time: 7.6073 (7.6309)  evaluator_time: 0.0292 (0.0565)  time: 7.7888  data: 0.0161
+Test:  [540/585]  eta: 0:05:47  model_time: 7.6776 (7.6323)  evaluator_time: 0.0286 (0.0589)  time: 7.7379  data: 0.0027
+Test:  [550/585]  eta: 0:04:29  model_time: 7.6776 (7.6316)  evaluator_time: 0.0290 (0.0584)  time: 7.7692  data: 0.0027
+Test:  [560/585]  eta: 0:03:12  model_time: 7.7164 (7.6339)  evaluator_time: 0.0294 (0.0587)  time: 7.7422  data: 0.0026
+Test:  [570/585]  eta: 0:01:55  model_time: 7.6806 (7.6304)  evaluator_time: 0.0294 (0.0582)  time: 7.6799  data: 0.0196
+Test:  [580/585]  eta: 0:00:38  model_time: 7.6415 (7.6335)  evaluator_time: 0.0297 (0.0579)  time: 7.6825  data: 0.0196
+Test:  [584/585]  eta: 0:00:07  model_time: 7.6877 (7.6339)  evaluator_time: 0.0303 (0.0584)  time: 7.7566  data: 0.0195
+Test: Total time: 1:15:12 (7.7144 s / it)
+Averaged stats: model_time: 7.6877 (7.6339)  evaluator_time: 0.0303 (0.0584)
+Accumulating evaluation results...
+DONE (t=6.74s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+Saving checkpoint
+Training epoch 1 ...
+DOES NOT EXIST machine/experience
+DOES NOT EXIST textee
+DOES NOT EXIST 12oz
+DOES NOT EXIST die/reincarnate
+DOES NOT EXIST eqality
+DOES NOT EXIST iceburg
+DOES NOT EXIST threat/violence
+Epoch: [1]  [  0/414]  eta: 10:19:57  lr: 0.005000  loss: 0.8133 (0.8133)  loss_classifier: 0.5870 (0.5870)  loss_box_reg: 0.2263 (0.2263)  time: 89.8485  data: 1.7236
+Epoch: [1]  [ 10/414]  eta: 9:25:53  lr: 0.005000  loss: 1.0771 (1.0667)  loss_classifier: 0.7947 (0.7787)  loss_box_reg: 0.2963 (0.2880)  time: 84.0430  data: 0.1714
+Epoch: [1]  [ 20/414]  eta: 9:10:34  lr: 0.005000  loss: 1.0771 (1.1135)  loss_classifier: 0.7947 (0.8126)  loss_box_reg: 0.2963 (0.3009)  time: 83.5425  data: 0.0159
+Epoch: [1]  [ 30/414]  eta: 8:55:40  lr: 0.005000  loss: 1.0925 (1.1072)  loss_classifier: 0.7923 (0.8066)  loss_box_reg: 0.3013 (0.3005)  time: 83.5089  data: 0.0158
+Epoch: [1]  [ 40/414]  eta: 8:41:48  lr: 0.005000  loss: 1.0501 (1.0768)  loss_classifier: 0.7539 (0.7833)  loss_box_reg: 0.2824 (0.2935)  time: 83.5779  data: 0.0158
+Epoch: [1]  [ 50/414]  eta: 8:29:29  lr: 0.005000  loss: 1.0801 (1.0886)  loss_classifier: 0.7815 (0.7910)  loss_box_reg: 0.2979 (0.2976)  time: 84.4233  data: 0.0652
+Epoch: [1]  [ 60/414]  eta: 8:14:49  lr: 0.005000  loss: 1.0801 (1.0770)  loss_classifier: 0.7815 (0.7821)  loss_box_reg: 0.3004 (0.2948)  time: 84.1847  data: 0.0657
+Epoch: [1]  [ 70/414]  eta: 8:00:29  lr: 0.005000  loss: 1.0844 (1.0907)  loss_classifier: 0.7932 (0.7912)  loss_box_reg: 0.3047 (0.2995)  time: 83.3576  data: 0.0165
+Epoch: [1]  [ 80/414]  eta: 7:46:07  lr: 0.005000  loss: 1.0793 (1.0784)  loss_classifier: 0.7863 (0.7818)  loss_box_reg: 0.2918 (0.2966)  time: 83.3303  data: 0.0157
+Epoch: [1]  [ 90/414]  eta: 7:32:04  lr: 0.005000  loss: 1.0076 (1.0730)  loss_classifier: 0.7205 (0.7776)  loss_box_reg: 0.2798 (0.2954)  time: 83.4062  data: 0.0158
+Epoch: [1]  [100/414]  eta: 7:18:38  lr: 0.005000  loss: 1.0762 (1.0782)  loss_classifier: 0.7787 (0.7812)  loss_box_reg: 0.3050 (0.2970)  time: 84.1456  data: 0.0657
+Epoch: [1]  [110/414]  eta: 7:04:27  lr: 0.005000  loss: 1.0880 (1.0743)  loss_classifier: 0.7787 (0.7790)  loss_box_reg: 0.3093 (0.2953)  time: 84.0343  data: 0.0666
+Epoch: [1]  [120/414]  eta: 6:50:17  lr: 0.005000  loss: 1.1014 (1.0823)  loss_classifier: 0.8213 (0.7861)  loss_box_reg: 0.2801 (0.2963)  time: 83.3108  data: 0.0169
+Epoch: [1]  [130/414]  eta: 6:36:20  lr: 0.005000  loss: 1.0983 (1.0786)  loss_classifier: 0.8066 (0.7832)  loss_box_reg: 0.2832 (0.2953)  time: 83.4954  data: 0.0157
+Epoch: [1]  [140/414]  eta: 6:22:15  lr: 0.005000  loss: 0.9974 (1.0799)  loss_classifier: 0.7153 (0.7839)  loss_box_reg: 0.2832 (0.2961)  time: 83.5482  data: 0.0257
+Epoch: [1]  [150/414]  eta: 6:08:32  lr: 0.005000  loss: 1.0385 (1.0770)  loss_classifier: 0.7545 (0.7819)  loss_box_reg: 0.2840 (0.2951)  time: 83.9218  data: 0.0544
+Epoch: [1]  [160/414]  eta: 5:54:19  lr: 0.005000  loss: 1.0474 (1.0760)  loss_classifier: 0.7613 (0.7812)  loss_box_reg: 0.2885 (0.2948)  time: 83.6452  data: 0.0448
+Epoch: [1]  [170/414]  eta: 5:40:17  lr: 0.005000  loss: 1.0416 (1.0722)  loss_classifier: 0.7638 (0.7785)  loss_box_reg: 0.2944 (0.2937)  time: 83.0709  data: 0.0161
+Epoch: [1]  [180/414]  eta: 5:26:21  lr: 0.005000  loss: 1.0653 (1.0749)  loss_classifier: 0.7820 (0.7808)  loss_box_reg: 0.2858 (0.2941)  time: 83.5317  data: 0.0158
+Epoch: [1]  [190/414]  eta: 5:12:24  lr: 0.005000  loss: 1.0516 (1.0713)  loss_classifier: 0.7492 (0.7782)  loss_box_reg: 0.2854 (0.2931)  time: 83.7168  data: 0.0370
+Epoch: [1]  [200/414]  eta: 4:58:44  lr: 0.005000  loss: 0.9883 (1.0703)  loss_classifier: 0.7309 (0.7778)  loss_box_reg: 0.2741 (0.2925)  time: 84.4739  data: 0.0762
+Epoch: [1]  [210/414]  eta: 4:44:43  lr: 0.005000  loss: 1.0182 (1.0676)  loss_classifier: 0.7343 (0.7757)  loss_box_reg: 0.2741 (0.2919)  time: 84.3143  data: 0.0563
+Epoch: [1]  [220/414]  eta: 4:30:42  lr: 0.005000  loss: 1.0408 (1.0682)  loss_classifier: 0.7548 (0.7766)  loss_box_reg: 0.2853 (0.2916)  time: 83.3665  data: 0.0169
+Epoch: [1]  [230/414]  eta: 4:16:40  lr: 0.005000  loss: 1.0615 (1.0670)  loss_classifier: 0.7883 (0.7761)  loss_box_reg: 0.2860 (0.2909)  time: 83.2233  data: 0.0161
+Epoch: [1]  [240/414]  eta: 4:02:50  lr: 0.005000  loss: 1.0300 (1.0663)  loss_classifier: 0.7506 (0.7760)  loss_box_reg: 0.2771 (0.2903)  time: 83.8707  data: 0.1381
+Epoch: [1]  [250/414]  eta: 3:48:55  lr: 0.005000  loss: 1.0371 (1.0657)  loss_classifier: 0.7648 (0.7757)  loss_box_reg: 0.2771 (0.2900)  time: 84.3691  data: 0.1978
+Epoch: [1]  [260/414]  eta: 3:34:56  lr: 0.005000  loss: 1.0847 (1.0655)  loss_classifier: 0.8043 (0.7757)  loss_box_reg: 0.2849 (0.2898)  time: 83.8066  data: 0.0781
+Epoch: [1]  [270/414]  eta: 3:20:56  lr: 0.005000  loss: 1.0415 (1.0636)  loss_classifier: 0.7581 (0.7743)  loss_box_reg: 0.2703 (0.2893)  time: 83.4498  data: 0.0177
+Epoch: [1]  [280/414]  eta: 3:06:57  lr: 0.005000  loss: 0.9697 (1.0627)  loss_classifier: 0.7058 (0.7737)  loss_box_reg: 0.2647 (0.2890)  time: 83.3458  data: 0.0365
+Epoch: [1]  [290/414]  eta: 2:53:03  lr: 0.005000  loss: 1.0617 (1.0660)  loss_classifier: 0.7770 (0.7761)  loss_box_reg: 0.2902 (0.2898)  time: 83.8997  data: 0.0457
+Epoch: [1]  [300/414]  eta: 2:39:13  lr: 0.005000  loss: 1.1556 (1.0660)  loss_classifier: 0.8384 (0.7763)  loss_box_reg: 0.3059 (0.2897)  time: 85.0661  data: 0.0354
+Epoch: [1]  [310/414]  eta: 2:25:18  lr: 0.005000  loss: 1.0195 (1.0643)  loss_classifier: 0.7421 (0.7752)  loss_box_reg: 0.2774 (0.2891)  time: 85.1698  data: 0.0301
+Epoch: [1]  [320/414]  eta: 2:11:18  lr: 0.005000  loss: 1.0176 (1.0646)  loss_classifier: 0.7258 (0.7754)  loss_box_reg: 0.2865 (0.2892)  time: 84.0031  data: 0.0197
+Epoch: [1]  [330/414]  eta: 1:57:19  lr: 0.005000  loss: 1.0131 (1.0617)  loss_classifier: 0.7258 (0.7731)  loss_box_reg: 0.2865 (0.2886)  time: 83.2774  data: 0.0399
+Epoch: [1]  [340/414]  eta: 1:43:20  lr: 0.005000  loss: 1.0111 (1.0609)  loss_classifier: 0.7234 (0.7726)  loss_box_reg: 0.2679 (0.2883)  time: 83.3939  data: 0.0474
+Epoch: [1]  [350/414]  eta: 1:29:22  lr: 0.005000  loss: 0.9817 (1.0593)  loss_classifier: 0.7167 (0.7716)  loss_box_reg: 0.2682 (0.2877)  time: 83.6483  data: 0.0892
+Epoch: [1]  [360/414]  eta: 1:15:24  lr: 0.005000  loss: 0.9435 (1.0562)  loss_classifier: 0.6928 (0.7694)  loss_box_reg: 0.2567 (0.2869)  time: 83.6608  data: 0.0833
+Epoch: [1]  [370/414]  eta: 1:01:25  lr: 0.005000  loss: 0.9221 (1.0550)  loss_classifier: 0.6616 (0.7683)  loss_box_reg: 0.2567 (0.2867)  time: 83.3152  data: 0.0177
+Epoch: [1]  [380/414]  eta: 0:47:27  lr: 0.005000  loss: 0.9763 (1.0534)  loss_classifier: 0.7147 (0.7673)  loss_box_reg: 0.2650 (0.2862)  time: 83.3279  data: 0.0541
+Epoch: [1]  [390/414]  eta: 0:33:29  lr: 0.005000  loss: 0.9763 (1.0528)  loss_classifier: 0.7309 (0.7669)  loss_box_reg: 0.2713 (0.2859)  time: 83.3728  data: 0.0674
+Epoch: [1]  [400/414]  eta: 0:19:32  lr: 0.005000  loss: 1.0366 (1.0529)  loss_classifier: 0.7484 (0.7670)  loss_box_reg: 0.2836 (0.2860)  time: 83.6216  data: 0.0644
+Epoch: [1]  [410/414]  eta: 0:05:35  lr: 0.005000  loss: 1.0213 (1.0532)  loss_classifier: 0.7455 (0.7672)  loss_box_reg: 0.2758 (0.2860)  time: 84.4865  data: 0.0558
+Epoch: [1]  [413/414]  eta: 0:01:23  lr: 0.005000  loss: 1.0213 (1.0531)  loss_classifier: 0.7455 (0.7671)  loss_box_reg: 0.2758 (0.2860)  time: 84.4133  data: 0.0568
+Epoch: [1] Total time: 9:38:04 (83.7799 s / it)
+DOES NOT EXIST threat/violence
+DOES NOT EXIST 12oz
+DOES NOT EXIST chimmney
+DOES NOT EXIST hilariouss
+DOES NOT EXIST die/reincarnate
+DOES NOT EXIST eqality
+DOES NOT EXIST machine/experience
+DOES NOT EXIST textee
+DOES NOT EXIST iceburg
+DOES NOT EXIST stlye
+DOES NOT EXIST 02/03/2015
+creating index...
+index created!
+DOES NOT EXIST stlye
+DOES NOT EXIST chimmney
+DOES NOT EXIST hilariouss
+DOES NOT EXIST 02/03/2015
+Test:  [  0/585]  eta: 1:37:07  model_time: 8.6087 (8.6087)  evaluator_time: 0.3030 (0.3030)  time: 9.9607  data: 1.0488
+Test:  [ 10/585]  eta: 1:15:26  model_time: 7.5906 (7.6486)  evaluator_time: 0.0385 (0.0742)  time: 7.8717  data: 0.1324
+Test:  [ 20/585]  eta: 1:13:18  model_time: 7.5099 (7.5631)  evaluator_time: 0.0405 (0.1342)  time: 7.6762  data: 0.0217
+Test:  [ 30/585]  eta: 1:11:51  model_time: 7.5653 (7.5929)  evaluator_time: 0.0395 (0.1028)  time: 7.7110  data: 0.0138
+Test:  [ 40/585]  eta: 1:10:42  model_time: 7.6538 (7.6283)  evaluator_time: 0.0388 (0.0973)  time: 7.7851  data: 0.0138
+Test:  [ 50/585]  eta: 1:09:23  model_time: 7.7133 (7.6453)  evaluator_time: 0.0292 (0.0846)  time: 7.8023  data: 0.0026
+Test:  [ 60/585]  eta: 1:07:45  model_time: 7.6079 (7.6130)  evaluator_time: 0.0380 (0.0838)  time: 7.6575  data: 0.0026
+Test:  [ 70/585]  eta: 1:06:25  model_time: 7.5134 (7.6187)  evaluator_time: 0.0392 (0.0770)  time: 7.6276  data: 0.0026
+Test:  [ 80/585]  eta: 1:05:13  model_time: 7.7046 (7.6331)  evaluator_time: 0.0392 (0.0774)  time: 7.7708  data: 0.0026
+Test:  [ 90/585]  eta: 1:03:59  model_time: 7.7557 (7.6471)  evaluator_time: 0.0400 (0.0729)  time: 7.8260  data: 0.0027
+Test:  [100/585]  eta: 1:02:40  model_time: 7.7358 (7.6476)  evaluator_time: 0.0387 (0.0693)  time: 7.7629  data: 0.0026
+Test:  [110/585]  eta: 1:01:08  model_time: 7.4489 (7.6185)  evaluator_time: 0.0391 (0.0701)  time: 7.5644  data: 0.0026
+Test:  [120/585]  eta: 0:59:51  model_time: 7.4777 (7.6229)  evaluator_time: 0.0386 (0.0670)  time: 7.5781  data: 0.0078
+Test:  [130/585]  eta: 0:58:36  model_time: 7.6929 (7.6285)  evaluator_time: 0.0299 (0.0680)  time: 7.7654  data: 0.0079
+Test:  [140/585]  eta: 0:57:20  model_time: 7.6954 (7.6348)  evaluator_time: 0.0299 (0.0656)  time: 7.7835  data: 0.0027
+Test:  [150/585]  eta: 0:55:57  model_time: 7.6146 (7.6210)  evaluator_time: 0.0391 (0.0665)  time: 7.6486  data: 0.0026
+Test:  [160/585]  eta: 0:54:39  model_time: 7.4491 (7.6222)  evaluator_time: 0.0391 (0.0647)  time: 7.6119  data: 0.0026
+Test:  [170/585]  eta: 0:53:23  model_time: 7.6588 (7.6242)  evaluator_time: 0.0386 (0.0655)  time: 7.7264  data: 0.0027
+Test:  [180/585]  eta: 0:52:08  model_time: 7.7276 (7.6321)  evaluator_time: 0.0399 (0.0641)  time: 7.7912  data: 0.0026
+Test:  [190/585]  eta: 0:50:50  model_time: 7.6847 (7.6283)  evaluator_time: 0.0401 (0.0650)  time: 7.7445  data: 0.0027
+Test:  [200/585]  eta: 0:49:30  model_time: 7.5602 (7.6233)  evaluator_time: 0.0398 (0.0635)  time: 7.6221  data: 0.0026
+Test:  [210/585]  eta: 0:48:14  model_time: 7.6427 (7.6277)  evaluator_time: 0.0393 (0.0623)  time: 7.6791  data: 0.0027
+Test:  [220/585]  eta: 0:46:56  model_time: 7.6427 (7.6270)  evaluator_time: 0.0410 (0.0632)  time: 7.7440  data: 0.0026
+Test:  [230/585]  eta: 0:45:40  model_time: 7.6173 (7.6307)  evaluator_time: 0.0400 (0.0621)  time: 7.7425  data: 0.0026
+Test:  [240/585]  eta: 0:44:20  model_time: 7.4924 (7.6218)  evaluator_time: 0.0395 (0.0627)  time: 7.6419  data: 0.0026
+Test:  [250/585]  eta: 0:43:04  model_time: 7.6356 (7.6262)  evaluator_time: 0.0401 (0.0617)  time: 7.6507  data: 0.0026
+Test:  [260/585]  eta: 0:41:49  model_time: 7.7476 (7.6315)  evaluator_time: 0.0411 (0.0625)  time: 7.8279  data: 0.0027
+Test:  [270/585]  eta: 0:40:30  model_time: 7.7257 (7.6295)  evaluator_time: 0.0401 (0.0614)  time: 7.7488  data: 0.0026
+Test:  [280/585]  eta: 0:39:12  model_time: 7.4563 (7.6244)  evaluator_time: 0.0299 (0.0620)  time: 7.6076  data: 0.0026
+Test:  [290/585]  eta: 0:37:54  model_time: 7.5223 (7.6233)  evaluator_time: 0.0392 (0.0612)  time: 7.6177  data: 0.0026
+Test:  [300/585]  eta: 0:36:37  model_time: 7.6606 (7.6243)  evaluator_time: 0.0303 (0.0603)  time: 7.6791  data: 0.0027
+Test:  [310/585]  eta: 0:35:20  model_time: 7.6606 (7.6259)  evaluator_time: 0.0395 (0.0610)  time: 7.7419  data: 0.0027
+Test:  [320/585]  eta: 0:34:03  model_time: 7.6226 (7.6244)  evaluator_time: 0.0397 (0.0602)  time: 7.7046  data: 0.0027
+Test:  [330/585]  eta: 0:32:43  model_time: 7.4562 (7.6148)  evaluator_time: 0.0391 (0.0607)  time: 7.5190  data: 0.0026
+Test:  [340/585]  eta: 0:31:26  model_time: 7.5334 (7.6159)  evaluator_time: 0.0295 (0.0599)  time: 7.5544  data: 0.0026
+Test:  [350/585]  eta: 0:30:10  model_time: 7.6821 (7.6191)  evaluator_time: 0.0306 (0.0605)  time: 7.7649  data: 0.0027
+Test:  [360/585]  eta: 0:28:54  model_time: 7.7256 (7.6224)  evaluator_time: 0.0407 (0.0599)  time: 7.8116  data: 0.0027
+Test:  [370/585]  eta: 0:27:36  model_time: 7.6656 (7.6207)  evaluator_time: 0.0387 (0.0604)  time: 7.7265  data: 0.0027
+Test:  [380/585]  eta: 0:26:18  model_time: 7.4286 (7.6160)  evaluator_time: 0.0306 (0.0597)  time: 7.5746  data: 0.0026
+Test:  [390/585]  eta: 0:25:01  model_time: 7.5151 (7.6161)  evaluator_time: 0.0302 (0.0590)  time: 7.5833  data: 0.0026
+Test:  [400/585]  eta: 0:23:44  model_time: 7.6647 (7.6188)  evaluator_time: 0.0302 (0.0595)  time: 7.7486  data: 0.0026
+Test:  [410/585]  eta: 0:22:27  model_time: 7.6889 (7.6190)  evaluator_time: 0.0389 (0.0590)  time: 7.7539  data: 0.0026
+Test:  [420/585]  eta: 0:21:10  model_time: 7.5664 (7.6150)  evaluator_time: 0.0389 (0.0595)  time: 7.6173  data: 0.0026
+Test:  [430/585]  eta: 0:19:53  model_time: 7.5223 (7.6153)  evaluator_time: 0.0332 (0.0589)  time: 7.6162  data: 0.0026
+Test:  [440/585]  eta: 0:18:36  model_time: 7.6322 (7.6187)  evaluator_time: 0.0373 (0.0594)  time: 7.7742  data: 0.0026
+Test:  [450/585]  eta: 0:17:20  model_time: 7.7090 (7.6223)  evaluator_time: 0.0397 (0.0589)  time: 7.8526  data: 0.0027
+Test:  [460/585]  eta: 0:16:02  model_time: 7.7078 (7.6195)  evaluator_time: 0.0404 (0.0593)  time: 7.7168  data: 0.0027
+Test:  [470/585]  eta: 0:14:45  model_time: 7.6349 (7.6216)  evaluator_time: 0.0401 (0.0588)  time: 7.6820  data: 0.0026
+Test:  [480/585]  eta: 0:13:28  model_time: 7.6766 (7.6221)  evaluator_time: 0.0384 (0.0592)  time: 7.7553  data: 0.0026
+Test:  [490/585]  eta: 0:12:12  model_time: 7.6680 (7.6251)  evaluator_time: 0.0384 (0.0588)  time: 7.7840  data: 0.0027
+Test:  [500/585]  eta: 0:10:55  model_time: 7.6861 (7.6249)  evaluator_time: 0.0384 (0.0583)  time: 7.7500  data: 0.0027
+Test:  [510/585]  eta: 0:09:38  model_time: 7.6150 (7.6327)  evaluator_time: 0.0390 (0.0600)  time: 7.9567  data: 0.0227
+Test:  [520/585]  eta: 0:08:21  model_time: 7.6988 (7.6384)  evaluator_time: 0.0398 (0.0603)  time: 8.1342  data: 0.0273
+Test:  [530/585]  eta: 0:07:05  model_time: 7.7199 (7.6395)  evaluator_time: 0.0398 (0.0641)  time: 8.0090  data: 0.0176
+Test:  [540/585]  eta: 0:05:47  model_time: 7.6954 (7.6403)  evaluator_time: 0.0305 (0.0635)  time: 7.8572  data: 0.0131
+Test:  [550/585]  eta: 0:04:30  model_time: 7.5212 (7.6386)  evaluator_time: 0.0289 (0.0637)  time: 7.6765  data: 0.0026
+Test:  [560/585]  eta: 0:03:13  model_time: 7.6731 (7.6403)  evaluator_time: 0.0294 (0.0632)  time: 7.7037  data: 0.0026
+Test:  [570/585]  eta: 0:01:55  model_time: 7.7102 (7.6411)  evaluator_time: 0.0410 (0.0635)  time: 7.7800  data: 0.0026
+Test:  [580/585]  eta: 0:00:38  model_time: 7.6846 (7.6419)  evaluator_time: 0.0415 (0.0631)  time: 7.7581  data: 0.0027
+Test:  [584/585]  eta: 0:00:07  model_time: 7.6835 (7.6410)  evaluator_time: 0.0410 (0.0629)  time: 7.7261  data: 0.0026
+Test: Total time: 1:15:20 (7.7277 s / it)
+Averaged stats: model_time: 7.6835 (7.6410)  evaluator_time: 0.0410 (0.0629)
+Accumulating evaluation results...
+DONE (t=6.18s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.001
+Saving checkpoint
+Training epoch 2 ...
+DOES NOT EXIST die/reincarnate
+DOES NOT EXIST 12oz
+DOES NOT EXIST iceburg
+DOES NOT EXIST eqality
+DOES NOT EXIST textee
+DOES NOT EXIST threat/violence
+DOES NOT EXIST machine/experience
+Epoch: [2]  [  0/414]  eta: 9:55:45  lr: 0.005000  loss: 1.1920 (1.1920)  loss_classifier: 0.8769 (0.8769)  loss_box_reg: 0.3151 (0.3151)  time: 86.3422  data: 2.9833
+Epoch: [2]  [ 10/414]  eta: 9:20:54  lr: 0.005000  loss: 1.0319 (1.0689)  loss_classifier: 0.7630 (0.7737)  loss_box_reg: 0.2756 (0.2952)  time: 83.3021  data: 0.2857
+Epoch: [2]  [ 20/414]  eta: 9:05:43  lr: 0.005000  loss: 1.0319 (1.0735)  loss_classifier: 0.7630 (0.7820)  loss_box_reg: 0.2756 (0.2916)  time: 82.9433  data: 0.0161
+Epoch: [2]  [ 30/414]  eta: 8:51:59  lr: 0.005000  loss: 1.0342 (1.0551)  loss_classifier: 0.7624 (0.7712)  loss_box_reg: 0.2746 (0.2839)  time: 83.0250  data: 0.0161
+Epoch: [2]  [ 40/414]  eta: 8:37:58  lr: 0.005000  loss: 1.0164 (1.0428)  loss_classifier: 0.7472 (0.7628)  loss_box_reg: 0.2691 (0.2801)  time: 83.0874  data: 0.0418
+Epoch: [2]  [ 50/414]  eta: 8:25:35  lr: 0.005000  loss: 1.0322 (1.0384)  loss_classifier: 0.7461 (0.7585)  loss_box_reg: 0.2749 (0.2799)  time: 83.6715  data: 0.0621
+Epoch: [2]  [ 60/414]  eta: 8:11:25  lr: 0.005000  loss: 1.0482 (1.0392)  loss_classifier: 0.7506 (0.7586)  loss_box_reg: 0.2836 (0.2806)  time: 83.6941  data: 0.0499
+Epoch: [2]  [ 70/414]  eta: 7:57:25  lr: 0.005000  loss: 1.0696 (1.0467)  loss_classifier: 0.7833 (0.7645)  loss_box_reg: 0.2943 (0.2822)  time: 83.0996  data: 0.0296
+Epoch: [2]  [ 80/414]  eta: 7:43:30  lr: 0.005000  loss: 1.0229 (1.0341)  loss_classifier: 0.7514 (0.7554)  loss_box_reg: 0.2734 (0.2787)  time: 83.1842  data: 0.0157
+Epoch: [2]  [ 90/414]  eta: 7:29:32  lr: 0.005000  loss: 1.0229 (1.0379)  loss_classifier: 0.7508 (0.7579)  loss_box_reg: 0.2697 (0.2800)  time: 83.1613  data: 0.0416
+Epoch: [2]  [100/414]  eta: 7:16:10  lr: 0.005000  loss: 1.0971 (1.0470)  loss_classifier: 0.8061 (0.7651)  loss_box_reg: 0.2917 (0.2819)  time: 83.6758  data: 0.0674
+Epoch: [2]  [110/414]  eta: 7:01:57  lr: 0.005000  loss: 1.0609 (1.0430)  loss_classifier: 0.7716 (0.7623)  loss_box_reg: 0.2793 (0.2807)  time: 83.4347  data: 0.0421
+Epoch: [2]  [120/414]  eta: 6:48:00  lr: 0.005000  loss: 0.9704 (1.0390)  loss_classifier: 0.7125 (0.7594)  loss_box_reg: 0.2556 (0.2796)  time: 82.8709  data: 0.0166
+Epoch: [2]  [130/414]  eta: 6:34:00  lr: 0.005000  loss: 0.9790 (1.0394)  loss_classifier: 0.7203 (0.7595)  loss_box_reg: 0.2680 (0.2798)  time: 83.0313  data: 0.0427
+Epoch: [2]  [140/414]  eta: 6:19:57  lr: 0.005000  loss: 1.0525 (1.0431)  loss_classifier: 0.7705 (0.7617)  loss_box_reg: 0.2763 (0.2814)  time: 82.8180  data: 0.0700
+Epoch: [2]  [150/414]  eta: 6:06:05  lr: 0.005000  loss: 1.0773 (1.0445)  loss_classifier: 0.7893 (0.7626)  loss_box_reg: 0.2898 (0.2818)  time: 82.9292  data: 0.0507
+Epoch: [2]  [160/414]  eta: 5:52:19  lr: 0.005000  loss: 1.0483 (1.0433)  loss_classifier: 0.7501 (0.7613)  loss_box_reg: 0.2927 (0.2819)  time: 83.3724  data: 0.0258
+Epoch: [2]  [170/414]  eta: 5:38:20  lr: 0.005000  loss: 0.9980 (1.0414)  loss_classifier: 0.7312 (0.7600)  loss_box_reg: 0.2620 (0.2814)  time: 83.1857  data: 0.0181
+Epoch: [2]  [180/414]  eta: 5:24:24  lr: 0.005000  loss: 1.0008 (1.0472)  loss_classifier: 0.7377 (0.7641)  loss_box_reg: 0.2770 (0.2831)  time: 82.8216  data: 0.0155
+Epoch: [2]  [190/414]  eta: 5:10:28  lr: 0.005000  loss: 1.0008 (1.0463)  loss_classifier: 0.7262 (0.7634)  loss_box_reg: 0.2770 (0.2830)  time: 82.8694  data: 0.0405
+Epoch: [2]  [200/414]  eta: 4:56:40  lr: 0.005000  loss: 0.9725 (1.0459)  loss_classifier: 0.7183 (0.7631)  loss_box_reg: 0.2625 (0.2828)  time: 83.1652  data: 0.0443
+Epoch: [2]  [210/414]  eta: 4:42:53  lr: 0.005000  loss: 1.0017 (1.0479)  loss_classifier: 0.7223 (0.7645)  loss_box_reg: 0.2792 (0.2834)  time: 83.5873  data: 0.0248
+Epoch: [2]  [220/414]  eta: 4:28:58  lr: 0.005000  loss: 1.0015 (1.0445)  loss_classifier: 0.7287 (0.7623)  loss_box_reg: 0.2733 (0.2821)  time: 83.3061  data: 0.0226
+Epoch: [2]  [230/414]  eta: 4:15:04  lr: 0.005000  loss: 0.9853 (1.0425)  loss_classifier: 0.7184 (0.7610)  loss_box_reg: 0.2597 (0.2814)  time: 82.9021  data: 0.0367
+Epoch: [2]  [240/414]  eta: 4:01:13  lr: 0.005000  loss: 0.9373 (1.0406)  loss_classifier: 0.6846 (0.7596)  loss_box_reg: 0.2532 (0.2810)  time: 83.0972  data: 0.0476
+Epoch: [2]  [250/414]  eta: 3:47:20  lr: 0.005000  loss: 1.0339 (1.0415)  loss_classifier: 0.7605 (0.7603)  loss_box_reg: 0.2757 (0.2812)  time: 83.1145  data: 0.0320
+Epoch: [2]  [260/414]  eta: 3:33:30  lr: 0.005000  loss: 1.0404 (1.0414)  loss_classifier: 0.7688 (0.7603)  loss_box_reg: 0.2754 (0.2811)  time: 83.2472  data: 0.0244
+Epoch: [2]  [270/414]  eta: 3:19:40  lr: 0.005000  loss: 1.0326 (1.0408)  loss_classifier: 0.7561 (0.7599)  loss_box_reg: 0.2742 (0.2809)  time: 83.5308  data: 0.0214
+Epoch: [2]  [280/414]  eta: 3:05:48  lr: 0.005000  loss: 1.0309 (1.0411)  loss_classifier: 0.7592 (0.7604)  loss_box_reg: 0.2742 (0.2807)  time: 83.3091  data: 0.0430
+Epoch: [2]  [290/414]  eta: 2:51:57  lr: 0.005000  loss: 1.0072 (1.0393)  loss_classifier: 0.7446 (0.7592)  loss_box_reg: 0.2654 (0.2801)  time: 83.2833  data: 0.0469
+Epoch: [2]  [300/414]  eta: 2:38:05  lr: 0.005000  loss: 0.9896 (1.0368)  loss_classifier: 0.7208 (0.7575)  loss_box_reg: 0.2608 (0.2793)  time: 83.2882  data: 0.0203
+Epoch: [2]  [310/414]  eta: 2:24:14  lr: 0.005000  loss: 0.9559 (1.0358)  loss_classifier: 0.7073 (0.7568)  loss_box_reg: 0.2568 (0.2790)  time: 83.4018  data: 0.0304
+Epoch: [2]  [320/414]  eta: 2:10:21  lr: 0.005000  loss: 0.9430 (1.0339)  loss_classifier: 0.6874 (0.7555)  loss_box_reg: 0.2568 (0.2784)  time: 83.2933  data: 0.0320
+Epoch: [2]  [330/414]  eta: 1:56:27  lr: 0.005000  loss: 0.9037 (1.0319)  loss_classifier: 0.6783 (0.7543)  loss_box_reg: 0.2352 (0.2776)  time: 82.5862  data: 0.0440
+Epoch: [2]  [340/414]  eta: 1:42:34  lr: 0.005000  loss: 0.9775 (1.0307)  loss_classifier: 0.7172 (0.7532)  loss_box_reg: 0.2611 (0.2775)  time: 82.5804  data: 0.0432
+Epoch: [2]  [350/414]  eta: 1:28:42  lr: 0.005000  loss: 1.0057 (1.0300)  loss_classifier: 0.7312 (0.7528)  loss_box_reg: 0.2674 (0.2772)  time: 82.8845  data: 0.0161
+Epoch: [2]  [360/414]  eta: 1:14:51  lr: 0.005000  loss: 0.9801 (1.0285)  loss_classifier: 0.7090 (0.7516)  loss_box_reg: 0.2674 (0.2769)  time: 83.3626  data: 0.0197
+Epoch: [2]  [370/414]  eta: 1:01:00  lr: 0.005000  loss: 0.9960 (1.0282)  loss_classifier: 0.7316 (0.7514)  loss_box_reg: 0.2720 (0.2767)  time: 83.8228  data: 0.0403
+Epoch: [2]  [380/414]  eta: 0:47:09  lr: 0.005000  loss: 1.0141 (1.0280)  loss_classifier: 0.7421 (0.7512)  loss_box_reg: 0.2720 (0.2767)  time: 83.7532  data: 0.0631
+Epoch: [2]  [390/414]  eta: 0:33:16  lr: 0.005000  loss: 1.0243 (1.0276)  loss_classifier: 0.7541 (0.7511)  loss_box_reg: 0.2699 (0.2764)  time: 83.3790  data: 0.0482
+Epoch: [2]  [400/414]  eta: 0:19:24  lr: 0.005000  loss: 1.0318 (1.0291)  loss_classifier: 0.7575 (0.7523)  loss_box_reg: 0.2732 (0.2768)  time: 83.1315  data: 0.0213
+Epoch: [2]  [410/414]  eta: 0:05:32  lr: 0.005000  loss: 1.0293 (1.0285)  loss_classifier: 0.7453 (0.7517)  loss_box_reg: 0.2732 (0.2768)  time: 83.6196  data: 0.0172
+Epoch: [2]  [413/414]  eta: 0:01:23  lr: 0.005000  loss: 0.9909 (1.0291)  loss_classifier: 0.7353 (0.7520)  loss_box_reg: 0.2732 (0.2771)  time: 83.5021  data: 0.0188
+Epoch: [2] Total time: 9:34:17 (83.2318 s / it)
+DOES NOT EXIST threat/violence
+DOES NOT EXIST 12oz
+DOES NOT EXIST chimmney
+DOES NOT EXIST hilariouss
+DOES NOT EXIST die/reincarnate
+DOES NOT EXIST eqality
+DOES NOT EXIST machine/experience
+DOES NOT EXIST textee
+DOES NOT EXIST iceburg
+DOES NOT EXIST stlye
+DOES NOT EXIST 02/03/2015
+creating index...
+index created!
+DOES NOT EXIST stlye
+DOES NOT EXIST chimmney
+DOES NOT EXIST hilariouss
+DOES NOT EXIST 02/03/2015
+Test:  [  0/585]  eta: 1:43:15  model_time: 8.5362 (8.5362)  evaluator_time: 0.3493 (0.3493)  time: 10.5909  data: 1.7053
+Test:  [ 10/585]  eta: 1:18:03  model_time: 7.6974 (7.7706)  evaluator_time: 0.0423 (0.2012)  time: 8.1447  data: 0.1577
+Test:  [ 20/585]  eta: 1:14:57  model_time: 7.6817 (7.7336)  evaluator_time: 0.0440 (0.1261)  time: 7.8282  data: 0.0028
+Test:  [ 30/585]  eta: 1:12:53  model_time: 7.6506 (7.6941)  evaluator_time: 0.0428 (0.1115)  time: 7.7334  data: 0.0027
+Test:  [ 40/585]  eta: 1:10:47  model_time: 7.5222 (7.6402)  evaluator_time: 0.0402 (0.0936)  time: 7.6205  data: 0.0026
+Test:  [ 50/585]  eta: 1:09:22  model_time: 7.5222 (7.6369)  evaluator_time: 0.0394 (0.0914)  time: 7.6276  data: 0.0026
+Test:  [ 60/585]  eta: 1:08:01  model_time: 7.6595 (7.6451)  evaluator_time: 0.0411 (0.0829)  time: 7.7356  data: 0.0026
+Test:  [ 70/585]  eta: 1:06:46  model_time: 7.6667 (7.6527)  evaluator_time: 0.0426 (0.0837)  time: 7.7771  data: 0.0027
+Test:  [ 80/585]  eta: 1:05:29  model_time: 7.6675 (7.6619)  evaluator_time: 0.0418 (0.0782)  time: 7.7964  data: 0.0026
+Test:  [ 90/585]  eta: 1:04:05  model_time: 7.6552 (7.6527)  evaluator_time: 0.0410 (0.0783)  time: 7.7303  data: 0.0026
+Test:  [100/585]  eta: 1:02:45  model_time: 7.6552 (7.6531)  evaluator_time: 0.0405 (0.0747)  time: 7.6974  data: 0.0027
+Test:  [110/585]  eta: 1:01:18  model_time: 7.5440 (7.6347)  evaluator_time: 0.0414 (0.0756)  time: 7.6357  data: 0.0027
+Test:  [120/585]  eta: 0:59:56  model_time: 7.4582 (7.6280)  evaluator_time: 0.0398 (0.0723)  time: 7.5879  data: 0.0098
+Test:  [130/585]  eta: 0:58:38  model_time: 7.6495 (7.6303)  evaluator_time: 0.0400 (0.0699)  time: 7.6705  data: 0.0098
+Test:  [140/585]  eta: 0:57:22  model_time: 7.6499 (7.6319)  evaluator_time: 0.0397 (0.0709)  time: 7.7366  data: 0.0027
+Test:  [150/585]  eta: 0:56:03  model_time: 7.6195 (7.6312)  evaluator_time: 0.0405 (0.0690)  time: 7.7189  data: 0.0027
+Test:  [160/585]  eta: 0:54:46  model_time: 7.6436 (7.6328)  evaluator_time: 0.0437 (0.0699)  time: 7.7198  data: 0.0027
+Test:  [170/585]  eta: 0:53:28  model_time: 7.6436 (7.6330)  evaluator_time: 0.0404 (0.0680)  time: 7.7266  data: 0.0027
+Test:  [180/585]  eta: 0:52:08  model_time: 7.5969 (7.6275)  evaluator_time: 0.0424 (0.0690)  time: 7.6665  data: 0.0026
+Test:  [190/585]  eta: 0:50:48  model_time: 7.4909 (7.6211)  evaluator_time: 0.0448 (0.0677)  time: 7.6045  data: 0.0026
+Test:  [200/585]  eta: 0:49:31  model_time: 7.5709 (7.6217)  evaluator_time: 0.0425 (0.0683)  time: 7.6506  data: 0.0027
+Test:  [210/585]  eta: 0:48:14  model_time: 7.6243 (7.6228)  evaluator_time: 0.0391 (0.0669)  time: 7.7164  data: 0.0027
+Test:  [220/585]  eta: 0:46:58  model_time: 7.6643 (7.6263)  evaluator_time: 0.0458 (0.0679)  time: 7.7532  data: 0.0027
+Test:  [230/585]  eta: 0:45:40  model_time: 7.6421 (7.6262)  evaluator_time: 0.0455 (0.0669)  time: 7.7457  data: 0.0026
+Test:  [240/585]  eta: 0:44:22  model_time: 7.6147 (7.6258)  evaluator_time: 0.0399 (0.0657)  time: 7.6815  data: 0.0026
+Test:  [250/585]  eta: 0:43:06  model_time: 7.6243 (7.6275)  evaluator_time: 0.0395 (0.0664)  time: 7.7212  data: 0.0026
+Test:  [260/585]  eta: 0:41:46  model_time: 7.5877 (7.6222)  evaluator_time: 0.0436 (0.0655)  time: 7.6597  data: 0.0026
+Test:  [270/585]  eta: 0:40:29  model_time: 7.4681 (7.6213)  evaluator_time: 0.0420 (0.0662)  time: 7.6260  data: 0.0026
+Test:  [280/585]  eta: 0:39:12  model_time: 7.6562 (7.6234)  evaluator_time: 0.0412 (0.0652)  time: 7.7181  data: 0.0026
+Test:  [290/585]  eta: 0:37:55  model_time: 7.6441 (7.6224)  evaluator_time: 0.0408 (0.0659)  time: 7.7172  data: 0.0027
+Test:  [300/585]  eta: 0:36:38  model_time: 7.6496 (7.6250)  evaluator_time: 0.0416 (0.0651)  time: 7.7295  data: 0.0027
+Test:  [310/585]  eta: 0:35:22  model_time: 7.6789 (7.6265)  evaluator_time: 0.0430 (0.0657)  time: 7.7696  data: 0.0028
+Test:  [320/585]  eta: 0:34:04  model_time: 7.6327 (7.6264)  evaluator_time: 0.0430 (0.0650)  time: 7.7325  data: 0.0027
+Test:  [330/585]  eta: 0:32:47  model_time: 7.6017 (7.6258)  evaluator_time: 0.0420 (0.0655)  time: 7.6977  data: 0.0026
+Test:  [340/585]  eta: 0:31:28  model_time: 7.5187 (7.6201)  evaluator_time: 0.0413 (0.0647)  time: 7.5970  data: 0.0026
+Test:  [350/585]  eta: 0:30:11  model_time: 7.6021 (7.6217)  evaluator_time: 0.0402 (0.0640)  time: 7.6123  data: 0.0026
+Test:  [360/585]  eta: 0:28:55  model_time: 7.6650 (7.6230)  evaluator_time: 0.0415 (0.0645)  time: 7.7531  data: 0.0026
+Test:  [370/585]  eta: 0:27:38  model_time: 7.6740 (7.6260)  evaluator_time: 0.0413 (0.0639)  time: 7.7820  data: 0.0026
+Test:  [380/585]  eta: 0:26:21  model_time: 7.6721 (7.6276)  evaluator_time: 0.0419 (0.0645)  time: 7.7939  data: 0.0027
+Test:  [390/585]  eta: 0:25:04  model_time: 7.6704 (7.6291)  evaluator_time: 0.0415 (0.0638)  time: 7.7665  data: 0.0026
+Test:  [400/585]  eta: 0:23:47  model_time: 7.6711 (7.6306)  evaluator_time: 0.0386 (0.0642)  time: 7.7654  data: 0.0027
+Test:  [410/585]  eta: 0:22:30  model_time: 7.6168 (7.6274)  evaluator_time: 0.0404 (0.0637)  time: 7.6767  data: 0.0027
+Test:  [420/585]  eta: 0:21:12  model_time: 7.4560 (7.6236)  evaluator_time: 0.0418 (0.0641)  time: 7.5653  data: 0.0026
+Test:  [430/585]  eta: 0:19:55  model_time: 7.6241 (7.6258)  evaluator_time: 0.0398 (0.0634)  time: 7.6702  data: 0.0026
+Test:  [440/585]  eta: 0:18:38  model_time: 7.7037 (7.6284)  evaluator_time: 0.0410 (0.0630)  time: 7.7898  data: 0.0027
+Test:  [450/585]  eta: 0:17:21  model_time: 7.6834 (7.6279)  evaluator_time: 0.0444 (0.0635)  time: 7.7595  data: 0.0027
+Test:  [460/585]  eta: 0:16:04  model_time: 7.6503 (7.6286)  evaluator_time: 0.0432 (0.0630)  time: 7.7154  data: 0.0027
+Test:  [470/585]  eta: 0:14:47  model_time: 7.7007 (7.6305)  evaluator_time: 0.0406 (0.0634)  time: 7.7696  data: 0.0027
+Test:  [480/585]  eta: 0:13:30  model_time: 7.7025 (7.6316)  evaluator_time: 0.0423 (0.0630)  time: 7.7823  data: 0.0027
+Test:  [490/585]  eta: 0:12:12  model_time: 7.5886 (7.6293)  evaluator_time: 0.0424 (0.0634)  time: 7.6866  data: 0.0074
+Test:  [500/585]  eta: 0:10:55  model_time: 7.5462 (7.6293)  evaluator_time: 0.0390 (0.0628)  time: 7.6566  data: 0.0075
+Test:  [510/585]  eta: 0:09:39  model_time: 7.6609 (7.6343)  evaluator_time: 0.0418 (0.0647)  time: 7.8961  data: 0.0222
+Test:  [520/585]  eta: 0:08:22  model_time: 7.7409 (7.6400)  evaluator_time: 0.0451 (0.0661)  time: 8.1115  data: 0.0391
+Test:  [530/585]  eta: 0:07:05  model_time: 7.6216 (7.6360)  evaluator_time: 0.0416 (0.0678)  time: 7.8557  data: 0.0195
+Test:  [540/585]  eta: 0:05:47  model_time: 7.6142 (7.6376)  evaluator_time: 0.0399 (0.0673)  time: 7.6833  data: 0.0026
+Test:  [550/585]  eta: 0:04:30  model_time: 7.6967 (7.6388)  evaluator_time: 0.0405 (0.0668)  time: 7.7615  data: 0.0027
+Test:  [560/585]  eta: 0:03:13  model_time: 7.5643 (7.6363)  evaluator_time: 0.0426 (0.0672)  time: 7.6757  data: 0.0027
+Test:  [570/585]  eta: 0:01:55  model_time: 7.4747 (7.6326)  evaluator_time: 0.0415 (0.0667)  time: 7.5342  data: 0.0026
+Test:  [580/585]  eta: 0:00:38  model_time: 7.4958 (7.6332)  evaluator_time: 0.0417 (0.0671)  time: 7.6206  data: 0.0026
+Test:  [584/585]  eta: 0:00:07  model_time: 7.6352 (7.6339)  evaluator_time: 0.0426 (0.0670)  time: 7.6801  data: 0.0026
+Test: Total time: 1:15:18 (7.7243 s / it)
+Averaged stats: model_time: 7.6352 (7.6339)  evaluator_time: 0.0426 (0.0670)
+Accumulating evaluation results...
+DONE (t=5.89s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.001
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.002
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.002
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.001
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.002
+Saving checkpoint
