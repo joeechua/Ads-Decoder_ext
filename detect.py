@@ -18,7 +18,7 @@ parser.add_argument(
     dest="files",
     help="List of image files",
     default="None",
-    type=lambda s: [item for item in s.split()],
+    type=lambda s: [item.lower() for item in s.split()],
 )
 parser.add_argument(
     "--descriptor", dest="descriptor", help="Descriptor", default="None", type=str
@@ -157,4 +157,4 @@ def draw_text(
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    detect(filelist=args.files.lower(), phrase=args.phrase.lower(), descriptor=args.descriptor.lower(), detection_threshold=args.threshold.lower())
+    detect(filelist=args.files, phrase=args.phrase.lower(), descriptor=args.descriptor.lower(), detection_threshold=args.threshold.lower())
