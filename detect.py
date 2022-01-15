@@ -40,12 +40,12 @@ def detect(filelist, phrase, descriptor="None", detection_threshold="0"):
 
     # TODO: change directory with trained model
     if descriptor == "strategies":
-        model = "outputs/checkpoint_strategies_tfasterrcnn.pth.tar"
+        model = "outputs/cp_strategies_tfasterrcnn_3ep.pth.tar"
     elif descriptor == "topics":
-        model = "outputs/checkpoint_topics_tfasterrcnn.pth.tar"
+        model = "outputs/cp_topics_tfasterrcnn_3ep.pth.tar"
     # Default: sentiment model
     else:
-        model = "outputs/checkpoint_sentiments_tfasterrcnn.pth.tar"
+        model = "outputs/cp_sentiments_tfasterrcnn_3ep.pth.tar"
 
     # Load model
     model = torch.load(model)["model"]

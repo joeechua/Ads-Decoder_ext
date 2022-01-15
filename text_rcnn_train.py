@@ -173,7 +173,7 @@ def train(num_classes: int, num_epochs: int,
 
         print("Saving checkpoint")
         # save checkpoint
-        checkpoint_name = "outputs/checkpoint_{}_tfasterrcnn.pth.tar"\
+        checkpoint_name = "outputs/cp_{}_tfasterrcnn.pth.tar"\
             .format(descriptor)
         utils.save_checkpoint(epoch, model, optimizer,
                               filename=checkpoint_name)
@@ -189,5 +189,5 @@ def train(num_classes: int, num_epochs: int,
 if __name__ == "__main__":
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
     train(num_classes=len(le.classes_),
-          faster_rcnn_trained="outputs/checkpoint_fasterrcnn_six_epochs.pth.tar",
+          faster_rcnn_trained="outputs/cp_fasterrcnn_6ep.pth.tar",
           num_epochs=3)
