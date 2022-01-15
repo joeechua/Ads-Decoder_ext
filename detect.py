@@ -40,9 +40,9 @@ def detect(filelist, phrase, descriptor="None", detection_threshold="0"):
 
     # TODO: change directory with trained model
     if descriptor == "strategies":
-        model = "outputs/strategies_model.pth.tar"
+        model = "outputs/checkpoint_strategies_tfasterrcnn.pth.tar"
     elif descriptor == "topics":
-        model = "outputs/topics_model.pth.tar"
+        model = "outputs/checkpoint_topics_tfasterrcnn.pth.tar"
     # Default: sentiment model
     else:
         model = "outputs/checkpoint_sentiments_tfasterrcnn.pth.tar"
