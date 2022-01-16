@@ -8,34 +8,34 @@ We use Anaconda virtual environment to run the code and install all required pac
 1. python 3.x
 2. pytorch
 
-    ```
-    conda install pytorch torchvision torchaudio -c pytorch
-    ```
+```
+conda install pytorch torchvision torchaudio -c pytorch
+```
 
 3. sklearn
     
-    ```
-    pip install -U scikit-learn
-    ```
+```
+pip install -U scikit-learn
+```
 
 4. gensim
 
-    ```
-    pip install -U gensim
-    ```
+```
+pip install -U gensim
+```
 
 5. pycocotools
 
-    ```
-    pip install pycocotools
-    ```
+```
+pip install pycocotools
+```
     
 6. textblob
 
-    ```
-    pip install -U textblob
-    python -m textblob.download_corpora
-    ```
+```
+pip install -U textblob
+python -m textblob.download_corpora
+```
 
 ## Download Data
 Download the data by running the command below.
@@ -72,7 +72,10 @@ Before detection, make sure that the checkpoint file for Text Faster R-CNN model
 
 Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase with your own choice.
 
-    python detect.py --files "detect_input/<image_1>.jpg detect_input/<image_2>.jpg" --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>" --threshold "<any_float_value_between_0_and_1>"
+    python detect.py 
+     --files "detect_input/<image_1>.jpg detect_input/<image_2>.jpg" 
+     --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>" 
+     --threshold "<any_float_value_between_0_and_1>"
 
 Some examples of the detection result.
 
