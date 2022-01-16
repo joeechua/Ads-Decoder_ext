@@ -107,7 +107,7 @@ Before detection, make sure that the checkpoint file for Text Faster R-CNN model
 * [Sentiments + Faster R-CNN](https://drive.google.com/file/d/1--5efB6h6qS3E-9kXEeiaMJBsLs4Mo4R/view?usp=sharing)
 * [Strategies + Faster R-CNN](https://drive.google.com/file/d/1WvmPzvwKCqTCB3UqUqmETg-v9GxvQdR4/view?usp=sharing)
 
-Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase with your own choice.
+Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase as well as threshold with your own choice.
 
     python detect.py 
      --files "detect_input/<image_1>.jpg detect_input/<image_2>.jpg" 
