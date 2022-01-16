@@ -128,6 +128,9 @@ Some examples of the detection result using the sentiments as the descriptor.
 ## References
 
 ```
+Gupta, S. (2020). Shivanshu-Gupta/Visual-Question-Answering. 
+Retrieved from https://github.com/Shivanshu-Gupta/Visual-Question-Answering
+
 Hussain, Zaeem, et al. "Automatic understanding of image and video
 advertisements." 2017 IEEE Conference on Computer Vision and Pattern Recognition
 (CVPR). IEEE, 2017.
