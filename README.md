@@ -65,9 +65,9 @@ To train the Text Faster R-CNN model, run the following command after finished t
 
 In this project, we used [Massive3](https://massive.org.au/index.html), a high performance computing platform, to train and evaluate the models. This section will provide guidance on how to run code on M3.
 
-1. Login to your account using `ssh` command.
+1. Login to your account using `ssh` command. Please replace the username with your own.
 ```
-ssh username@monarch.erc.monash.edu
+ssh <username>@monarch.erc.monash.edu
 ```
 
 2. Change directory to the folder where you want to run your code.
