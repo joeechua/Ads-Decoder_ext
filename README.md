@@ -18,19 +18,19 @@ conda install pytorch torchvision torchaudio -c pytorch
 pip install -U scikit-learn
 ```
 
-4. gensim
+4. gensim 4.0
 
 ```
 pip install -U gensim
 ```
 
-5. pycocotools
+5. pycocotools 2.0
 
 ```
 pip install pycocotools
 ```
     
-6. textblob
+6. textblob 0.17.1
 
 ```
 pip install -U textblob
