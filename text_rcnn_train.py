@@ -63,11 +63,11 @@ def train(num_classes: int, num_epochs: int,
     """
     Train the model.
 
-    :param descriptor:          (str) descriptor to add to ensemble model
-    :param faster_rcnn_trained: trained faster r-cnn model
     :param num_classes:         (int) number of label classes
     :param num_epochs:          (int) number of epochs to train
+    :param faster_rcnn_trained: trained faster r-cnn model
     :param checkpoint:          (str, optional) path to the checkpoint file.
+    :param descriptor:          (str) descriptor to add to ensemble model
     :param batch_size:          (int, optional) batch size.
     :param num_workers:         (int, optional) number of workers.
     """
