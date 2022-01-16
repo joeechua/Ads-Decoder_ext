@@ -15,6 +15,11 @@ class TextEmbedModel:
     """
 
     def __init__(self, embed_model_name="glove-wiki-gigaword-300"):
+        """
+        Initialise a new text embbedding model.
+
+        :param embed_model_name: the name of the word2vec model
+        """
         self.embed_model_name = embed_model_name
         path = self.embed_model_name + ".model"
         if os.path.exists(path):
@@ -28,6 +33,13 @@ class TextEmbedModel:
         self.embed_size = int(self.embed_model_name.split("-")[-1])
 
     def get_vector_rep(self, phrase):
+        """
+        Get the vector representation of phrase.
+
+        :param phrase: a phrase (i.e., words separated by a space)
+        :return: the vector representation of phrase based on the word2vec model
+        initialised
+        """
         phrase = phrase.strip().lower()
         blob = TextBlob(phrase)
         words = blob.words
@@ -85,6 +97,7 @@ class SentimentPreProcessor:
         Transform the target_lst of sentiments provided by the PITTs dataset to
         a Pytorch tensor based on the Word2Vec model.
 
+        target_list: a list of lists where each element is a number
         """
         # flatten list
         lst = [item for sublist in target_lst for item in sublist]
@@ -110,6 +123,12 @@ class TopicsPreProcessor:
 
     def __init__(self, root="./data/annotations",
                  embed_model="glove-wiki-gigaword-300"):
+        """
+        Initialise a new Topics PreProcessor.
+
+        :param root:        the folder that contains Topics_List.txt
+        :param embed_model: the name of the word2vec model
+        """
         self.text_embed_model = TextEmbedModel(embed_model)
         self.embed_model = self.text_embed_model.embed_model_name
         self.model = self.text_embed_model.model
@@ -158,6 +177,7 @@ class TopicsPreProcessor:
         Transform the target_lst of topics provided by the PITTs dataset to
         a Pytorch tensor based on the Word2Vec model.
 
+        target_list: a list of numbers or text
         """
         count = 0
         vec_lst = []
@@ -203,6 +223,12 @@ class StrategiesPreProcessor:
 
     def __init__(self, root="./data/annotations",
                  embed_model="glove-wiki-gigaword-300"):
+        """
+        Initialise a new Strategies PreProcessor.
+
+        :param root:        the folder that contains Strateges_List.txt
+        :param embed_model: the name of the word2vec model
+        """
         self.text_embed_model = TextEmbedModel(embed_model)
         self.embed_model = self.text_embed_model.embed_model_name
         self.model = self.text_embed_model.model
@@ -242,6 +268,7 @@ class StrategiesPreProcessor:
         Transform the target_lst of topics provided by the PITTs dataset to
         a Pytorch tensor based on the Word2Vec model.
 
+        target_list: a list of lists, each element may contain a number or text
         """
 
         # flatten list
@@ -301,19 +328,11 @@ def cosine_sim(vec1, vec2):
     """
     Return the cosine similarity between two word vectors.
 
+    vec1: (np array)    the vector that represents one word
+    vec2: (np array)    the vector that represents the othe word
     """
     cosine_similarity = \
         np.dot(vec1, vec2) / (np.linalg.norm(vec1) * np.linalg.norm(vec2))
 
     return cosine_similarity
 
-
-if __name__ == "__main__":
-    t = TextEmbedModel()
-    x = t.get_vector_rep("hello world")
-
-    print(type(x))
-    # Convert to tensor
-    x = torch.from_numpy(x).float()
-    descriptors = [x]
-    print(x)
