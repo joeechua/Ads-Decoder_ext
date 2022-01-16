@@ -48,11 +48,11 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
 
     detection_threshold = float(detection_threshold)
 
-    # TODO: change directory with trained model
+    # TODO: Model filename to be modified if applicable
     if descriptor == "strategies":
         model = "outputs/cp_strategies_tfasterrcnn_3ep.pth.tar"
     elif descriptor == "topics":
-        model = "outputs/cp_topics_tfasterrcnn_3ep.pth.tar"
+        model = "outputs/cp_topics_tfasterrcnn_2ep.pth.tar"
     # Default: sentiment model
     else:
         model = "outputs/cp_sentiments_tfasterrcnn_3ep.pth.tar"
