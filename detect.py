@@ -129,8 +129,6 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
                     text_color_bg=COLORS[index],
                 )
 
-            # cv2.imshow('Prediction', orig_image)
-            cv2.waitKey(1)
             print(f"Writing {image_name} to file...")
             cv2.imwrite(f"detect_output/{image_name}", orig_image)
         print(f"Image {i+1}: {image_name} done...")
