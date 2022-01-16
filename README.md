@@ -61,7 +61,7 @@ To train the Text Faster R-CNN model, run the following command after finished t
 
     python text_rcnn_train.py
     
-### MASIVE M3
+### MASSIVE M3
 
 In this project, we used [MASSIVE M3](https://massive.org.au/index.html), a high performance computing platform, to train and evaluate the models. This section will provide guidance on how to run code on M3.
 
