@@ -145,7 +145,7 @@ def train(num_classes: int, num_epochs: int, checkpoint=None, batch_size=8, num_
 
         print("Saving checkpoint")
         # save checkpoint
-        utils.save_checkpoint(epoch, model, optimizer, filename='outputs/checkpoint_fasterrcnn.pth.tar')
+        utils.save_checkpoint(epoch, model, optimizer, filename='outputs/cp_fasterrcnn.pth.tar')
     write_dict_to_json("outputs/fasterrcnn_train_metric_log_med.json", metric_logs_med)
     write_dict_to_json("outputs/fasterrcnn_train_metric_log_avg.json", metric_logs_avg)
 

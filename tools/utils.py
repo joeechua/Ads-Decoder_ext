@@ -285,7 +285,7 @@ def init_distributed_mode(args):
     setup_for_distributed(args.rank == 0)
 
 
-def save_checkpoint(epoch: int, model, optimizer, filename='outputs/checkpoint_fasterrcnn.pth.tar'):
+def save_checkpoint(epoch: int, model, optimizer, filename='outputs/cp_fasterrcnn.pth.tar'):
     """Save model checkpoint
 
     Args:
