@@ -117,7 +117,7 @@ Upload your image(s) under `detect_input` directory and run the following comman
      --descriptor "<sentiments/topics/strategies>" --phrase "<any_phrase>" 
      --threshold "<any_float_value_between_0_and_1>"
 
-Some examples of the detection result.
+Some examples of the detection result using the sentiments as the descriptor.
 
 ![alt text](detect_output/1.jpg?raw=true)
 
