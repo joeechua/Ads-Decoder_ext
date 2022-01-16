@@ -60,6 +60,43 @@ To train the Faster R-CNN model, run the following command.
 To train the Text Faster R-CNN model, run the following command after finished training the Faster R-CNN model or you can choose to download the pretrained models using the [link](https://drive.google.com/file/d/1grz1hLD2C03j7DPhr42kDiOQUBFbqCS7/view?usp=sharing) and put file in the `outputs` directory.
 
     python text_rcnn_train.py
+    
+### Massive3
+
+In this project, we used [Massive3](https://massive.org.au/index.html), a high performance computing platform, to train and evaluate the models. This section will provide guidance on how to run code on M3.
+
+1. Login to your account using `ssh` command.
+```
+ssh username@monarch.erc.monash.edu
+```
+
+2. Change directory to the folder where you want to run your code.
+```
+cd path/to/destinated/directory
+```
+
+3. Activate Anaconda virtual environment. To see how to create one, please visit this [link](https://docs.massive.org.au/M3/software/pythonandconda/python-anaconda.html#python-anaconda).
+```
+source activate path/to/your/virtual/environment
+```
+
+4. Clone this Git repository.
+```
+git clone https://github.com/yuhueilee/Ads-Decoder.git
+```
+
+5. Change directory to `Ads-Decoder`
+```
+cd Ads-Decoder
+```
+
+6. Submit the job script. We provided a [sample job script](https://github.com/yuhueilee/Ads-Decoder/blob/main/sentiments_fasterrcnn.job) in this repo as well. Please modify line 12 to the path your Anaconda virtual environment.
+```
+sbatch <job_script_name>.job
+```
+
+Once the job has completed, the checkpoint files for the model will be created and stored under `outputs` directory. An output file will be created that logs the execution of the code.
+
 
 ## Detection
 
