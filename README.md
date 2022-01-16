@@ -91,4 +91,7 @@ advertisements." 2017 IEEE Conference on Computer Vision and Pattern Recognition
 
 Ye, K., & Kovashka, A. (2018). Advise: Symbolism and external knowledge for decoding advertisements. 
 Proceedings of the European Conference on Computer Vision (ECCV), 837-855.
+
+Torchvision object detection finetuning tutorial. (n.d.). 
+Retrieved January 16, 2022, from https://pytorch.org/tutorials/intermediate/torchvision_tutorial.html 
 ```
