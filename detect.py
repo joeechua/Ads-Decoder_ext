@@ -2,6 +2,7 @@
 Usage:
     python detect.py --files "detect_input/1.jpg" --descriptor "sentiments" --phrase "active"
 """
+from typing import List
 import numpy as np
 import cv2
 import torch
@@ -34,7 +35,16 @@ parser.add_argument(
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
-def detect(filelist, phrase, descriptor="None", detection_threshold="0"):
+def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_threshold="0"):
+    """Generate image that contains predicted symbolic bounding boxes and labels
+    and store under the detect_output directory
+
+    Args:
+        filelist (List[str]): a list of image file name
+        phrase (str): phrase thatdescribes the images (refer to Sentiments_List.txt, Strategies_List.txt and Topics_List.txt)
+        descriptor (str, optional): sentiments, strategies, or topics. Defaults to "sentiments".
+        detection_threshold (str, optional): threshold for the predicted bounding boxes. Defaults to "0".
+    """
 
     detection_threshold = float(detection_threshold)
 
@@ -157,4 +167,4 @@ def draw_text(
 
 if __name__ == "__main__":
     args = parser.parse_args()
-    detect(filelist=args.files, phrase=args.phrase.lower(), descriptor=args.descriptor.lower(), detection_threshold=args.threshold.lower())
+    detect(filelist=args.files, phrase=args.phrase.lower(), descriptor=args.descriptor.lower(), detection_threshold=args.threshold)
