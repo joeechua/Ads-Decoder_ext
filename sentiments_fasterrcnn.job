@@ -15,6 +15,8 @@ conda install pytorch torchvision torchaudio -c pytorch
 pip install -U scikit-learn
 pip install -U gensim
 pip install pycocotools
+pip install -U textblob
+python -m textblob.download_corpora
 
 python3 preprocess/boxes.py --symbol_annotation_filename "data/annotations/Symbols.json"
 python3 preprocess/labels.py --symbol_annotation_filename "data/annotations/Symbols.json"
