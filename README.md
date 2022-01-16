@@ -5,14 +5,14 @@ This project focuses on combining the image features with the text descriptor an
 ## Prerequisites
 We use Anaconda virtual environment to run the code and install all required packages.
 
-1. python 3.x
-2. pytorch
+1. python >= 3.7
+2. pytorch 1.10
 
 ```
 conda install pytorch torchvision torchaudio -c pytorch
 ```
 
-3. sklearn
+3. sklearn 1.0
     
 ```
 pip install -U scikit-learn
