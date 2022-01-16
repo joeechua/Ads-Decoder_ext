@@ -65,7 +65,7 @@ To train the Text Faster R-CNN model, run the following command after finished t
 
 In this project, we used [MASSIVE M3](https://massive.org.au/index.html), a high performance computing platform, to train and evaluate the models. This section will provide guidance on how to run code on M3.
 
-Note: Users have to have a registered HPC ID account (used to log in to MonARCH) or [request an account](https://docs.massive.org.au/M3/requesting-an-account.html) for M3.
+Note: Users need a registered HPC ID account (used to log in to MonARCH) or [request an account](https://docs.massive.org.au/M3/requesting-an-account.html) for M3.
 
 1. Login to your account using `ssh` command. Please replace the username with your own.
 ```
