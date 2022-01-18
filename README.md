@@ -119,11 +119,13 @@ Upload your image(s) under `detect_input` directory and run the following comman
 
 Some examples of the detection result using the sentiments as the descriptor.
 
-![alt text](detect_output/1.jpg?raw=true)
-
-![alt text](detect_output/2.jpg?raw=true)
-
-![alt text](detect_output/7.jpg?raw=true)
+<p align="center">
+    <img src="detect_output/2.jpg?raw=true" height="350">
+    <img src="detect_output/7.jpg?raw=true" height="350">
+    <img src="detect_output/10.jpg?raw=true" height="350">
+    <img src="detect_output/11.jpg?raw=true" height="350">
+    <img src="detect_output/13.jpg?raw=true" height="350">
+</p>
 
 ## References
 
