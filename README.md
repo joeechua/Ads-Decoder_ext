@@ -38,7 +38,7 @@ python -m textblob.download_corpora
 ```
 
 ## Download Data
-Download the data by running the command below.
+Download the data by running the command below in the terminal window at the `Ads-Decoder` directory.
 
     sh download_data.sh
 
