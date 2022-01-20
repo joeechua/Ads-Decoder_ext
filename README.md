@@ -77,22 +77,27 @@ ssh <username>@monarch.erc.monash.edu
 cd path/to/destinated/directory
 ```
 
-3. Activate Anaconda virtual environment. To see how to create one, please visit this [link](https://docs.massive.org.au/M3/software/pythonandconda/python-anaconda.html#python-anaconda).
+3. Load the Anaconda module. To see the available modules, run `module avail anaconda`.
+```
+module load anaconda/2019.03-Python3.7-gcc5
+```
+
+4. Activate Anaconda virtual environment. To see how to create one, please visit this [link](https://docs.massive.org.au/M3/software/pythonandconda/python-anaconda.html#python-anaconda).
 ```
 source activate path/to/your/virtual/environment
 ```
 
-4. Clone this Git repository.
+5. Clone this Git repository.
 ```
 git clone https://github.com/yuhueilee/Ads-Decoder.git
 ```
 
-5. Change directory to `Ads-Decoder`
+6. Change directory to `Ads-Decoder`
 ```
 cd Ads-Decoder
 ```
 
-6. Submit the job script. We provided a [sample job script](https://github.com/yuhueilee/Ads-Decoder/blob/main/sentiments_fasterrcnn.job) in this repo as well. Please modify line 12 to the path your Anaconda virtual environment.
+7. Submit the job script. We provided a [sample job script](https://github.com/yuhueilee/Ads-Decoder/blob/main/sentiments_fasterrcnn.job) in this repo as well. Please modify line 12 to the path of your Anaconda virtual environment.
 ```
 sbatch <job_script_name>.job
 ```
