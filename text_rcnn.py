@@ -81,7 +81,7 @@ class TextFasterRCNN(nn.Module):
         # Set Faster RCNN model to evaluation mode as we do not want to update
         # its weights
         self.faster_rcnn.eval()
-        self.faster_rcnn(images)
+        self.faster_rcnn(images.to("cuda"))
 
         features = activation['backbone']
         proposals, proposal_losses = activation['rpn']
@@ -90,7 +90,7 @@ class TextFasterRCNN(nn.Module):
         images, targets = self.transform(images, targets)
 
         # Transform descriptors into a tensor.
-        descriptors = torch.stack(descriptors, dim=0)
+        descriptors = torch.stack(descriptors, dim=0).to("cuda")
 
         detections, detector_losses = self.roi_heads(features, proposals,
                                                      images.image_sizes,

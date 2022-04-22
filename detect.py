@@ -35,6 +35,7 @@ parser.add_argument(
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 
+
 def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_threshold="0"):
     """Generate image that contains predicted symbolic bounding boxes and labels
     and store under the detect_output directory
@@ -103,8 +104,13 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
         if len(outputs[0]["boxes"]) != 0:
             boxes = outputs[0]["boxes"].data.numpy()
             scores = outputs[0]["scores"].data.numpy()
+
+            #take top two scores
+            if len(boxes) > 2:
+                one, two = get2max_index(scores)
+                boxes = [boxes[one], boxes[two]]
             # filter out boxes according to `detection_threshold`
-            boxes = boxes[scores >= detection_threshold].astype(np.int32)
+            #boxes = boxes[scores >= detection_threshold].astype(np.int32)
             draw_boxes = boxes.copy()
 
             # get all the predicted class names
@@ -161,6 +167,22 @@ def draw_text(
         text_color,
         font_thickness
     )
+
+def get2max_index(lst):
+    if len(lst) <= 2:
+        return None
+    max1 = 0
+    max2 = 0
+    for i in range(len(lst)):
+        current = lst[i]
+        localmax = current > lst[max1]
+        localmax2 = current > lst[max2]
+        if localmax and localmax2:
+            max2 = max1
+            max1 = i
+        elif localmax2:
+            max2 = i
+    return (max1, max2)
 
 
 if __name__ == "__main__":
