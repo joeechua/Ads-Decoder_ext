@@ -1,4 +1,5 @@
 # Referenced from https://github.com/pytorch/vision/blob/922db3086e654871c35cd80c2c01eabb65d78475/references/detection/coco_eval.py
+# Can reference this for more understanding of base functions https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py
 import copy
 import io
 from contextlib import redirect_stdout

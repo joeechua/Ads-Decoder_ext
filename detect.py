@@ -36,7 +36,7 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 
 
 
-def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_threshold="0"):
+def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_threshold="0", test=False):
     """Generate image that contains predicted symbolic bounding boxes and labels
     and store under the detect_output directory
 
@@ -77,11 +77,11 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
     text_embed = desc.TextEmbedModel()
     phrase_embed = text_embed.get_vector_rep(phrase)
     phrase_embed = [torch.from_numpy(phrase_embed).float()]
-
+    results = []
     for i in range(len(filelist)):
         # get the image file name for saving output later on
         image_name = filelist[i].split("/")[-1]
-
+        
         image = cv2.imread(filelist[i])
         orig_image = image.copy()
         # BGR to RGB
@@ -100,8 +100,10 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
 
         # load all detection to CPU for further operations
         outputs = [{k: v.to("cpu") for k, v in t.items()} for t in outputs]
+        print("GOODBYE")
         # carry further only if there are detected boxes
         if len(outputs[0]["boxes"]) != 0:
+            print("HELLO")
             boxes = outputs[0]["boxes"].data.numpy()
             scores = outputs[0]["scores"].data.numpy()
 
@@ -121,27 +123,35 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
                 # find the index of the predicted label class
                 index = np.where(CLASSES == pred_classes[j])[0][0]
 
-                cv2.rectangle(
-                    orig_image,
-                    (int(box[0]), int(box[1])),
-                    (int(box[2]), int(box[3])),
-                    COLORS[index],
-                    2,
-                )
-                draw_text(
-                    img=orig_image,
-                    text=pred_classes[j],
-                    pos=(int(box[0]), int(box[1])),
-                    text_color_bg=COLORS[index],
-                )
+                if not test:
+                    cv2.rectangle(
+                        orig_image,
+                        (int(box[0]), int(box[1])),
+                        (int(box[2]), int(box[3])),
+                        COLORS[index],
+                        2,
+                    )
+                    draw_text(
+                        img=orig_image,
+                        text=pred_classes[j],
+                        pos=(int(box[0]), int(box[1])),
+                        text_color_bg=COLORS[index],
+                    )
+                else:
+                    res = [int(box[0]), int(box[1]), int(box[2]), int(box[3]), pred_classes[j]]
+                    results.append(res)
 
-            print(f"Writing {image_name} to file...")
-            cv2.imwrite(f"detect_output/{image_name}", orig_image)
-        print(f"Image {i+1}: {image_name} done...")
-        print("-" * 50)
+            if not test:
+                print(f"Writing {image_name} to file...")
+                cv2.imwrite(f"detect_output/{image_name}", orig_image)
+        if not test:
+            print(f"Image {i+1}: {image_name} done...")
+            print("-" * 50)
 
     print("TEST PREDICTIONS COMPLETE")
     cv2.destroyAllWindows()
+    if test:
+        return results
 
 
 def draw_text(

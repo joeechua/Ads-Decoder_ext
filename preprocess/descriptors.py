@@ -310,7 +310,7 @@ class StrategiesPreProcessor:
         return torch.from_numpy(np.array(final)).float()
 
 
-def load_annotation_json(filename="../data/Sentiments.json"):
+def load_annotation_json(filename="data/annotations/Sentiments.json"):
     """
     Load topics annotation
 
@@ -319,6 +319,7 @@ def load_annotation_json(filename="../data/Sentiments.json"):
     """
 
     descriptor = {}
+    print(filename)
     with open(filename, "r") as f:
         descriptor = json.load(f)
     return descriptor
