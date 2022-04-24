@@ -100,19 +100,17 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
 
         # load all detection to CPU for further operations
         outputs = [{k: v.to("cpu") for k, v in t.items()} for t in outputs]
-        print("GOODBYE")
         # carry further only if there are detected boxes
         if len(outputs[0]["boxes"]) != 0:
-            print("HELLO")
             boxes = outputs[0]["boxes"].data.numpy()
             scores = outputs[0]["scores"].data.numpy()
 
             #take top two scores
-            if len(boxes) > 2:
-                one, two = get2max_index(scores)
-                boxes = [boxes[one], boxes[two]]
+            # if len(boxes) > 2:
+            #     one, two = get2max_index(scores)
+            #     boxes = [boxes[one], boxes[two]]
             # filter out boxes according to `detection_threshold`
-            #boxes = boxes[scores >= detection_threshold].astype(np.int32)
+            boxes = boxes[scores >= detection_threshold].astype(np.int32)
             draw_boxes = boxes.copy()
 
             # get all the predicted class names
@@ -182,16 +180,21 @@ def get2max_index(lst):
     if len(lst) <= 2:
         return None
     max1 = 0
+    m1 = -1
     max2 = 0
+    m2 = - 1
     for i in range(len(lst)):
         current = lst[i]
-        localmax = current > lst[max1]
-        localmax2 = current > lst[max2]
+        localmax = current > m1
+        localmax2 = current > m2
         if localmax and localmax2:
             max2 = max1
+            m2 = m1
             max1 = i
+            m1 = current
         elif localmax2:
             max2 = i
+            m2 = current
     return (max1, max2)
 
 
