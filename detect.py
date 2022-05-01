@@ -55,8 +55,13 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
     elif descriptor == "topics":
         model = "outputs/cp_topics_tfasterrcnn_2ep.pth.tar"
     # Default: sentiment model
-    else:
+    elif descriptor == "sentiments":
         model = "outputs/cp_sentiments_tfasterrcnn_3ep.pth.tar"
+    else:
+        model = "outputs/cp_fasterrcnn.pth.tar"
+
+    #model = "outputs/cp_fasterrcnn.pth.tar"
+    
 
     # Load model
     model = torch.load(model)["model"]
@@ -93,10 +98,14 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
         # convert to tensor
         image = torch.tensor(image, dtype=torch.float)
         # add batch dimension
-        image = torch.unsqueeze(image, 0)
+        image = image.unsqueeze_(0)
 
+        #idk just test
         with torch.no_grad():
-            outputs = model(image, phrase_embed)
+            if descriptor == "original":
+                outputs = model(image.to("cuda"))
+            else:
+                outputs = model(image, phrase_embed)
 
         # load all detection to CPU for further operations
         outputs = [{k: v.to("cpu") for k, v in t.items()} for t in outputs]
@@ -111,10 +120,12 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
             #     boxes = [boxes[one], boxes[two]]
             # filter out boxes according to `detection_threshold`
             boxes = boxes[scores >= detection_threshold].astype(np.int32)
+            scores = scores[scores >= detection_threshold]
             draw_boxes = boxes.copy()
 
             # get all the predicted class names
             pred_classes = [CLASSES[i] for i in outputs[0]["labels"].cpu().numpy()]
+            i = 0
 
             # draw the bounding boxes and write the class name on top of it
             for j, box in enumerate(draw_boxes):
@@ -136,8 +147,9 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
                         text_color_bg=COLORS[index],
                     )
                 else:
-                    res = [int(box[0]), int(box[1]), int(box[2]), int(box[3]), pred_classes[j]]
+                    res = [int(box[0]), int(box[1]), int(box[2]), int(box[3]), pred_classes[j], scores[i]]
                     results.append(res)
+                    i += 1
 
             if not test:
                 print(f"Writing {image_name} to file...")
