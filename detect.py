@@ -5,7 +5,7 @@ Usage:
 from typing import List
 import numpy as np
 import cv2
-import torch
+import torch, torchvision
 import pickle
 import argparse
 from preprocess import descriptors as desc
@@ -64,7 +64,8 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
     
 
     # Load model
-    model = torch.load(model)["model"]
+    #model = torch.load(model)["model"]
+    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     model = model.to(device)
 
     # Evaluate model
@@ -158,8 +159,9 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
             print(f"Image {i+1}: {image_name} done...")
             print("-" * 50)
 
-    print("TEST PREDICTIONS COMPLETE")
     cv2.destroyAllWindows()
+    if not test:
+        print("TEST PREDICTIONS COMPLETE")
     if test:
         return results
 
