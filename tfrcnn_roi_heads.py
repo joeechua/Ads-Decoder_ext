@@ -221,3 +221,61 @@ class TFRCNNRoIHeads(RoIHeads):
             losses.update(loss_keypoint)
 
         return result, losses
+
+def fastrcnn_loss(class_logits, box_regression, labels, regression_targets):
+    # type: (Tensor, Tensor, List[Tensor], List[Tensor]) -> Tuple[Tensor, Tensor]
+    """
+    Computes the loss for Faster R-CNN.
+
+    Args:
+        class_logits (Tensor)
+        box_regression (Tensor)
+        labels (list[BoxList])
+        regression_targets (Tensor)
+
+    Returns:
+        classification_loss (Tensor)
+        box_loss (Tensor)
+    """
+
+    labels = torch.cat(labels, dim=0)
+    regression_targets = torch.cat(regression_targets, dim=0)
+
+    classification_loss = F.cross_entropy(class_logits, labels)
+
+    # get indices that correspond to the regression targets for
+    # the corresponding ground truth labels, to be used with
+    # advanced indexing
+    sampled_pos_inds_subset = torch.where(labels > 0)[0]
+    labels_pos = labels[sampled_pos_inds_subset]
+    sampled_neg_inds_subset = torch.where(labels <= 0)[0]
+    N, num_classes = class_logits.shape
+    box_regression = box_regression.reshape(N, box_regression.size(-1) // 4, 4)
+
+    # #OLD ONE
+    # box_loss = F.smooth_l1_loss(
+    #     box_regression[sampled_pos_inds_subset, labels_pos],
+    #     regression_targets[sampled_pos_inds_subset],
+    #     beta=1 / 9,
+    #     reduction="sum",
+    # )
+
+    anchor = box_regression[sampled_pos_inds_subset, labels_pos]
+    pos = regression_targets[sampled_pos_inds_subset]
+    neg = regression_targets[sampled_neg_inds_subset]
+    size = anchor.size()[0]
+    neg = neg[:size]
+
+    print("Anchor size", anchor.shape)
+    print("Pos size", pos.shape)
+    print("Neg size", neg.shape)
+
+    box_loss = F.triplet_margin_loss(
+        anchor,
+        pos,
+        neg
+    )
+
+    box_loss = box_loss / labels.numel()
+
+    return classification_loss, box_loss

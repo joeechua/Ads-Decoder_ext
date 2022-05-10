@@ -56,16 +56,17 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
         model = "outputs/cp_topics_tfasterrcnn_2ep.pth.tar"
     # Default: sentiment model
     elif descriptor == "sentiments":
-        model = "outputs/cp_sentiments_tfasterrcnn_3ep.pth.tar"
+        #model = "outputs/cp_sentiments_tfasterrcnn_3ep.pth.tar"
+        model = "outputs/cp_sentiments_tfasterrcnn_bsight.pth.tar"
     else:
         model = "outputs/cp_fasterrcnn.pth.tar"
 
-    #model = "outputs/cp_fasterrcnn.pth.tar"
+    
     
 
     # Load model
-    #model = torch.load(model)["model"]
-    model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
+    model = torch.load(model)["model"]
+    #model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     model = model.to(device)
 
     # Evaluate model
@@ -106,7 +107,7 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
             if descriptor == "original":
                 outputs = model(image.to("cuda"))
             else:
-                outputs = model(image, phrase_embed)
+                outputs = model(image.to("cuda"), phrase_embed)
 
         # load all detection to CPU for further operations
         outputs = [{k: v.to("cpu") for k, v in t.items()} for t in outputs]

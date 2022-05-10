@@ -81,8 +81,8 @@ class TextFasterRCNN(nn.Module):
         # Set Faster RCNN model to evaluation mode as we do not want to update
         # its weights
         self.faster_rcnn.eval()
-        #self.faster_rcnn(images)
-        self.faster_rcnn(images.to("cuda"))
+        self.faster_rcnn(images)
+        #self.faster_rcnn(images.to("cuda"))
 
         features = activation['backbone']
         proposals, proposal_losses = activation['rpn']
