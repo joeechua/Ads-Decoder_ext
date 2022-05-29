@@ -1,6 +1,13 @@
 import tensorflow as tf
 from protos import triplet_mining_pb2
 
+def distance_fn(x, y):
+      """Distance function."""
+      distance = slim.dropout(tf.multiply(x, y), keep_prob,
+          is_training=is_training)
+      distance = 1 - tf.reduce_sum(distance, 1)
+      return distance
+
 
 def _safe_batch_size(tensor):
   """Safely gets the batch size of tensor. 
