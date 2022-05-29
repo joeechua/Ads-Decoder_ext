@@ -237,7 +237,7 @@ def fastrcnn_loss(class_logits, box_regression, labels, regression_targets):
         classification_loss (Tensor)
         box_loss (Tensor)
     """
-
+    
     labels = torch.cat(labels, dim=0)
     regression_targets = torch.cat(regression_targets, dim=0)
 
@@ -266,9 +266,6 @@ def fastrcnn_loss(class_logits, box_regression, labels, regression_targets):
     size = anchor.size()[0]
     neg = neg[:size]
 
-    print("Anchor size", anchor.shape)
-    print("Pos size", pos.shape)
-    print("Neg size", neg.shape)
 
     box_loss = F.triplet_margin_loss(
         anchor,

@@ -51,17 +51,16 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
 
     # TODO: Model filename to be modified if applicable
     if descriptor == "strategies":
-        model = "outputs/cp_strategies_tfasterrcnn_3ep.pth.tar"
+        model = "outputs/cp_strategies_tfasterrcnn_10CALS.pth.tar"
+        #model = "outputs/cp_strategies_tfasterrcnn_3ep.pth.tar"
     elif descriptor == "topics":
         model = "outputs/cp_topics_tfasterrcnn_2ep.pth.tar"
     # Default: sentiment model
     elif descriptor == "sentiments":
-        #model = "outputs/cp_sentiments_tfasterrcnn_3ep.pth.tar"
-        model = "outputs/cp_sentiments_tfasterrcnn_bsight.pth.tar"
+        model = "outputs/cp_sentiments_tfasterrcnn_50ep.pth.tar"
+        #model = "outputs/cp_sentiments_tfasterrcnn_bsight.pth.tar"
     else:
         model = "outputs/cp_fasterrcnn.pth.tar"
-
-    
     
 
     # Load model

@@ -319,7 +319,7 @@ def load_annotation_json(filename="data/annotations/Sentiments.json"):
     """
 
     descriptor = {}
-    print(filename)
+
     with open(filename, "r") as f:
         descriptor = json.load(f)
     return descriptor

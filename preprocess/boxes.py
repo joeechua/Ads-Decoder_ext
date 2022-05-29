@@ -5,6 +5,7 @@ Usage:
 import json
 import os
 import argparse
+from textblob import TextBlob
 
 # Add arguments to parser
 parser = argparse.ArgumentParser(description='Preprocess on boxes in symbols annotation')
@@ -24,6 +25,12 @@ def load_symbols_annotation(filename="data/annotations/Symbols.json"):
     symbols = {}
     with open(filename, "r") as f:
         symbols = json.load(f)
+    for key in symbols.keys:
+            ori_word = symbols[key]
+            blob_word = TextBlob(ori_word)
+            new_word = blob_word.correct()
+            if ori_word != new_word:
+                symbols[key] = new_word
     return symbols
 
 

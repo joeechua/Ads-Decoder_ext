@@ -4,12 +4,14 @@ import torchvision
 from torchvision.models.detection.faster_rcnn import FastRCNNPredictor
 from dataset import AdsDataset
 from preprocess.boxes import write_dict_to_json
+from preprocess.descriptors import SentimentPreProcessor, load_annotation_json
 from sklearn.model_selection import train_test_split
 import tools.transforms as T
 import tools.utils as utils
 from text_rcnn import TextFasterRCNN
 from tools.engine import train_one_epoch
 from tools.evaluate import evaluate
+import math
 
 
 def get_transform(train: bool):
@@ -134,9 +136,12 @@ def train(num_classes: int, num_epochs: int,
 
     # Construct a learning rate scheduler which decreases the learning rate by
     # 10x every 3 epochs
-    lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
-                                                   step_size=3,
-                                                   gamma=0.1)
+    # lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer,
+    #                                                step_size=3,
+    #                                                gamma=0.1)
+    lf = lambda x: (((1 + math.cos(x * math.pi / num_epochs)) / 2) ** 1.0) * 0.9 + 0.1  # cosine
+    lr_scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda=lf)
+    # lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max = len(train_weights)//batch_size)
 
     # Create dicts to store statistics in json file
     metric_logs_avg, metric_logs_med = dict(), dict()

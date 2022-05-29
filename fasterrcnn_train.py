@@ -31,7 +31,7 @@ def get_transform(train: bool):
     return T.Compose(transforms)
 
 
-def create_train_test_dataset(dataset: AdsDataset):
+def create_train_test_dataset(dataset: AdsDataset, desc="sentiments"):
     """Split the dataset into training and testing
 
     Args:
@@ -46,9 +46,9 @@ def create_train_test_dataset(dataset: AdsDataset):
         indices, train_size=0.85, shuffle=True, random_state=24)
 
     # split the dataset into train and test
-    train_dataset = torch.utils.data.Subset(AdsDataset(
+    train_dataset = torch.utils.data.Subset(AdsDataset(descriptor=desc,
         transforms=get_transform(train=True)), train_indices)
-    test_dataset = torch.utils.data.Subset(AdsDataset(
+    test_dataset = torch.utils.data.Subset(AdsDataset(descriptor=desc,
         transforms=get_transform(train=False)), test_indices)
 
     return train_dataset, test_dataset
