@@ -1,12 +1,27 @@
-import tensorflow as tf
-from protos import triplet_mining_pb2
+# import tensorflow as tf
+# from protos import triplet_mining_pb2
+import torch
+import numpy as np
+import torch.nn as nn
+from torch.utils.tensorboard import SummaryWriter
 
 def distance_fn(x, y):
       """Distance function."""
-      distance = slim.dropout(tf.multiply(x, y), keep_prob,
-          is_training=is_training)
-      distance = 1 - tf.reduce_sum(distance, 1)
+      keep_prob = True
+      distance = nn.functional.dropout(torch.multiply(x, y), keep_prob,
+          training=True)
+      distance = 1 - torch.sum(distance, dim=1)
       return distance
+
+def refine_fn(pred_image, pos_indices, neg_indices):
+      """Refine function."""
+      pos_ids = torch.gather(pred_image, pos_indices)
+      neg_ids = torch.gather(pred_image, neg_indices)
+
+      masks = torch.not_equal(pos_ids, neg_ids)
+      pos_indices = torch.masked_select(pos_indices, masks)
+      neg_indices = torch.masked_select(neg_indices, masks)
+      return pos_indices, neg_indices
 
 
 def _safe_batch_size(tensor):
@@ -16,9 +31,9 @@ def _safe_batch_size(tensor):
   Returns:
     batch_size: batch size of the tensor.
   """
-  batch_size = tensor.get_shape()[0].value
+  batch_size = tensor.shape()[0].value
   if batch_size is None:
-    batch_size = tf.shape(tensor)[0]
+    batch_size = (tensor).shape()[0]
   return batch_size
 
 
@@ -38,10 +53,9 @@ def _mine_all_examples(distances):
     neg_indices: a [batch] int64 tensor indicateing indices of negative examples.
   """
   batch_size = _safe_batch_size(distances)
-  indices = tf.where(tf.less(tf.diag(tf.fill([batch_size], 1)), 1))
+  indices = torch.where(torch.less(torch.diag(np.fill([batch_size], 1)), 1))
   return indices[:, 0], indices[:, 1]
-
-
+  
 
 def _mine_random_examples(distances, negatives_per_anchor):
   """Mines random batch examples.
@@ -53,12 +67,11 @@ def _mine_random_examples(distances, negatives_per_anchor):
     pos_indices: a [batch] int64 tensor indicateing indices of positive examples.
     neg_indices: a [batch] int64 tensor indicateing indices of negative examples.
   """
-  batch_size = _safe_batch_size(distances)
+  batch_size = _safe_batch_size(distances) 
 
-  pos_indices = tf.tile(tf.range(batch_size), [negatives_per_anchor])
-  indices = tf.random_uniform(shape=tf.shape(pos_indices), 
-      minval=1, maxval=batch_size, dtype=tf.int32)
-  neg_indices = tf.mod(pos_indices + indices, batch_size)
+  pos_indices = torch.tile(torch.range(batch_size), [negatives_per_anchor])
+  indices = (batch_size - 1) * torch.rand(pos_indices, dtype=torch.int32)
+  neg_indices = np.mod(pos_indices + indices, batch_size)
 
   return pos_indices, neg_indices
 
@@ -81,16 +94,17 @@ def _mine_hard_examples(distances, top_k):
     neg_indices: a [batch] int64 tensor indicateing indices of negative examples.
   """
   batch_size = _safe_batch_size(distances)
-  top_k = tf.minimum(top_k, batch_size - 1)
+  top_k = torch.minimum(top_k, batch_size - 1)
+  
 
-  pos_indices = tf.expand_dims(tf.range(batch_size, dtype=tf.int32), 1)
-  pos_indices = tf.tile(pos_indices, [1, 1 + top_k])
+  pos_indices = torch.unsqueeze(torch.range(batch_size, dtype=torch.int32), 1)
+  pos_indices = torch.tile(pos_indices, [1, 1 + top_k])
 
-  _, neg_indices = tf.nn.top_k(-distances, k=1 + top_k)
+  _, neg_indices = torch.topk(-distances, k=1 + top_k)
 
-  masks = tf.not_equal(pos_indices, neg_indices)
-  pos_indices = tf.boolean_mask(pos_indices, masks)
-  neg_indices = tf.boolean_mask(neg_indices, masks)
+  masks = torch.not_equal(pos_indices, neg_indices)
+  pos_indices = torch.masked_select(pos_indices, masks)
+  neg_indices = torch.masked_select(neg_indices, masks)
 
   return pos_indices, neg_indices
 
@@ -106,8 +120,9 @@ def _mine_semi_hard_examples(distances):
     pos_indices: a [batch] int64 tensor indicateing indices of positive examples.
     neg_indices: a [batch] int64 tensor indicateing indices of negative examples.
   """
-  pos_distances = tf.expand_dims(tf.diag_part(distances), 1)
-  indices = tf.where(pos_distances < distances)
+  
+  pos_distances = torch.unsqueeze(torch.diagonal(distances), 1)
+  indices = torch.where(pos_distances < distances)
   return indices[:, 0], indices[:, 1]
 
 
@@ -159,18 +174,55 @@ def compute_triplet_loss(anchors, positives, negatives, distance_fn, alpha):
     summary: a dict mapping from summary names to summary tensors.
   """
   batch_size = _safe_batch_size(anchors)
-  batch_size = tf.maximum(1e-12, tf.cast(batch_size, tf.float32))
+  batch_size = torch.maximum(1e-12, batch_size.type(torch.float32))
 
   dist1 = distance_fn(anchors, positives)
   dist2 = distance_fn(anchors, negatives)
 
-  losses = tf.maximum(dist1 - dist2 + alpha, 0)
-  losses = tf.boolean_mask(losses, losses > 0)
-
-  loss = tf.cond(tf.shape(losses)[0] > 0,
-      lambda: tf.reduce_mean(losses),
-      lambda: 0.0)
+  losses = torch.maximum(dist1 - dist2 + alpha, 0)
+  losses = torch.masked_select(losses, losses > 0)
+  
+  if losses.shape()[0] > 0:
+    loss = losses.mean()
+  else:
+    loss = 0.0
 
   # Gather statistics.
-  loss_examples = tf.count_nonzero(dist1 + alpha >= dist2, dtype=tf.float32)
-  return loss, { 'loss_examples': loss_examples}
+  loss_examples = torch.count_nonzero(dist1 + alpha >= dist2)
+  return loss, {'loss_examples': loss_examples}
+
+def triplet_loss_wrap_func(
+    anchors, positives, distance_fn, mining_fn, refine_fn, margin=float(0.1), tag=None):
+  """Wrapper function for triplet loss.
+  Args:
+    anchors: a [batch, common_dimensions] tf.float32 tensor.
+    positives: a [batch, common_dimensions] tf.float32 tensor.
+    similarity_matrx: a [common_dimensions, common_dimensions] tf.float32 tensor.
+    distance_fn: a callable that takes two batch of vectors as input.
+    mining_fn: a callable that takes distance matrix as input.
+    refine_fn: a callable that takes pos_indices and neg_indices as inputs.
+    margin: margin alpha of the triplet loss.
+  Returns:
+    loss: the loss tensor.
+  """
+  distances = torch.multiply(
+      torch.unsqueeze(anchors, 1), np.expand_dims(positives, 0))
+  distances = 1 - torch.sum(distances, dim=2)
+
+  pos_indices, neg_indices = mining_fn(distances)
+  if not refine_fn is None:
+    pos_indices, neg_indices = refine_fn(pos_indices, neg_indices)
+    
+  loss, summary = compute_triplet_loss(
+      anchors=torch.gather(anchors, pos_indices), 
+      positives=torch.gather(positives, pos_indices), 
+      negatives=torch.gather(positives, neg_indices),
+      distance_fn=distance_fn,
+      alpha=margin)
+      
+  if tag is not None:
+    writer = SummaryWriter()
+    for k, v in summary.iteritems():
+      writer.add_scalar('triplet_train/{}_{}'.format(tag, k), v)
+
+  return loss, summary
