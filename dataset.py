@@ -51,6 +51,8 @@ class AdsDataset(Dataset):
             self.descriptor_preprocessor = descriptors.TopicsPreProcessor()
         elif descriptor.lower() == "strategies":
             self.descriptor_preprocessor = descriptors.StrategiesPreProcessor()
+        elif descriptor.lower() == "slogans":
+            self.descriptor_preprocessor = descriptors.SlogansPreProcessor()
         else:
             # Default is the sentiment preprocessor.
             self.descriptor_preprocessor = descriptors.SentimentPreProcessor()

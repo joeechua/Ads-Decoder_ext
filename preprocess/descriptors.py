@@ -1,3 +1,4 @@
+from cv2 import EMD
 import gensim.downloader as api
 from gensim.models import KeyedVectors
 import numpy as np
@@ -6,6 +7,7 @@ import os
 import re
 import json
 from textblob import TextBlob
+from sentence_transformers import SentenceTransformer
 
 
 class TextEmbedModel:
@@ -49,6 +51,53 @@ class TextEmbedModel:
         for word in words:
             try:
                 vec += self.model.get_vector(word)
+            except KeyError:
+                print("DOES NOT EXIST", word)
+                vec += np.zeros([self.embed_size])
+
+        return vec
+
+class SentenceEmbedModel:
+    """
+    Class for the Word2Vec model.
+
+    """
+
+    def __init__(self, embed_model_name='sentence-transformers/average_word_embeddings_glove.6B.300d'):
+        """
+        Initialise a new text embbedding model.
+
+        :param embed_model_name: the name of the word2vec model
+        """
+        self.embed_model_name = embed_model_name
+        path = "./average_word_embeddings_glove.6B.300d"
+        if os.path.exists(path):
+            self.model = SentenceTransformer(path)
+        else:
+            self.model = SentenceTransformer(embed_model_name)
+            self.model.save(path)
+
+        # Embed size specifies the embedding size and is also the hidden size
+        # of the first hidden layer of memory cells.
+        self.embed_size = int(self.embed_model_name.strip("d").split(".")[-1])
+
+    def get_vector_rep(self, phrase):
+        """
+        Get the vector representation of phrase.
+
+        :param phrase: a phrase (i.e., words separated by a space)
+        :return: the vector representation of phrase based on the word2vec model
+        initialised
+        """
+        phrase = phrase.strip().lower()
+        blob = TextBlob(phrase)
+        words = blob.words
+
+        vec = np.zeros([self.embed_size])
+
+        for word in words:
+            try:
+                vec += self.model.encode(word)
             except KeyError:
                 print("DOES NOT EXIST", word)
                 vec += np.zeros([self.embed_size])
@@ -306,6 +355,55 @@ class StrategiesPreProcessor:
                 self.id_to_word[max(num_lst, key=num_lst.count)]
 
             final = self.text_embed_model.get_vector_rep(most_common_descriptor)
+
+        return torch.from_numpy(np.array(final)).float()
+
+
+class SlogansPreProcessor:
+    """
+    Class to pre-process the strategies provided by the PITTs dataset.
+
+    """
+
+    def __init__(self, root="./data/annotations"):
+        """
+        Initialise a new Strategies PreProcessor.
+
+        :param root:        the folder that contains Strateges_List.txt
+        :param embed_model: the name of the word2vec model
+        """
+        self.text_embed_model = SentenceEmbedModel()
+        self.embed_model = self.text_embed_model.embed_model_name
+        self.model = self.text_embed_model.model
+        self.embed_size = self.text_embed_model.embed_size
+
+        self.root = root
+
+    def transform(self, target_lst):
+        """
+        Transform the target_lst of topics provided by the PITTs dataset to
+        a Pytorch tensor based on the Word2Vec model.
+
+        target_list: a list of lists, each element may contain a number or text
+        """
+
+        # flatten list
+        target_lst = [item for sublist in target_lst for item in sublist]
+        vec_lst = [self.text_embed_model.encode(el) for el in target_lst]
+
+        # The target list has all user text inputs so try to find the
+        # most represented phrase
+        cosines = [0] * len(vec_lst)
+        for i in range(len(vec_lst)):
+            for j in range(len(vec_lst)):
+                if i != j:
+                    cosines[i] += cosine_sim(vec_lst[i], vec_lst[j])
+
+        max_val = max(cosines)
+        max_index = cosines.index(max_val)
+
+        final = vec_lst[max_index]
+
 
         return torch.from_numpy(np.array(final)).float()
 
