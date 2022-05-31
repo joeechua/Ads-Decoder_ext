@@ -26,11 +26,14 @@ def load_symbols_annotation(filename="data/annotations/Symbols.json"):
     with open(filename, "r") as f:
         symbols = json.load(f)
     for key in symbols:
-            ori_word = symbols[key]
-            blob_word = TextBlob(ori_word)
-            new_word = blob_word.correct()
-            if ori_word != new_word:
-                symbols[key] = new_word
+            values = symbols[key]
+            for v in values:
+                ori_word = v[4]
+                blob_word = TextBlob(ori_word)
+                new_word = blob_word.correct()
+                if v[4] != new_word:
+                    v[4] = new_word.string
+            symbols[key] = values
     return symbols
 
 

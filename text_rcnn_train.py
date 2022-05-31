@@ -12,6 +12,7 @@ from text_rcnn import TextFasterRCNN
 from tools.engine import train_one_epoch
 from tools.evaluate import evaluate
 import math
+from torch.multiprocessing import set_start_method
 
 
 def get_transform(train: bool):
@@ -193,6 +194,7 @@ def train(num_classes: int, num_epochs: int,
 
 if __name__ == "__main__":
     le = pickle.loads(open("outputs/le.pickle", "rb").read())
+    set_start_method('spawn', force=True)
     train(num_classes=len(le.classes_),
           faster_rcnn_trained="outputs/cp_fasterrcnn_6ep.pth.tar",
           num_epochs=3)
