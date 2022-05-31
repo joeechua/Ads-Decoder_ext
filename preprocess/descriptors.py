@@ -389,7 +389,7 @@ class SlogansPreProcessor:
 
         # flatten list
         target_lst = [item for sublist in target_lst for item in sublist]
-        vec_lst = [self.text_embed_model.encode(el) for el in target_lst]
+        vec_lst = [self.text_embed_model.get_vector_rep(el) for el in target_lst]
 
         # The target list has all user text inputs so try to find the
         # most represented phrase
