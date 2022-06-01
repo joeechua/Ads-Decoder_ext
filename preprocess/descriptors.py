@@ -8,6 +8,12 @@ import re
 import json
 from textblob import TextBlob
 from sentence_transformers import SentenceTransformer
+import nltk
+nltk.download("stopwords")
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+stop_words = set(stopwords.words('english'))
+stop_words.add("product")
 
 
 class TextEmbedModel:
@@ -86,23 +92,31 @@ class SentenceEmbedModel:
         Get the vector representation of phrase.
 
         :param phrase: a phrase (i.e., words separated by a space)
-        :return: the vector representation of phrase based on the word2vec model
+        :return: the vector representation of phrase based on the sBERT model
         initialised
         """
         phrase = phrase.strip().lower()
-        blob = TextBlob(phrase)
-        words = blob.words
-
         vec = np.zeros([self.embed_size])
-
-        for word in words:
-            try:
-                vec += self.model.encode(word)
-            except KeyError:
-                print("DOES NOT EXIST", word)
-                vec += np.zeros([self.embed_size])
+        
+        try:
+            vec += self.model.encode(phrase)
+        except KeyError:
+            print("DOES NOT EXIST", phrase)
+            vec += np.zeros([self.embed_size])
 
         return vec
+
+    def get_simplified(self, phrase):
+        """
+        Returns shortened phrase with only nouns and adjectives
+        """
+        word_tokens = word_tokenize(phrase)
+        tagged_word_tokens = nltk.pos_tag(word_tokens)
+        filtered_sentence = []
+        for w in tagged_word_tokens:
+            if w[0] not in stop_words and (w[1][:2] == "JJ" or w[1][:2] == "NN"):
+                filtered_sentence.append(w[0])
+        return " ".join(filtered_sentence)
 
 
 class SentimentPreProcessor:
@@ -315,7 +329,7 @@ class StrategiesPreProcessor:
     def transform(self, target_lst):
         """
         Transform the target_lst of topics provided by the PITTs dataset to
-        a Pytorch tensor based on the Word2Vec model.
+        a Pytorch tensor based on the sBERT model.
 
         target_list: a list of lists, each element may contain a number or text
         """
@@ -334,6 +348,8 @@ class StrategiesPreProcessor:
                 count += 1
             except ValueError:
                 # Get the vector representation of this phrase
+                tagged_word_tokens = nltk.pos_tag()
+                el = " ".join([])
                 vec_lst.append(self.text_embed_model.get_vector_rep(el))
 
         if count == 0:
@@ -361,28 +377,25 @@ class StrategiesPreProcessor:
 
 class SlogansPreProcessor:
     """
-    Class to pre-process the strategies provided by the PITTs dataset.
+    Class to pre-process the slogans provided by the PITTs dataset.
 
     """
 
-    def __init__(self, root="./data/annotations"):
+    def __init__(self):
         """
         Initialise a new Strategies PreProcessor.
 
-        :param root:        the folder that contains Strateges_List.txt
-        :param embed_model: the name of the word2vec model
+        :param root:        the folder that contains Slogans.json
         """
         self.text_embed_model = SentenceEmbedModel()
         self.embed_model = self.text_embed_model.embed_model_name
         self.model = self.text_embed_model.model
         self.embed_size = self.text_embed_model.embed_size
 
-        self.root = root
-
     def transform(self, target_lst):
         """
-        Transform the target_lst of topics provided by the PITTs dataset to
-        a Pytorch tensor based on the Word2Vec model.
+        Transform the target_lst of Slogans provided by the PITTs dataset to
+        a Pytorch tensor based on the sBERT model.
 
         target_list: a list of lists, each element may contain a number or text
         """
@@ -407,6 +420,52 @@ class SlogansPreProcessor:
 
         return torch.from_numpy(np.array(final)).float()
 
+class QAPreProcessor:
+    """
+    Class to pre-process the QA-ActionReason provided by the PITTs dataset.
+
+    """
+
+    def __init__(self):
+        """
+        Initialise a new QA PreProcessor.
+
+        :param root: the folder that contains QA_ActionReason.json
+        """
+        self.text_embed_model = SentenceEmbedModel()
+        self.embed_model = self.text_embed_model.embed_model_name
+        self.model = self.text_embed_model.model
+        self.embed_size = self.text_embed_model.embed_size
+
+
+    def transform(self, target_lst):
+        """
+        Transform the target_lst of QA_ActionReason provided by the PITTs dataset to
+        a Pytorch tensor based on the sBERT model.
+
+        target_list: a list of lists, each element may contain a number or text
+        """
+
+        # flatten list
+        target_lst = [item for sublist in target_lst for item in sublist]
+        vec_lst = [self.text_embed_model.get_vector_rep(
+            self.text_embed_model.get_simplified(el)
+            ) for el in target_lst]
+
+        # The target list has all user text inputs so try to find the
+        # most represented phrase
+        cosines = [0] * len(vec_lst)
+        for i in range(len(vec_lst)):
+            for j in range(len(vec_lst)):
+                if i != j:
+                    cosines[i] += cosine_sim(vec_lst[i], vec_lst[j])
+
+        max_val = max(cosines)
+        max_index = cosines.index(max_val)
+
+        final = vec_lst[max_index]
+
+        return torch.from_numpy(np.array(final)).float()
 
 def load_annotation_json(filename="data/annotations/Sentiments.json"):
     """
