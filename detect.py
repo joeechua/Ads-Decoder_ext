@@ -9,6 +9,7 @@ import torch, torchvision
 import pickle
 import argparse
 from preprocess import descriptors as desc
+import time
 
 # Add arguments to parser
 parser = argparse.ArgumentParser(
@@ -51,14 +52,18 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
 
     # TODO: Model filename to be modified if applicable
     if descriptor == "strategies":
-        model = "outputs/cp_strategies_tfasterrcnn_10CALS.pth.tar"
-        #model = "outputs/cp_strategies_tfasterrcnn_3ep.pth.tar"
+        #model = "outputs/cp_strategies_tfasterrcnn_10CALS.pth.tar"
+        model = "outputs/cp_strategies_tfasterrcnn_trip3ep.pth.tar"
     elif descriptor == "topics":
-        model = "outputs/cp_topics_tfasterrcnn_2ep.pth.tar"
+        model = "outputs/cp_topics_tfasterrcnn_10ep.pth.tar"
     # Default: sentiment model
     elif descriptor == "sentiments":
-        model = "outputs/cp_sentiments_tfasterrcnn_50ep.pth.tar"
+        model = "outputs/cp_sentiments_tfasterrcnn_10ep.pth.tar"
         #model = "outputs/cp_sentiments_tfasterrcnn_bsight.pth.tar"
+    elif descriptor == "slogans":
+        model = "outputs/cp_slogans_tfasterrcnn_10ep.pth.tar"
+    elif descriptor == "qa":
+        model = "outputs/cp_qa_roberta_tfasterrcnn_10ep.pth.tar"
     else:
         model = "outputs/cp_fasterrcnn.pth.tar"
     
@@ -80,7 +85,10 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
     COLORS = [tuple(np.random.randint(256, size=3)) for _ in range(len(CLASSES))]
     COLORS = [(int(c[0]), int(c[1]), int(c[2])) for c in COLORS]
 
-    text_embed = desc.TextEmbedModel()
+    if descriptor == "qa":
+        text_embed = desc.SentenceEmbedModel("stsb-roberta-base")
+    else:
+        text_embed = desc.TextEmbedModel()
     phrase_embed = text_embed.get_vector_rep(phrase)
     phrase_embed = [torch.from_numpy(phrase_embed).float()]
     results = []
@@ -106,7 +114,11 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
             if descriptor == "original":
                 outputs = model(image.to("cuda"))
             else:
-                outputs = model(image.to("cuda"), phrase_embed)
+                image_c = image.to("cuda")
+                start_time = time.time()
+                outputs = model(image_c, phrase_embed)
+                end_time = time.time()
+                print("Time Taken: " + str(end_time-start_time))
 
         # load all detection to CPU for further operations
         outputs = [{k: v.to("cpu") for k, v in t.items()} for t in outputs]

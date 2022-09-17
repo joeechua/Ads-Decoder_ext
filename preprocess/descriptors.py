@@ -8,6 +8,7 @@ import re
 import json
 from textblob import TextBlob
 from sentence_transformers import SentenceTransformer
+from transformers import RobertaTokenizer, RobertaModel
 import nltk
 nltk.download("stopwords")
 from nltk.corpus import stopwords
@@ -76,7 +77,8 @@ class SentenceEmbedModel:
         :param embed_model_name: the name of the word2vec model
         """
         self.embed_model_name = embed_model_name
-        path = "./average_word_embeddings_glove.6B.300d"
+        #path = "./average_word_embeddings_glove.6B.300d"
+        path = "./roberta-base"
         if os.path.exists(path):
             self.model = SentenceTransformer(path)
         else:
@@ -85,7 +87,8 @@ class SentenceEmbedModel:
 
         # Embed size specifies the embedding size and is also the hidden size
         # of the first hidden layer of memory cells.
-        self.embed_size = int(self.embed_model_name.strip("d").split(".")[-1])
+        #self.embed_size = int(self.embed_model_name.strip("d").split(".")[-1])
+        self.embed_size = 768
 
     def get_vector_rep(self, phrase):
         """
@@ -99,6 +102,7 @@ class SentenceEmbedModel:
         vec = np.zeros([self.embed_size])
         
         try:
+            #vec += self.model.encode(phrase)
             vec += self.model.encode(phrase)
         except KeyError:
             print("DOES NOT EXIST", phrase)
