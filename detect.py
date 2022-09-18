@@ -63,12 +63,13 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
     elif descriptor == "slogans":
         model = "outputs/cp_slogans_tfasterrcnn_10ep.pth.tar"
     elif descriptor == "qa":
-        model = "outputs/cp_qa_roberta_tfasterrcnn_10ep.pth.tar"
+        model = "outputs/cp_qa_tfasterrcnn_10ep.pth.tar"
     else:
         model = "outputs/cp_fasterrcnn.pth.tar"
     
 
     # Load model
+    model_name = model
     model = torch.load(model)["model"]
     #model = torchvision.models.detection.fasterrcnn_resnet50_fpn(pretrained=True)
     model = model.to(device)
@@ -85,10 +86,16 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
     COLORS = [tuple(np.random.randint(256, size=3)) for _ in range(len(CLASSES))]
     COLORS = [(int(c[0]), int(c[1]), int(c[2])) for c in COLORS]
 
-    if descriptor == "qa":
+    if descriptor == "qa" and model_name == "outputs/cp_qa_roberta_tfasterrcnn_10ep.pth.tar":
         text_embed = desc.SentenceEmbedModel("stsb-roberta-base")
     else:
         text_embed = desc.TextEmbedModel()
+    #   
+    """
+    if qa_roberta is used, text_embed needs to be sentence embed, else we can use text embed
+    """
+    #text_embed = desc.TextEmbedModel()
+
     phrase_embed = text_embed.get_vector_rep(phrase)
     phrase_embed = [torch.from_numpy(phrase_embed).float()]
     results = []
@@ -119,10 +126,12 @@ def detect(filelist: List[str], phrase: str, descriptor="sentiments", detection_
                 outputs = model(image_c, phrase_embed)
                 end_time = time.time()
                 print("Time Taken: " + str(end_time-start_time))
+                
 
         # load all detection to CPU for further operations
         outputs = [{k: v.to("cpu") for k, v in t.items()} for t in outputs]
         # carry further only if there are detected boxes
+        print(f"Length of outputs is {len(outputs[0]['boxes'])}")
         if len(outputs[0]["boxes"]) != 0:
             boxes = outputs[0]["boxes"].data.numpy()
             scores = outputs[0]["scores"].data.numpy()

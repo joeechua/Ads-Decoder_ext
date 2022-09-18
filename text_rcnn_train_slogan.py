@@ -188,14 +188,14 @@ def train(num_classes: int, num_epochs: int,
 
         print("Saving checkpoint")
         # save checkpoint
-        checkpoint_name = "outputs/cp_{}_tfasterrcn_7ep.pth.tar"\
+        checkpoint_name = "outputs/cp_{}_tfasterrcnn.pth.tar"\
             .format(descriptor)
         utils.save_checkpoint(epoch, model, optimizer,
                               filename=checkpoint_name)
 
-    metric_logs_med_name = "outputs/{}_7ep_train_metric_log_med.json"\
+    metric_logs_med_name = "outputs/{}_train_metric_log_med.json"\
         .format(descriptor)
-    metric_logs_avg_name = "outputs/{}_7ep_train_metric_log_avg.json"\
+    metric_logs_avg_name = "outputs/{}_train_metric_log_avg.json"\
         .format(descriptor)
     write_dict_to_json(metric_logs_med_name, metric_logs_med)
     write_dict_to_json(metric_logs_avg_name, metric_logs_avg)
