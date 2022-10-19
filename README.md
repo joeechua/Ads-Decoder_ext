@@ -1,6 +1,6 @@
 # Ads-Decoder_ext: Generating Symbolic Bounding Boxes and Labels for the given Images and Descriptors
 
-This project focuses on combining the image features with the text descriptor and predict the symbolic regions with labels that draws the audience's attention. The idea of combining text embeddings with image features extracted by the image classifier is inspired from the [VQA](https://github.com/Shivanshu-Gupta/Visual-Question-Answering) model. This is a continuation of [Ads-Decoder](https://github.com/yuhueilee/Ads-Decoder)
+This project focuses on combining the image features with the text descriptor and predict the symbolic regions with labels that draws the audience's attention. The idea of combining text embeddings with image features extracted by the image classifier is inspired from the [VQA](https://github.com/Shivanshu-Gupta/Visual-Question-Answering) model. This is a continuation of [Ads-Decoder](https://github.com/yuhueilee/Ads-Decoder).
 
 ## Prerequisites
 We use Anaconda virtual environment to run the code and install all required packages.
@@ -62,7 +62,7 @@ pip install --user -U nltk
 
 
 ## Download Data
-Download the data by running the command below in the terminal window at the `Ads-Decoder` directory.
+Download the data by running the command below in the terminal window at the `Ads-Decoder_ext` directory.
 
     sh download_data.sh
 
@@ -116,9 +116,9 @@ source activate path/to/your/virtual/environment
 git clone https://github.com/joeechua/Ads-Decoder_ext.git
 ```
 
-6. Change directory to `Ads-Decoder`
+6. Change directory to `Ads-Decoder_ext`
 ```
-cd Ads-Decoder
+cd Ads-Decoder_ext
 ```
 
 7. Submit the job script. We provided a [sample job script](https://github.com/joeechua/Ads-Decoder_ext/blob/main/sentiments_fasterrcnn.job) in this repo as well. Please modify line 12 to the path of your Anaconda virtual environment.
