@@ -1,6 +1,6 @@
-# Ads-Decoder: Generating Symbolic Bounding Boxes and Labels for the given Images and Descriptors
+# Ads-Decoder_ext: Generating Symbolic Bounding Boxes and Labels for the given Images and Descriptors
 
-This project focuses on combining the image features with the text descriptor and predict the symbolic regions with labels that draws the audience's attention. The idea of combining text embeddings with image features extracted by the image classifier is inspired from the [VQA](https://github.com/Shivanshu-Gupta/Visual-Question-Answering) model.
+This project focuses on combining the image features with the text descriptor and predict the symbolic regions with labels that draws the audience's attention. The idea of combining text embeddings with image features extracted by the image classifier is inspired from the [VQA](https://github.com/Shivanshu-Gupta/Visual-Question-Answering) model. This is a continuation of [Ads-Decoder](https://github.com/yuhueilee/Ads-Decoder)
 
 ## Prerequisites
 We use Anaconda virtual environment to run the code and install all required packages.
@@ -9,7 +9,12 @@ We use Anaconda virtual environment to run the code and install all required pac
 2. pytorch 1.10
 
 ```
-conda install pytorch torchvision torchaudio -c pytorch
+pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113 
+```
+OR
+
+```
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
 
 3. sklearn 1.0
@@ -18,7 +23,7 @@ conda install pytorch torchvision torchaudio -c pytorch
 pip install -U scikit-learn
 ```
 
-4. gensim 4.0
+4. gensim 4.2
 
 ```
 pip install -U gensim
@@ -36,6 +41,25 @@ pip install pycocotools
 pip install -U textblob
 python -m textblob.download_corpora
 ```
+
+7. transformer 4.19
+
+```
+pip install transformers
+```
+
+8. sentence-transofmers 2.2
+
+```
+pip install -U sentence-transformers
+```
+
+9. nltk 3.4
+
+```
+pip install --user -U nltk
+```
+
 
 ## Download Data
 Download the data by running the command below in the terminal window at the `Ads-Decoder` directory.
@@ -89,7 +113,7 @@ source activate path/to/your/virtual/environment
 
 5. Clone this Git repository.
 ```
-git clone https://github.com/yuhueilee/Ads-Decoder.git
+git clone https://github.com/joeechua/Ads-Decoder_ext.git
 ```
 
 6. Change directory to `Ads-Decoder`
@@ -97,7 +121,7 @@ git clone https://github.com/yuhueilee/Ads-Decoder.git
 cd Ads-Decoder
 ```
 
-7. Submit the job script. We provided a [sample job script](https://github.com/yuhueilee/Ads-Decoder/blob/main/sentiments_fasterrcnn.job) in this repo as well. Please modify line 12 to the path of your Anaconda virtual environment.
+7. Submit the job script. We provided a [sample job script](https://github.com/joeechua/Ads-Decoder_ext/blob/main/sentiments_fasterrcnn.job) in this repo as well. Please modify line 12 to the path of your Anaconda virtual environment.
 ```
 sbatch <job_script_name>.job
 ```
@@ -109,11 +133,14 @@ Once the job has completed, the checkpoint files for the model will be created a
 
 After training and evaluating the model, a checkpoint file will be created and stored at `outputs` directory.
 
-Before detection, make sure that the checkpoint file for Text Faster R-CNN model exist in the `outputs` directory or you can download from the links below.
+Before detection, make sure that the checkpoint file for Text Faster R-CNN model and the fine-tuned sentence embedding model exist in the `outputs` directory or you can download from the links below.
 
-* [Sentiments + Faster R-CNN](https://drive.google.com/file/d/1--5efB6h6qS3E-9kXEeiaMJBsLs4Mo4R/view?usp=sharing)
-* [Strategies + Faster R-CNN](https://drive.google.com/file/d/1WvmPzvwKCqTCB3UqUqmETg-v9GxvQdR4/view?usp=sharing)
-* [Topics + Faster R-CNN](https://drive.google.com/file/d/1cnypwswbbXJhuadOAizxwso6kiyDOwAl/view?usp=sharing)
+* [QARBET](https://drive.google.com/file/d/1eR7fyBdK9y4jUhUwRm45mPYIf8jyClY3/view?usp=sharing)
+* [Slogans + Faster R-CNN](https://drive.google.com/file/d/1Ac2BC5UjD3xH8ipBzou0H9GaK8R1ieti/view?usp=sharing)
+* [Sentiments + Faster R-CNN](https://drive.google.com/file/d/171zmGcMgvabyNmebXqin98PIMk6oMpwp/view?usp=sharing)
+* [Strategies + Faster R-CNN](https://drive.google.com/file/d/1c7w3qN4lXUAkgUz_0nvjDdRgJYrSTS8N/view?usp=sharing)
+* [Topics + Faster R-CNN](https://drive.google.com/file/d/1wXylLpZR-Dd42C60vmwCN5Z1Ipg_EJXj/view?usp=sharing)
+* [Sentence Embedding Model](https://drive.google.com/drive/folders/172xZs6xbRuBR8P6hmBXcvoOGXY4AtEE3?usp=sharing)
 
 Upload your image(s) under `detect_input` directory and run the following command and replace the image name(s), descriptor, and phrase as well as threshold with your own choice.
 
