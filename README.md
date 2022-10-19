@@ -134,6 +134,19 @@ Some examples of the detection result using the sentiments as the descriptor.
     <img src="detect_output/13.jpg?raw=true" height="350">
 </p>
 
+## Logical Backing for Model Choice
+
+After evaluating each of the 5 improved descriptor models. We went with QARBERT (QA + RoBERTa) as our final model. This choice was made after choosing
+to prioritise precision over recall for the purposes of this model. In the table below, we have listed the precision and recall for each model.
+
+| Descriptor Model | Precision    | Recall        |
+|------------------|--------------|---------------|
+| QARBERT          | 0.4078431373 | 0.03462050599 |
+| Sentiments       | 0.144278607  | 0.02511692361 |
+| Slogans          | 0.2754491018 | 0.05492537313 |
+| Topics           | 0.1368821293 | 0.02712545523 |
+| Strategies       | 0.113110539  | 0.02505694761 |
+
 ## References
 
 ```
