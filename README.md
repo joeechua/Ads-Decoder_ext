@@ -168,7 +168,7 @@ to prioritise precision over recall for the purposes of this model. In the table
 
 | Descriptor Model | Precision    | Recall        |
 |------------------|--------------|---------------|
-| QARBERT          | 0.4078431373 | 0.03462050599 |
+| QARBERT          | 0.4176706827 | 0.03455149502 |
 | Sentiments       | 0.144278607  | 0.02511692361 |
 | Slogans          | 0.2754491018 | 0.05492537313 |
 | Topics           | 0.1368821293 | 0.02712545523 |
